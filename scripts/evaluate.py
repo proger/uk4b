@@ -21,6 +21,7 @@ import sys
 import tempfile
 from pathlib import Path
 
+import spacy
 import stanza
 
 
@@ -50,10 +51,18 @@ def main():
     args = parser.parse_args()
     tmp = Path(tempfile.gettempdir())
 
+    # Make sure we have spacy resources downlaoded
+    try:
+        spacy.load("en")
+    except OSError:
+        print("Downloading spacy resources...", file=sys.stderr)
+        subprocess.run(["python", "-m", "spacy", "download", "en"], check=True)
+
     # Tokenize input
     if args.no_tokenize:
         tokenized_path = args.corrected
     else:
+        print("Tokenizing input...", file=sys.stderr)
         tokenized_path = tmp / f"{args.corrected}.tok"
         tokenize_file(args.corrected, tokenized_path)
     print(f"Tokenized input: {tokenized_path}", file=sys.stderr)
