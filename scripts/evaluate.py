@@ -7,7 +7,7 @@ Usage:
 
 Options:
     -h --help           Show this screen.
-    --no-tokenize       Do not tokenize the input.
+    --no-tokenize       Do not tokenize the submission
     --layer <layer>     Annotation layer to evaluate: `gec-only` or `gec-fluency`.
 
 <corrected> is the path to the model output. If --no-tokenize is not specified,
@@ -47,7 +47,7 @@ def main():
     parser.add_argument("corrected", type=str, help="Path to the model output")
     parser.add_argument("--m2", type=str, help="Path to the golden annotated data (.m2 file)",
             required=True)
-    parser.add_argument("--no-tokenize", action="store_true", help="Do not tokenize the input")
+    parser.add_argument("--no-tokenize", action="store_true", help="Do not tokenize the submission")
     args = parser.parse_args()
     tmp = Path(tempfile.gettempdir())
 
@@ -58,30 +58,30 @@ def main():
         print("Downloading spacy resources...", file=sys.stderr)
         subprocess.run(["python", "-m", "spacy", "download", "en"], check=True)
 
-    # Tokenize input
+    # Tokenize corrected file if needed
     if args.no_tokenize:
         tokenized_path = args.corrected
     else:
-        print("Tokenizing input...", file=sys.stderr)
-        tokenized_path = tmp / f"{args.corrected}.tok"
+        print("Tokenizing submission...", file=sys.stderr)
+        tokenized_path = tmp / f"unlp.target.tok"
         tokenize_file(args.corrected, tokenized_path)
-    print(f"Tokenized input: {tokenized_path}", file=sys.stderr)
+    print(f"Tokenized: {tokenized_path}", file=sys.stderr)
 
     # Get the source text out of m2
-    source_path = tmp / f"{args.corrected}.src"
+    source_path = tmp / f"unlp.source.tok"
     with open(args.m2) as f, open(source_path, "w") as out:
         for line in f:
             if line.startswith("S "):
                 out.write(line[2:])
 
-    # Align tokenized input with the original text with Errant
-    m2_input = tmp / f"{tokenized_path}.m2"
-    subprocess.run(["errant_parallel", "-orig", source_path, "-cor", tokenized_path, "-out", m2_input], check=True)
-    print(f"Aligned input: {m2_input}", file=sys.stderr)
+    # Align tokenized submission with the original text with Errant
+    m2_target = tmp / "unlp.target.m2"
+    subprocess.run(["errant_parallel", "-orig", source_path, "-cor", tokenized_path, "-out", m2_target], check=True)
+    print(f"Aligned submission: {m2_target}", file=sys.stderr)
 
     # Evaluate
-    subprocess.run(["errant_compare", "-hyp", m2_input, "-ref", args.m2])
-    subprocess.run(["errant_compare", "-hyp", m2_input, "-ref", args.m2, "-ds"])
+    subprocess.run(["errant_compare", "-hyp", m2_target, "-ref", args.m2])
+    subprocess.run(["errant_compare", "-hyp", m2_target, "-ref", args.m2, "-ds"])
 
 
 if __name__ == "__main__":
