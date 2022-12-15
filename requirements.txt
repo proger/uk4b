@@ -1,0 +1,4 @@
+ua-gec==2.1.0
+errant==2.3.3
+spacy>=2.2.0,<3
+stanza==1.4.2
