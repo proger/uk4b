@@ -12,7 +12,7 @@ There are two tracks in this shared task.
 Grammatical error correction (GEC) is a task of automatically detecting and
 correcting grammatical errors in written text. GEC is typically limited to
 making a minimal set of grammar, spelling, and punctuation edits so that the
-text becomes free of such errors.
+text becomes error-free.
 
 For example:
 ```
@@ -52,7 +52,7 @@ Fluency correction is a harder task than GEC-only. First, it includes all
 the GEC-only corrections. Second, fluency corrections are highly subjective
 and may be harder to predict.
 
-We annotate the test set with multiple annotators in order to somewhat
+We annotated the test set with multiple annotators in order to somewhat
 compensate for the subjectivity of the task. If a correction is in agreement
 with at least one annotator, it will be counted as a valid one.
 
@@ -64,8 +64,8 @@ with at least one annotator, it will be counted as a valid one.
 We suggest using UA-GEC for training. You can find the original dataset and
 its description [here](https://github.com/grammarly/ua-gec).
 
-We provide a preprocessed version of UA-GEC for your convenience. Two main
-dirs for two tracks are:
+We provide a preprocessed version of UA-GEC for your convenience. The two main
+dirs for the two tracks are:
 - [data/gec-only](./data/gec-only)
 - [data/gec-fluency](./data/gec-fluency)
 
@@ -100,7 +100,7 @@ The final model will be evaluated on a hidden test set. We will release
 
 ### Evaluation script
 
-We provide a script that you can you for evaluating on a validation data.
+We provide a script that you can use for evaluation on the validation data.
 
 1. Install the requirements:
 
@@ -109,10 +109,10 @@ pip install -r requirements.txt
 ```
 
 2. Run your model on `./data/{gec-fluency,gec-only}/valid.src.txt` (or `.tok.txt`
-   if you expect tokenized data). This should produce a corrected output.
-   Let's say, you saved to a file called `valid.tgt.txt`
+   if you expect tokenized data). Your model should produce a corrected output.
+   Let's say, you saved your output to a file called `valid.tgt.txt`
 
-3. Run the evaluation script:
+3. Run the evaluation script on your output file:
 
 ```bash
 scripts/evaluate.py valid.tgt.txt --m2 ./data/gec-only/valid.m2
@@ -125,7 +125,7 @@ Under the hood, the script tokenizes your output with Stanza (unless
 `--no-tokenize` provided) and calls [Errant](https://github.com/chrisjbryant/errant)
 to do all the heavy lifting.
 
-### Evaluation metrics 
+### Evaluation metrics
 
 The script should give you an output like this:
 
@@ -140,7 +140,7 @@ TP      FP      FN      Prec    Rec     F0.5
 ```
 
 Correction F0.5 is the primary metric used to compare models. In order to get a
-true positive (TP), your edit must match at least one of the annotators' edit
+true positive (TP), your edit must match at least one of the annotators' edits
 exactly -- both span and the suggested text.
 
 To get a TP in span-based detection, it is enough to correctly identify
@@ -149,7 +149,7 @@ erroneous tokens. The actual correction doesn't matter here.
 
 ## Submission
 
-We will release test set (uncorrected texts only) later, along with
+We will release the test set (uncorrected texts only) later, along with
 instructions on how to submit your model's output.
 
 
