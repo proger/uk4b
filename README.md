@@ -1,11 +1,16 @@
 # UNLP 2023 Shared Task in Grammatical Error Correction for Ukrainian
 
+The Second Ukrainian NLP workshop ([UNLP 2023](https://unlp.org.ua/)) organizes the first Shared Task
+in Grammatical Error Correction for Ukrainian.
+
 ## Task description
 
 In this shared task, your goal is to correct a text in the Ukrainian language to
-make it grammatical and/or more fluent.
+make it grammatical or both grammatical and fluent.
 
-There are two tracks in this shared task.
+There are two tracks in this shared task: GEC-only and GEC+Fluency. It is
+**not mandatory** to participate in both subtasks, i.e., participating in
+either GEC-only or GEC+Fluency is acceptable.
 
 ## Track 1: GEC-only
 
@@ -82,10 +87,12 @@ You don't have to work with it directly, although you can.
 
 ### Use of external data
 
-You are allowed to use any external data of your choice.
+We encourage you to use any external data of your choice.
 
-It's up to you to prepare your own pre-processed version of UA-GEC if you want
-to.
+You can also prepare your own pre-processed version of UA-GEC if you want to.
+
+In addition, feel free to submit corrections to the provided data via a pull
+request if you happen to find an error.
 
 ### Validation and test data
 
@@ -93,7 +100,8 @@ The validation data provided with the shared task can be used for model
 selection.
 
 The final model will be evaluated on a hidden test set. We will release
-`test.src.txt` and `test.src.tok` files later.
+`test.src.txt` and `test.src.tok` files to the registered participants on
+February 13, 2023. Please fill in [this form](https://forms.gle/46gamdVXhFkBeZeX8) to register for participation.
 
 
 ## Evaluation
@@ -149,8 +157,36 @@ erroneous tokens. The actual correction doesn't matter here.
 
 ## Submission
 
-We will release the test set (uncorrected texts only) later, along with
-instructions on how to submit your model's output.
+Teams that intend to participate should register by filling in [this form](https://forms.gle/46gamdVXhFkBeZeX8).
+
+We will release the test set (uncorrected texts only), along with the
+instructions on how to submit your model's output, to the registered
+participants on February 13, 2023.
+
+The code of the participating systems should be openly published.
+
+
+## Publication
+
+Participants in the shared task are invited to submit a paper to the UNLP 2023
+workshop. Please see the [UNLP website](https://unlp.org.ua/) for details.
+Accepted papers will appear in the ACL anthology and will be presented at a
+session of UNLP 2023 specially dedicated to the Shared Task.
+
+Submitting a paper is **not mandatory** for participating in the Shared Task.
+
+
+## Important Dates
+
+December 20, 2023 — Shared task announcement  
+February 12, 2023 — Registration deadline  
+February 13, 2023 — Release of test data to registered participants  
+February 20, 2023 — Shared Task paper submission  
+March 10, 2023 — Submission of system responses  
+March 13, 2023 — Notification of acceptance  
+March 14, 2023 — Results of the Shared Task announced to participants  
+March 27, 2023 — Camera-ready Shared Task papers due  
+May 2 or 6, 2023 — Workshop dates
 
 
 ## Contacts
@@ -158,3 +194,9 @@ instructions on how to submit your model's output.
 oleksiy.syvokon@gmail.com
 
 Telegram group: TODO
+
+
+## References
+
+* [UNLP 2023 Call for Papers](https://unlp.org.ua/call-for-papers/)
+* Syvokon, O., & Nahorna, O. (2021). UA-GEC: Grammatical Error Correction and Fluency Corpus for the Ukrainian Language. arXiv. https://doi.org/10.48550/arXiv.2103.16997
