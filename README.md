@@ -191,9 +191,9 @@ May 2 or 6, 2023 — Workshop dates
 
 ## Contacts
 
-oleksiy.syvokon@gmail.com
+Telegram group: https://t.me/unlp_2023_shared_task
 
-Telegram group: TODO
+Email: oleksiy.syvokon@gmail.com
 
 
 ## References
