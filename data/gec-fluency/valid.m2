@@ -2972,20 +2972,20 @@ A 6 7|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 15 16|||F/PoorFlow||||||REQUIRED|||-NONE-|||1
 A 18 19|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 
-S " Це неймовірно , неймовірно ! " - я не міг втриматися вигукувати одразу як таксі поїхало на дорозі назад . " Втім , як ви це зробили ?
+S " Це неймовірно , неймовірно ! " - я не міг втриматися вигукувати одразу як таксі поїхало на дорозі назад .
 A 6 8|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 14 14|||Punctuation|||,|||REQUIRED|||-NONE-|||0
-A 21 22|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 7 8|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 9 9|||F/PoorFlow|||відразу|||REQUIRED|||-NONE-|||1
 A 10 12|||F/PoorFlow|||стримував|||REQUIRED|||-NONE-|||1
 A 12 13|||F/PoorFlow|||вигуків|||REQUIRED|||-NONE-|||1
 A 13 14|||F/PoorFlow|||,|||REQUIRED|||-NONE-|||1
 A 14 15|||F/PoorFlow|||коли|||REQUIRED|||-NONE-|||1
-A 16 17|||F/PoorFlow|||їхало|||REQUIRED|||-NONE-|||1
-A 17 18|||F/PoorFlow|||зворотнім|||REQUIRED|||-NONE-|||1
-A 18 20|||F/PoorFlow|||шляхом|||REQUIRED|||-NONE-|||1
-A 22 23|||F/PoorFlow|||А втім|||REQUIRED|||-NONE-|||1
+A 16 20|||F/PoorFlow|||їхало зворотнім шляхом|||REQUIRED|||-NONE-|||1
+
+S " Втім , як ви це зробили ?
+A 0 1|||Punctuation|||—|||REQUIRED|||-NONE-|||0
+A 1 2|||F/PoorFlow|||А втім|||REQUIRED|||-NONE-|||1
 
 S Завдяки якому індуктивному процесу ... "
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -3199,14 +3199,7 @@ A 8 9|||G/Tense|||влучив|||REQUIRED|||-NONE-|||1
 A 9 10|||Punctuation|||...|||REQUIRED|||-NONE-|||1
 A 10 11|||Spelling|||У|||REQUIRED|||-NONE-|||1
 A 13 14|||Spelling|||Ні|||REQUIRED|||-NONE-|||1
-A 15 16|||Spelling|||У|||REQUIRED|||-NONE-|||1
-A 17 17|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 20 21|||F/Repetition|||і|||REQUIRED|||-NONE-|||1
-A 27 28|||F/Repetition||||||REQUIRED|||-NONE-|||1
-A 37 38|||F/PoorFlow|||,|||REQUIRED|||-NONE-|||1
-A 42 43|||G/Tense|||заблокували|||REQUIRED|||-NONE-|||1
-A 46 46|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 60 60|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 15 69|||G/Tense||||||REQUIRED|||-NONE-|||1
 
 S Я чув багато історій про цих горило - подібних зелених воїнів що можуть лише одним ударом можуть пробити броню яку навіть дробовик не пробиває . І такий один зараз летить просто на мене з піднятими руками які замахнулися добити надоїдливу комара .
 A 6 9|||Spelling|||горилоподібних|||REQUIRED|||-NONE-|||0
@@ -3216,12 +3209,45 @@ A 19 19|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 23 24|||F/Repetition|||бере|||REQUIRED|||-NONE-|||0
 A 36 36|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 39 40|||F/Style|||набридливого|||REQUIRED|||-NONE-|||0
-A 6 9|||Spelling|||горилоподібних|||REQUIRED|||-NONE-|||1
-A 11 11|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 16 17|||G/UngrammaticalStructure||||||REQUIRED|||-NONE-|||1
-A 19 19|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 36 36|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 39 40|||F/Calque|||надокучливого|||REQUIRED|||-NONE-|||1
+A 0 1|||R:OTHER|||У момент , коли|||REQUIRED|||-NONE-|||1
+A 1 2|||R:NOUN|||він|||REQUIRED|||-NONE-|||1
+A 2 3|||R:NOUN|||замахнувся|||REQUIRED|||-NONE-|||1
+A 3 4|||R:NOUN|||і|||REQUIRED|||-NONE-|||1
+A 4 5|||R:NOUN|||притримав руку|||REQUIRED|||-NONE-|||1
+A 5 6|||R:OTHER|||, закриваючи|||REQUIRED|||-NONE-|||1
+A 6 7|||Spelling|||голову|||REQUIRED|||-NONE-|||1
+A 7 8|||Spelling|||,|||REQUIRED|||-NONE-|||1
+A 8 9|||Spelling|||постріл|||REQUIRED|||-NONE-|||1
+A 9 11|||R:NOUN|||тільки завдав йому|||REQUIRED|||-NONE-|||1
+A 11 12|||R:NOUN|||важкої|||REQUIRED|||-NONE-|||1
+A 12 13|||R:NOUN|||рани|||REQUIRED|||-NONE-|||1
+A 13 13|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 13 14|||R:NOUN|||але|||REQUIRED|||-NONE-|||1
+A 14 15|||R:NOUN|||стимулятори|||REQUIRED|||-NONE-|||1
+A 15 15|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 15 16|||R:NOUN|||вживлені в нього|||REQUIRED|||-NONE-|||1
+A 16 16|||G/UngrammaticalStructure|||,|||REQUIRED|||-NONE-|||1
+A 16 17|||G/UngrammaticalStructure|||заблокували|||REQUIRED|||-NONE-|||1
+A 17 18|||R:NOUN|||всі|||REQUIRED|||-NONE-|||1
+A 18 19|||R:NOUN|||болючі|||REQUIRED|||-NONE-|||1
+A 19 20|||R:NOUN|||відчуття|||REQUIRED|||-NONE-|||1
+A 20 20|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 20 23|||R:NOUN|||штовхаючи його руйнувати і|||REQUIRED|||-NONE-|||1
+A 23 24|||R:NOUN|||вбивати|||REQUIRED|||-NONE-|||1
+A 24 26|||R:PUNCT|||, і|||REQUIRED|||-NONE-|||1
+A 26 27|||R:NOUN|||він|||REQUIRED|||-NONE-|||1
+A 27 28|||R:NOUN|||метнувся|||REQUIRED|||-NONE-|||1
+A 28 29|||R:DET|||з|||REQUIRED|||-NONE-|||1
+A 29 30|||R:NOUN|||великою|||REQUIRED|||-NONE-|||1
+A 30 31|||R:NOUN|||швидкістю|||REQUIRED|||-NONE-|||1
+A 33 34|||R:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 34 35|||R:NOUN|||не|||REQUIRED|||-NONE-|||1
+A 35 36|||R:NOUN|||даючи|||REQUIRED|||-NONE-|||1
+A 36 37|||R:NOUN|||мені|||REQUIRED|||-NONE-|||1
+A 37 38|||R:OTHER|||навіть шансу|||REQUIRED|||-NONE-|||1
+A 38 39|||R:SPELL|||зробити|||REQUIRED|||-NONE-|||1
+A 39 40|||F/Calque|||другий|||REQUIRED|||-NONE-|||1
+A 40 41|||R:NOUN|||постріл|||REQUIRED|||-NONE-|||1
 
 S З шаленим криком його руки долітаючи до моєї голови просто втратили той імпульс що мали на початку а тіло врізалися в стіну за крок до мене .
 A 0 2|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
@@ -3232,26 +3258,54 @@ A 10 11|||F/PoorFlow|||втратив|||REQUIRED|||-NONE-|||0
 A 13 13|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 15 15|||F/PoorFlow|||його руки|||REQUIRED|||-NONE-|||0
 A 17 17|||Punctuation|||,|||REQUIRED|||-NONE-|||0
-A 5 5|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 9 9|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 13 13|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 17 17|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 19 20|||G/Number|||врізалося|||REQUIRED|||-NONE-|||1
+A 0 1|||R:OTHER|||Я чув|||REQUIRED|||-NONE-|||1
+A 1 2|||R:NOUN|||багато історій|||REQUIRED|||-NONE-|||1
+A 2 10|||R:NOUN|||про цих горилоподібних зелених воїнів|||REQUIRED|||-NONE-|||1
+A 10 13|||R:OTHER|||,|||REQUIRED|||-NONE-|||1
+A 14 15|||R:NOUN|||можуть|||REQUIRED|||-NONE-|||1
+A 15 16|||R:NOUN|||лише|||REQUIRED|||-NONE-|||1
+A 16 17|||R:NOUN|||одним|||REQUIRED|||-NONE-|||1
+A 17 18|||R:NOUN|||ударом|||REQUIRED|||-NONE-|||1
+A 18 19|||R:NOUN|||пробити|||REQUIRED|||-NONE-|||1
+A 19 20|||G/Number|||броню|||REQUIRED|||-NONE-|||1
+A 20 20|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 20 21|||R:NOUN|||яку|||REQUIRED|||-NONE-|||1
+A 21 26|||R:OTHER|||навіть дробовик не пробиває|||REQUIRED|||-NONE-|||1
 
-S І коли дійшов звук пострілу снайперської гвинтівки я зрозумів , це не остання моя місія . Він був останній за сьогодні . Наші радари просканували місцевість щоб визначити аномальні хвилі які видають прибульці , хоча я не до кінця розумію як сам це працює , але відділ досліджень на базі робить чудову роботу , ці прилади ще не давали жодних збоїв .
+S І коли дійшов звук пострілу снайперської гвинтівки я зрозумів , це не остання моя місія .
 A 2 3|||F/Style|||пролунав|||REQUIRED|||-NONE-|||0
 A 7 7|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 9 10|||Punctuation|||:|||REQUIRED|||-NONE-|||0
-A 26 26|||Punctuation|||,|||REQUIRED|||-NONE-|||0
-A 30 30|||Punctuation|||,|||REQUIRED|||-NONE-|||0
-A 40 41|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
-A 42 44|||F/PoorFlow|||принцип|||REQUIRED|||-NONE-|||0
-A 2 3|||F/Style|||пролунав|||REQUIRED|||-NONE-|||1
-A 7 7|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 26 26|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 30 30|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 40 40|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 41 42|||G/UngrammaticalStructure|||саме|||REQUIRED|||-NONE-|||1
+A 1 7|||F/Style|||такий один зараз летить просто на мене|||REQUIRED|||-NONE-|||1
+A 7 7|||Punctuation|||з|||REQUIRED|||-NONE-|||1
+A 7 8|||R:NOUN|||піднятими|||REQUIRED|||-NONE-|||1
+A 8 9|||R:NOUN|||руками|||REQUIRED|||-NONE-|||1
+A 10 11|||R:NOUN|||які|||REQUIRED|||-NONE-|||1
+A 11 14|||R:NOUN|||замахнулися добити|||REQUIRED|||-NONE-|||1
+A 14 15|||R:NOUN|||надокучливого комара|||REQUIRED|||-NONE-|||1
+
+S Він був останній за сьогодні .
+A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
+A 0 0|||M:OTHER|||З шаленим криком його руки , долітаючи до моєї голови , просто втратили той імпульс ,|||REQUIRED|||-NONE-|||1
+A 0 1|||R:NOUN|||що мали на початку|||REQUIRED|||-NONE-|||1
+A 1 1|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 1 1|||M:NOUN|||а|||REQUIRED|||-NONE-|||1
+A 1 1|||M:NOUN|||тіло|||REQUIRED|||-NONE-|||1
+A 1 1|||M:NOUN|||врізалося|||REQUIRED|||-NONE-|||1
+A 1 2|||R:SPELL|||в|||REQUIRED|||-NONE-|||1
+A 2 3|||R:NOUN|||стіну|||REQUIRED|||-NONE-|||1
+A 4 5|||R:OTHER|||крок до мене|||REQUIRED|||-NONE-|||1
+
+S Наші радари просканували місцевість щоб визначити аномальні хвилі які видають прибульці , хоча я не до кінця розумію як сам це працює , але відділ досліджень на базі робить чудову роботу , ці прилади ще не давали жодних збоїв .
+A 4 4|||Punctuation|||,|||REQUIRED|||-NONE-|||0
+A 8 8|||Punctuation|||,|||REQUIRED|||-NONE-|||0
+A 18 19|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
+A 20 22|||F/PoorFlow|||принцип|||REQUIRED|||-NONE-|||0
+A 0 0|||M:OTHER|||І коли пролунав звук пострілу снайперської гвинтівки , я зрозумів , це не остання моя місія . Він був останній за сьогодні .|||REQUIRED|||-NONE-|||1
+A 4 4|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 8 8|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 18 18|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 19 20|||G/UngrammaticalStructure|||саме|||REQUIRED|||-NONE-|||1
 
 S - Вертаємось на базу ! - крикнув командир . - поранених несем на Ренджер , решта зберіть трупи та технології прибульців .
 A 0 1|||Punctuation|||—|||REQUIRED|||-NONE-|||0
@@ -4629,26 +4683,27 @@ S Бо краще зіпсувати похміллям п'ятницю , ніж
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
-S Лоднон - місто контрастів , але всюди почуваєшся добре . В величезних зелених парках , де люди просто гуляють , лежать на газонах або збираються пограти в футбол . На величезних блошиних ринках , де кожен вдягнений , як хоче , смачно пахне їжею і можна знайти дуже цікаві речі з історією . В метро , де відчуваєш гордість собою , що на п'ятий день нарешті почав трошечки в ньому орієнтуватися . І звичайно ж в Лондоні захоплює дух від музеїв , де можна побачити скелет динозавра , справжнього біфітера , картини Ван Гога або ж розетський камінь .
+S Лоднон - місто контрастів , але всюди почуваєшся добре . В величезних зелених парках , де люди просто гуляють , лежать на газонах або збираються пограти в футбол . На величезних блошиних ринках , де кожен вдягнений , як хоче , смачно пахне їжею і можна знайти дуже цікаві речі з історією .
 A 0 1|||Spelling|||Лондон|||REQUIRED|||-NONE-|||0
 A 1 2|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 36 37|||Spelling|||одягнений|||REQUIRED|||-NONE-|||0
-A 53 54|||Spelling|||У|||REQUIRED|||-NONE-|||0
-A 67 68|||F/Style|||трошки|||REQUIRED|||-NONE-|||0
-A 73 73|||Punctuation|||,|||REQUIRED|||-NONE-|||0
-A 75 75|||Spelling|||,|||REQUIRED|||-NONE-|||0
-A 75 76|||Spelling|||у|||REQUIRED|||-NONE-|||0
 A 0 1|||Spelling|||Лондон|||REQUIRED|||-NONE-|||1
 A 1 2|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 9 10|||Punctuation|||:|||REQUIRED|||-NONE-|||1
 A 10 11|||Spelling|||у|||REQUIRED|||-NONE-|||1
 A 28 30|||Spelling|||; на|||REQUIRED|||-NONE-|||1
-A 52 54|||Spelling|||; в|||REQUIRED|||-NONE-|||1
-A 59 59|||G/Prep|||за|||REQUIRED|||-NONE-|||1
-A 59 60|||G/Prep|||себе|||REQUIRED|||-NONE-|||1
-A 75 75|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 79 80|||G/UngrammaticalStructure||||||REQUIRED|||-NONE-|||1
-A 96 97|||Spelling|||Розетський|||REQUIRED|||-NONE-|||1
+A 52 52|||Punctuation|||; в метро , де відчуваєш гордість за себе , що на п'ятий день нарешті почав трошечки в ньому орієнтуватися|||REQUIRED|||-NONE-|||1
+
+S В метро , де відчуваєш гордість собою , що на п'ятий день нарешті почав трошечки в ньому орієнтуватися . І звичайно ж в Лондоні захоплює дух від музеїв , де можна побачити скелет динозавра , справжнього біфітера , картини Ван Гога або ж розетський камінь .
+A 0 1|||Spelling|||У|||REQUIRED|||-NONE-|||0
+A 14 15|||F/Style|||трошки|||REQUIRED|||-NONE-|||0
+A 20 20|||Punctuation|||,|||REQUIRED|||-NONE-|||0
+A 22 22|||Spelling|||,|||REQUIRED|||-NONE-|||0
+A 22 23|||Spelling|||у|||REQUIRED|||-NONE-|||0
+A 0 19|||G/Prep||||||REQUIRED|||-NONE-|||1
+A 22 22|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 26 27|||G/UngrammaticalStructure||||||REQUIRED|||-NONE-|||1
+A 43 44|||Spelling|||Розетський|||REQUIRED|||-NONE-|||1
 
 S В Лондоні є усе .
 A 3 4|||Spelling|||все|||REQUIRED|||-NONE-|||0

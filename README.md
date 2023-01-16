@@ -3,6 +3,16 @@
 The Second Ukrainian NLP workshop ([UNLP 2023](https://unlp.org.ua/)) organizes the first Shared Task
 in Grammatical Error Correction for Ukrainian.
 
+## Updates
+
+**2023-01-17**:
+
+* Numerous fixes in whitespace before/after punctuation -- contributed by @danmysak
+
+* Removed the second annotator's annotations from `train.src`/`train.tgt` as they
+were causing confusion. These annotations could be found in the original UA-GEC
+data or in train.m2 if you really need it.
+
 ## Task description
 
 In this shared task, your goal is to correct a text in the Ukrainian language to
