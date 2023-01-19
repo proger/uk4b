@@ -48,6 +48,10 @@ Output: I go to school.
 
 Fluency correction is an extension of GEC that allows for broader sentence
 rewrites to make a text more fluent—i.e., sounding natural to a native speaker.
+Fluency corrections are more subjective and may be harder to predict.
+
+GEC+Fluency task covers corrections for grammar, spelling, punctuation,
+and fluency.
 
 For example:
 ```
@@ -62,15 +66,6 @@ Input:  Existing prices are very high.
 Output: Current prices are very high.
 ```
 </details>
-
-Fluency correction is a harder task than GEC-only. First, it includes all
-the GEC-only corrections. Second, fluency corrections are highly subjective
-and may be harder to predict.
-
-We annotated the test set with multiple annotators in order to somewhat
-compensate for the subjectivity of the task. If a correction is in agreement
-with at least one annotator, it will be counted as a valid one.
-
 
 ## Data
 
@@ -112,6 +107,10 @@ selection.
 The final model will be evaluated on a hidden test set. We will release
 `test.src.txt` and `test.src.tok` files to the registered participants on
 February 13, 2023. Please fill in [this form](https://forms.gle/46gamdVXhFkBeZeX8) to register for participation.
+
+We annotated the test set with multiple annotators in order to somewhat
+compensate for the subjectivity of the task. If a correction is in agreement
+with at least one annotator, it will be counted as a valid one.
 
 
 ## Evaluation
