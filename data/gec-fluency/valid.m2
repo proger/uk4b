@@ -102,7 +102,7 @@ A 28 32|||G/Case|||двома залізними собаками|||REQUIRED|||-
 A 2 3|||F/PoorFlow|||я|||REQUIRED|||-NONE-|||1
 A 3 4|||F/PoorFlow|||взяв|||REQUIRED|||-NONE-|||1
 A 4 5|||F/PoorFlow|||пляшечку|||REQUIRED|||-NONE-|||1
-A 5 5|||M:NOUN|||ліків|||REQUIRED|||-NONE-|||1
+A 5 5|||Other|||ліків|||REQUIRED|||-NONE-|||1
 A 17 18|||F/Calque|||маєтку|||REQUIRED|||-NONE-|||1
 A 18 19|||F/Calque|||мера|||REQUIRED|||-NONE-|||1
 A 20 21|||G/UngrammaticalStructure|||міського будинку|||REQUIRED|||-NONE-|||1
@@ -118,24 +118,24 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 S Привіт Настя
 A 1 1|||G/Case|||,|||REQUIRED|||-NONE-|||0
 A 1 2|||G/Case|||Насте|||REQUIRED|||-NONE-|||0
-A 2 2|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 2 2|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 1 1|||G/Case|||,|||REQUIRED|||-NONE-|||1
 A 1 2|||G/Case|||Насте|||REQUIRED|||-NONE-|||1
-A 2 2|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 2 2|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S А діти в садочку після сніданку гуляють ?
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Щось ми сьогодні не встигаємо до дев'ятої привести
-A 8 8|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
-A 8 8|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 8 8|||Punctuation|||.|||REQUIRED|||-NONE-|||0
+A 8 8|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Дякую за інформацію ! ми з Надією саме вийшли з дому
 A 4 5|||Spelling|||Ми|||REQUIRED|||-NONE-|||0
-A 11 11|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 11 11|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 4 5|||Spelling|||Ми|||REQUIRED|||-NONE-|||1
-A 11 11|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 11 11|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Ми прийшли , але діти ще не гуляють .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -190,9 +190,9 @@ A 2 2|||Spelling|||,|||REQUIRED|||-NONE-|||1
 A 2 3|||Spelling|||може|||REQUIRED|||-NONE-|||1
 A 3 3|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 8 9|||Spelling|||“ Совенята|||REQUIRED|||-NONE-|||1
-A 9 9|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 9 9|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 11 12|||F/Style|||відводити|||REQUIRED|||-NONE-|||1
-A 12 12|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 12 12|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Всі батьки в шоці ))
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -201,7 +201,7 @@ A 2 4|||F/Style|||шоковані .|||REQUIRED|||-NONE-|||1
 
 S Отож , я й сама ні в чому не впевнена
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 10 10|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 10 10|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S А мені здається що " все " вже не будуть закривати .
 A 3 3|||Punctuation|||,|||REQUIRED|||-NONE-|||0
@@ -209,8 +209,8 @@ A 3 3|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 7 7|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 
 S Люди всі втомилися , всім байдуже
-A 6 6|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
-A 6 6|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 6 6|||Punctuation|||.|||REQUIRED|||-NONE-|||0
+A 6 6|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Я збираюся забрати Надію раніше , бо мені сказали що на цьому тижні тільки на прогулянки будут її брати , тобто до обіду .
 A 16 17|||Spelling|||будуть|||REQUIRED|||-NONE-|||0
@@ -226,23 +226,23 @@ A 18 18|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 S Потім я їй обіцяла зайти в арома каву по какао
 A 6 7|||Spelling|||" Арома|||REQUIRED|||-NONE-|||0
 A 7 8|||Spelling|||Каву "|||REQUIRED|||-NONE-|||0
-A 10 10|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 10 10|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 6 7|||Spelling|||“ Арома|||REQUIRED|||-NONE-|||1
-A 8 8|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
-A 10 10|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 8 8|||Punctuation|||”|||REQUIRED|||-NONE-|||1
+A 10 10|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S А потім додому підемо
-A 4 4|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
-A 4 4|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 4 4|||Punctuation|||.|||REQUIRED|||-NONE-|||0
+A 4 4|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Краще наступним разом , бо не знаю чи буде Надія в доброму гуморі
 A 1 2|||F/Style|||іншим|||REQUIRED|||-NONE-|||0
 A 7 7|||Punctuation|||,|||REQUIRED|||-NONE-|||0
-A 13 13|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 13 13|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 1 2|||G/Case|||наступного|||REQUIRED|||-NONE-|||1
 A 2 3|||G/Case|||разу|||REQUIRED|||-NONE-|||1
 A 7 7|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 13 13|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 13 13|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S # 0013
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -400,7 +400,7 @@ A 16 17|||F/Style|||психічного|||REQUIRED|||-NONE-|||1
 
 S Заміський будинок може бути копією раю на цій землі )
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 10 10|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 10 10|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Підстрижена зелена травичка , хвойні дерева , невеличкий басейн , кущики корисних ягід для карапузиків , романтичні вечірні посиденьки під зоряним небом - це те , що може зсолоджувати наше житя , закарбовувати незабутні миті !
 A 22 23|||Punctuation|||—|||REQUIRED|||-NONE-|||0
@@ -504,11 +504,11 @@ A 9 10|||G/Case|||Агафонової|||REQUIRED|||-NONE-|||1
 A 10 10|||G/Case|||,|||REQUIRED|||-NONE-|||1
 A 10 11|||G/Case|||Світлани|||REQUIRED|||-NONE-|||1
 A 11 12|||G/Case|||Андрійчук|||REQUIRED|||-NONE-|||1
-A 12 12|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 12 12|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 14 15|||Spelling|||ТМ|||REQUIRED|||-NONE-|||1
 A 15 15|||Spelling|||“|||REQUIRED|||-NONE-|||1
 A 15 16|||Spelling|||Ярослав|||REQUIRED|||-NONE-|||1
-A 16 16|||M:PUNCT|||” ,|||REQUIRED|||-NONE-|||1
+A 16 16|||Punctuation|||” ,|||REQUIRED|||-NONE-|||1
 A 24 25|||F/PoorFlow||||||REQUIRED|||-NONE-|||1
 
 S Із бавовни вийшов милий восьминіг , який може слугувати валиком під спинку малюку , а також іграшкою - подразником для " гасіння " спонтанних рухів маляти .
@@ -579,7 +579,7 @@ A 2 3|||Spelling|||у|||REQUIRED|||-NONE-|||0
 A 2 3|||Spelling|||у|||REQUIRED|||-NONE-|||1
 A 6 6|||G/UngrammaticalStructure|||Тримайте|||REQUIRED|||-NONE-|||1
 A 11 12|||G/UngrammaticalStructure|||голову|||REQUIRED|||-NONE-|||1
-A 12 12|||M:PUNCT|||—|||REQUIRED|||-NONE-|||1
+A 12 12|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 
 S Це пройде через тиждень !
 A 1 2|||F/Collocation|||мине|||REQUIRED|||-NONE-|||0
@@ -601,7 +601,7 @@ A 3 4|||Punctuation||||||REQUIRED|||-NONE-|||1
 S З любов'ю , Твій Андрій
 A 3 4|||Spelling|||твій|||REQUIRED|||-NONE-|||0
 A 3 4|||Spelling|||твій|||REQUIRED|||-NONE-|||1
-A 5 5|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 5 5|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S # 0057
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -730,7 +730,7 @@ S Вже не кажучи додаткові витрати на харчува
 A 3 3|||G/Prep|||про|||REQUIRED|||-NONE-|||0
 A 0 1|||Spelling|||Уже|||REQUIRED|||-NONE-|||1
 A 2 3|||G/UngrammaticalStructure|||кажу|||REQUIRED|||-NONE-|||1
-A 3 3|||M:VERB|||про|||REQUIRED|||-NONE-|||1
+A 3 3|||Other|||про|||REQUIRED|||-NONE-|||1
 
 S Якщо навіть їхати своїм авто , окрім витрат на пальне та амортизації авто , не забувайте що ви за кермом , тож весь час Ви фактично працюєте .
 A 12 13|||F/Repetition||||||REQUIRED|||-NONE-|||0
@@ -782,7 +782,7 @@ A 4 5|||Spelling|||вас|||REQUIRED|||-NONE-|||0
 A 7 8|||F/Collocation|||ставте|||REQUIRED|||-NONE-|||0
 A 1 1|||Punctuation|||“|||REQUIRED|||-NONE-|||1
 A 1 2|||Punctuation|||дорого|||REQUIRED|||-NONE-|||1
-A 2 2|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 2 2|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 4 5|||Spelling|||вас|||REQUIRED|||-NONE-|||1
 A 6 7|||F/Style|||тому|||REQUIRED|||-NONE-|||1
 A 7 8|||F/Collocation|||ставте|||REQUIRED|||-NONE-|||1
@@ -817,7 +817,7 @@ A 1 2|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 1 2|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 12 13|||F/Style|||хотілося|||REQUIRED|||-NONE-|||1
 A 13 14|||F/Style|||покинути|||REQUIRED|||-NONE-|||1
-A 23 24|||R:PUNCT|||...|||REQUIRED|||-NONE-|||1
+A 23 24|||Punctuation|||...|||REQUIRED|||-NONE-|||1
 
 S - блог автора : www.bbc.com/news/correspondents/willgompertz
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -948,7 +948,7 @@ A 2 3|||Spelling|||ви|||REQUIRED|||-NONE-|||0
 A 3 4|||F/Style|||справді|||REQUIRED|||-NONE-|||0
 A 12 13|||Spelling|||ви|||REQUIRED|||-NONE-|||0
 A 15 16|||Punctuation|||"|||REQUIRED|||-NONE-|||0
-A 16 17|||R:OTHER|||Я "|||REQUIRED|||-NONE-|||0
+A 16 17|||Other|||Я "|||REQUIRED|||-NONE-|||0
 A 18 19|||F/Style|||вислові|||REQUIRED|||-NONE-|||0
 A 19 20|||Punctuation|||"|||REQUIRED|||-NONE-|||0
 A 23 24|||Punctuation|||"|||REQUIRED|||-NONE-|||0
@@ -956,7 +956,7 @@ A 2 3|||F/Style|||ви|||REQUIRED|||-NONE-|||1
 A 3 4|||F/Style|||справді|||REQUIRED|||-NONE-|||1
 A 12 13|||Spelling|||ви|||REQUIRED|||-NONE-|||1
 A 15 16|||Punctuation|||“|||REQUIRED|||-NONE-|||1
-A 16 17|||R:OTHER|||Я ”|||REQUIRED|||-NONE-|||1
+A 16 17|||Other|||Я ”|||REQUIRED|||-NONE-|||1
 A 18 19|||F/Style|||вислові|||REQUIRED|||-NONE-|||1
 A 19 20|||Punctuation|||: “|||REQUIRED|||-NONE-|||1
 A 23 24|||Punctuation|||”|||REQUIRED|||-NONE-|||1
@@ -975,7 +975,7 @@ A 15 16|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 S # Логічно ?)
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A 0 1|||Punctuation||||||REQUIRED|||-NONE-|||1
-A 2 3|||R:PUNCT|||?|||REQUIRED|||-NONE-|||1
+A 2 3|||Punctuation|||?|||REQUIRED|||-NONE-|||1
 
 S # 0100
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -1061,7 +1061,7 @@ A 11 12|||F/PoorFlow|||випадки|||REQUIRED|||-NONE-|||1
 
 S Старий Мангум усним ..... , і англійською також не використовуючи латину ніж прості посилання на Orgetorix , Rex Helvetii , які я сам використовував .
 A 8 8|||Punctuation|||,|||REQUIRED|||-NONE-|||0
-A 11 11|||M:PUNCT|||,|||REQUIRED|||-NONE-|||0
+A 11 11|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 2 3|||F/PoorFlow|||словесно промаркував|||REQUIRED|||-NONE-|||1
 A 3 4|||F/PoorFlow|||нас і легко класифікував Гудлі й мене як найнижчого ряду хребетних|||REQUIRED|||-NONE-|||1
 A 4 5|||F/PoorFlow|||;|||REQUIRED|||-NONE-|||1
@@ -1186,7 +1186,7 @@ A 3 4|||Spelling|||у|||REQUIRED|||-NONE-|||1
 S Оригінальний план каналізація виглядав як показано нижче ( скани з документів львівського міського архіву ) .
 A 2 3|||G/Case|||каналізації мав|||REQUIRED|||-NONE-|||0
 A 3 4|||F/Calque|||вигляд|||REQUIRED|||-NONE-|||0
-A 4 4|||M:PUNCT|||,|||REQUIRED|||-NONE-|||0
+A 4 4|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 4 4|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 
 S Image for post
@@ -1259,7 +1259,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S План каналізації після переробки , загальний і поверховий плани
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 9 9|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 9 9|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Це вже виглядає досить сучасно :
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -1308,7 +1308,7 @@ S Давайте поглянемо на фотографію труби ( ск�
 A 0 1|||G/VerbAForm||||||REQUIRED|||-NONE-|||0
 A 1 2|||G/VerbAForm|||Погляньмо|||REQUIRED|||-NONE-|||0
 A 7 8|||F/Style|||і|||REQUIRED|||-NONE-|||1
-A 15 15|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 15 15|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Image for post
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -1325,7 +1325,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 S Основні фактори , шо посприяли зникненню труби
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A 3 4|||G/Conjunction|||які|||REQUIRED|||-NONE-|||1
-A 7 7|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 7 7|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Каналізаційні стоки — це майже як піскоструйна машина .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -1372,7 +1372,7 @@ A 16 17|||F/Style|||найтиповіша|||REQUIRED|||-NONE-|||1
 
 S Залом
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 1 1|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 1 1|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Ви бачите заломи труб майже кожного дня по дорозі на роботу .
 A 5 7|||F/PoorFlow|||щодня|||REQUIRED|||-NONE-|||0
@@ -1392,7 +1392,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Залом з висоти людського зросту
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 5 5|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 5 5|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Труби частково або повністю нема , а може вже радянська влада поміняла цегляну кладку на азбестоцементну трубу і та теж зламалась — і земля починає сипатись в отвір , де її змиває потік води .
 A 8 8|||Punctuation|||,|||REQUIRED|||-NONE-|||0
@@ -1481,7 +1481,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Невеликий колодязь розчинився у воді
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 5 5|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 5 5|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Як жити далі ?
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -1503,9 +1503,9 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Типові точки : просідання біля люків чи де труби дощової каналізації входять в землю
 A 12 13|||Spelling|||у|||REQUIRED|||-NONE-|||0
-A 14 14|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 14 14|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 12 13|||Spelling|||у|||REQUIRED|||-NONE-|||1
-A 14 14|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 14 14|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Мокрі плями на стінах .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -1541,7 +1541,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 S Якщо повезе , то все обійдеться невеликими розкопками
 A 1 2|||F/Calque|||пощастить|||REQUIRED|||-NONE-|||0
 A 1 2|||F/Calque|||пощастить|||REQUIRED|||-NONE-|||1
-A 8 8|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 8 8|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Image for post
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -1549,7 +1549,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Гра у археологів , львівський підвал
 A 1 2|||Spelling|||в|||REQUIRED|||-NONE-|||0
-A 6 6|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 6 6|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Якщо ж не повезе і діло запущене , то проблеми будуть більші .
 A 3 4|||F/Calque|||пощастить|||REQUIRED|||-NONE-|||0
@@ -1571,7 +1571,7 @@ S В унітаз дурні не зливаємо ( актуально для �
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A 0 1|||Spelling|||- в|||REQUIRED|||-NONE-|||1
 A 2 3|||F/Style|||дурниці|||REQUIRED|||-NONE-|||1
-A 13 13|||M:PUNCT|||;|||REQUIRED|||-NONE-|||1
+A 13 13|||Punctuation|||;|||REQUIRED|||-NONE-|||1
 
 S Десь мокро , смердить чи земля провалилась — комусь повідомте .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -1625,8 +1625,8 @@ A 2 2|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 4 4|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 6 6|||F/PoorFlow|||разом із хлопцями , в честь Різдва|||REQUIRED|||-NONE-|||1
 A 27 28|||F/PoorFlow|||разів|||REQUIRED|||-NONE-|||1
-A 28 28|||M:PUNCT|||зо|||REQUIRED|||-NONE-|||1
-A 28 28|||M:NOUN|||двадцять|||REQUIRED|||-NONE-|||1
+A 28 28|||Punctuation|||зо|||REQUIRED|||-NONE-|||1
+A 28 28|||Other|||двадцять|||REQUIRED|||-NONE-|||1
 A 28 28|||F/PoorFlow|||скотився|||REQUIRED|||-NONE-|||1
 A 29 41|||F/PoorFlow|||по схилу Корнхілла|||REQUIRED|||-NONE-|||1
 A 44 44|||F/PoorFlow|||щодуху|||REQUIRED|||-NONE-|||1
@@ -1635,7 +1635,7 @@ A 56 56|||F/Calque|||з|||REQUIRED|||-NONE-|||1
 A 56 57|||F/Calque|||дітьми|||REQUIRED|||-NONE-|||1
 A 57 58|||F/Calque||||||REQUIRED|||-NONE-|||1
 A 58 59|||F/Calque|||в|||REQUIRED|||-NONE-|||1
-A 59 59|||M:OTHER|||піджмурки|||REQUIRED|||-NONE-|||1
+A 59 59|||Other|||піджмурки|||REQUIRED|||-NONE-|||1
 
 S Скрудж сумно повечеряв в звичній сумній таверні ; і прочитавши всі газети , витратив решту вечора на свою банківську книжку , після чого пішов спати .
 A 3 4|||Spelling|||у|||REQUIRED|||-NONE-|||0
@@ -1696,10 +1696,10 @@ A 7 8|||G/Aspect||||||REQUIRED|||-NONE-|||1
 A 9 10|||Punctuation||||||REQUIRED|||-NONE-|||1
 
 S Чому ти не підш і не звернишся до лікаря ?
-A 0 0|||M:PUNCT|||—|||REQUIRED|||-NONE-|||0
+A 0 0|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 3 4|||Spelling|||підеш|||REQUIRED|||-NONE-|||0
 A 6 7|||Spelling|||звернешся|||REQUIRED|||-NONE-|||0
-A 0 0|||M:PUNCT|||—|||REQUIRED|||-NONE-|||1
+A 0 0|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 3 4|||Spelling|||підеш|||REQUIRED|||-NONE-|||1
 A 6 7|||Spelling|||звернешся|||REQUIRED|||-NONE-|||1
 
@@ -2123,10 +2123,10 @@ A 57 58|||Spelling|||шопером|||REQUIRED|||-NONE-|||0
 A 22 23|||F/Style|||виготовляє|||REQUIRED|||-NONE-|||1
 A 28 29|||F/Style|||займається дизайном|||REQUIRED|||-NONE-|||1
 A 32 33|||F/Style|||готує|||REQUIRED|||-NONE-|||1
-A 56 56|||M:OTHER|||, людиною|||REQUIRED|||-NONE-|||1
+A 56 56|||Other|||, людиною|||REQUIRED|||-NONE-|||1
 A 57 57|||F/Calque|||що|||REQUIRED|||-NONE-|||1
 A 57 58|||F/Calque|||допомагає з|||REQUIRED|||-NONE-|||1
-A 58 58|||M:NOUN|||покупками|||REQUIRED|||-NONE-|||1
+A 58 58|||Other|||покупками|||REQUIRED|||-NONE-|||1
 A 62 62|||F/PoorFlow|||тощо , напишіть про себе|||REQUIRED|||-NONE-|||1
 A 63 64|||F/PoorFlow|||своє заняття в коментарях|||REQUIRED|||-NONE-|||1
 
@@ -2193,10 +2193,10 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Green Forest🌲- це не про англійську .
-A 1 2|||R:OTHER|||Forest 🌲|||REQUIRED|||-NONE-|||0
-A 2 2|||M:PUNCT|||—|||REQUIRED|||-NONE-|||0
-A 1 2|||R:OTHER|||Forest|||REQUIRED|||-NONE-|||1
-A 2 2|||M:PUNCT|||—|||REQUIRED|||-NONE-|||1
+A 1 2|||Other|||Forest 🌲|||REQUIRED|||-NONE-|||0
+A 2 2|||Punctuation|||—|||REQUIRED|||-NONE-|||0
+A 1 2|||Other|||Forest|||REQUIRED|||-NONE-|||1
+A 2 2|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 
 S Принаймні не для мене ...
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -2218,7 +2218,7 @@ S Це про вміння працювати 24 / 7 , іноді без вих�
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A 11 11|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 14 15|||Spelling|||намагатися|||REQUIRED|||-NONE-|||1
-A 18 19|||R:NOUN|||ритмі|||REQUIRED|||-NONE-|||1
+A 18 19|||Other|||ритмі|||REQUIRED|||-NONE-|||1
 A 19 20|||F/Other|||...|||REQUIRED|||-NONE-|||1
 
 S Це про карантин , який для тебе не відпочинок , а ще в мільярд разів більше роботи 🤯.....
@@ -2251,7 +2251,7 @@ S А в нас якщо ти не в більшості , ти - неадекв�
 A 10 11|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 3 3|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 10 11|||Punctuation||||||REQUIRED|||-NONE-|||1
-A 11 12|||R:NOUN|||неадекват|||REQUIRED|||-NONE-|||1
+A 11 12|||Other|||неадекват|||REQUIRED|||-NONE-|||1
 
 S 2 - ЛГБТ не нав'язують свої погляди .
 A 1 2|||Punctuation|||—|||REQUIRED|||-NONE-|||0
@@ -2291,9 +2291,9 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S І не боятися цього❤️ усім любові
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 3 4|||R:NOUN|||цього|||REQUIRED|||-NONE-|||1
+A 3 4|||Other|||цього|||REQUIRED|||-NONE-|||1
 A 4 5|||Spelling|||. Усім|||REQUIRED|||-NONE-|||1
-A 6 6|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 6 6|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Чому природа створила також безпліддя ( як y чоловіків , так і у жінок ) ?
 A 6 7|||F/PoorFlow|||і|||REQUIRED|||-NONE-|||0
@@ -2465,7 +2465,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 S Я можу написати вірш чи- то есе після прогулянки парком .
 A 4 5|||F/Style|||або|||REQUIRED|||-NONE-|||0
 A 5 6|||F/Style||||||REQUIRED|||-NONE-|||0
-A 4 5|||R:NOUN|||чи|||REQUIRED|||-NONE-|||1
+A 4 5|||Other|||чи|||REQUIRED|||-NONE-|||1
 A 5 6|||F/PoorFlow||||||REQUIRED|||-NONE-|||1
 
 S Мені достатньо тільки побачити гармонійну у всьому людину .
@@ -2513,7 +2513,7 @@ A 16 17|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
 A 0 2|||F/PoorFlow|||Останнє мене|||REQUIRED|||-NONE-|||1
 A 3 4|||F/PoorFlow|||дивує|||REQUIRED|||-NONE-|||1
 A 4 5|||F/PoorFlow|||,|||REQUIRED|||-NONE-|||1
-A 5 5|||M:NOUN|||адже|||REQUIRED|||-NONE-|||1
+A 5 5|||Other|||адже|||REQUIRED|||-NONE-|||1
 
 S Ось у нашій #evotalents_team є поняття # sharingiscaring , на якому базуються командні цінності .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -2730,12 +2730,12 @@ A 6 7|||Spelling|||зобов'язання|||REQUIRED|||-NONE-|||0
 A 1 2|||Spelling|||бенефіціари|||REQUIRED|||-NONE-|||1
 A 5 6|||Spelling|||визначені|||REQUIRED|||-NONE-|||1
 A 6 7|||Spelling|||зобов’язання|||REQUIRED|||-NONE-|||1
-A 7 7|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 7 7|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Туречиина кейс
 A 0 1|||Spelling|||Туреччина|||REQUIRED|||-NONE-|||0
 A 0 1|||Spelling|||Туреччина|||REQUIRED|||-NONE-|||1
-A 2 2|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 2 2|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Медтодологія вступу ?
 A 0 1|||Spelling|||Методологія|||REQUIRED|||-NONE-|||0
@@ -2752,7 +2752,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 S Критика підходу « Все , крім інституцій » ( Романо Проді , президент ЄК )
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A 3 4|||Spelling|||все|||REQUIRED|||-NONE-|||1
-A 15 15|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 15 15|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Чи є політика сусідства ЄС тільки способом забезпечити мирних і безпечних сусідів ?
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -2764,16 +2764,16 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Зовнішньополітичні шторми
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 2 2|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 2 2|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Погіршення показників країн - сусідів
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 5 5|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 5 5|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Повільна реакція ЄС на революції , повставння у країнах - сусідах тощо
 A 6 7|||Spelling|||повстання|||REQUIRED|||-NONE-|||0
 A 6 7|||Spelling|||повстання|||REQUIRED|||-NONE-|||1
-A 12 12|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 12 12|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Обмежена ефективність і ( =вплив ) політики ?
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -2805,7 +2805,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Своєрідний аудит політики
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 3 3|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 3 3|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Висновок
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -3209,45 +3209,45 @@ A 19 19|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 23 24|||F/Repetition|||бере|||REQUIRED|||-NONE-|||0
 A 36 36|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 39 40|||F/Style|||набридливого|||REQUIRED|||-NONE-|||0
-A 0 1|||R:OTHER|||У момент , коли|||REQUIRED|||-NONE-|||1
-A 1 2|||R:NOUN|||він|||REQUIRED|||-NONE-|||1
-A 2 3|||R:NOUN|||замахнувся|||REQUIRED|||-NONE-|||1
-A 3 4|||R:NOUN|||і|||REQUIRED|||-NONE-|||1
-A 4 5|||R:NOUN|||притримав руку|||REQUIRED|||-NONE-|||1
-A 5 6|||R:OTHER|||, закриваючи|||REQUIRED|||-NONE-|||1
+A 0 1|||Other|||У момент , коли|||REQUIRED|||-NONE-|||1
+A 1 2|||Other|||він|||REQUIRED|||-NONE-|||1
+A 2 3|||Other|||замахнувся|||REQUIRED|||-NONE-|||1
+A 3 4|||Other|||і|||REQUIRED|||-NONE-|||1
+A 4 5|||Other|||притримав руку|||REQUIRED|||-NONE-|||1
+A 5 6|||Other|||, закриваючи|||REQUIRED|||-NONE-|||1
 A 6 7|||Spelling|||голову|||REQUIRED|||-NONE-|||1
 A 7 8|||Spelling|||,|||REQUIRED|||-NONE-|||1
 A 8 9|||Spelling|||постріл|||REQUIRED|||-NONE-|||1
-A 9 11|||R:NOUN|||тільки завдав йому|||REQUIRED|||-NONE-|||1
-A 11 12|||R:NOUN|||важкої|||REQUIRED|||-NONE-|||1
-A 12 13|||R:NOUN|||рани|||REQUIRED|||-NONE-|||1
-A 13 13|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
-A 13 14|||R:NOUN|||але|||REQUIRED|||-NONE-|||1
-A 14 15|||R:NOUN|||стимулятори|||REQUIRED|||-NONE-|||1
-A 15 15|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
-A 15 16|||R:NOUN|||вживлені в нього|||REQUIRED|||-NONE-|||1
+A 9 11|||Other|||тільки завдав йому|||REQUIRED|||-NONE-|||1
+A 11 12|||Other|||важкої|||REQUIRED|||-NONE-|||1
+A 12 13|||Other|||рани|||REQUIRED|||-NONE-|||1
+A 13 13|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 13 14|||Other|||але|||REQUIRED|||-NONE-|||1
+A 14 15|||Other|||стимулятори|||REQUIRED|||-NONE-|||1
+A 15 15|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 15 16|||Other|||вживлені в нього|||REQUIRED|||-NONE-|||1
 A 16 16|||G/UngrammaticalStructure|||,|||REQUIRED|||-NONE-|||1
 A 16 17|||G/UngrammaticalStructure|||заблокували|||REQUIRED|||-NONE-|||1
-A 17 18|||R:NOUN|||всі|||REQUIRED|||-NONE-|||1
-A 18 19|||R:NOUN|||болючі|||REQUIRED|||-NONE-|||1
-A 19 20|||R:NOUN|||відчуття|||REQUIRED|||-NONE-|||1
-A 20 20|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
-A 20 23|||R:NOUN|||штовхаючи його руйнувати і|||REQUIRED|||-NONE-|||1
-A 23 24|||R:NOUN|||вбивати|||REQUIRED|||-NONE-|||1
-A 24 26|||R:PUNCT|||, і|||REQUIRED|||-NONE-|||1
-A 26 27|||R:NOUN|||він|||REQUIRED|||-NONE-|||1
-A 27 28|||R:NOUN|||метнувся|||REQUIRED|||-NONE-|||1
-A 28 29|||R:DET|||з|||REQUIRED|||-NONE-|||1
-A 29 30|||R:NOUN|||великою|||REQUIRED|||-NONE-|||1
-A 30 31|||R:NOUN|||швидкістю|||REQUIRED|||-NONE-|||1
-A 33 34|||R:PUNCT|||,|||REQUIRED|||-NONE-|||1
-A 34 35|||R:NOUN|||не|||REQUIRED|||-NONE-|||1
-A 35 36|||R:NOUN|||даючи|||REQUIRED|||-NONE-|||1
-A 36 37|||R:NOUN|||мені|||REQUIRED|||-NONE-|||1
-A 37 38|||R:OTHER|||навіть шансу|||REQUIRED|||-NONE-|||1
-A 38 39|||R:SPELL|||зробити|||REQUIRED|||-NONE-|||1
+A 17 18|||Other|||всі|||REQUIRED|||-NONE-|||1
+A 18 19|||Other|||болючі|||REQUIRED|||-NONE-|||1
+A 19 20|||Other|||відчуття|||REQUIRED|||-NONE-|||1
+A 20 20|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 20 23|||Other|||штовхаючи його руйнувати і|||REQUIRED|||-NONE-|||1
+A 23 24|||Other|||вбивати|||REQUIRED|||-NONE-|||1
+A 24 26|||Punctuation|||, і|||REQUIRED|||-NONE-|||1
+A 26 27|||Other|||він|||REQUIRED|||-NONE-|||1
+A 27 28|||Other|||метнувся|||REQUIRED|||-NONE-|||1
+A 28 29|||Other|||з|||REQUIRED|||-NONE-|||1
+A 29 30|||Other|||великою|||REQUIRED|||-NONE-|||1
+A 30 31|||Other|||швидкістю|||REQUIRED|||-NONE-|||1
+A 33 34|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 34 35|||Other|||не|||REQUIRED|||-NONE-|||1
+A 35 36|||Other|||даючи|||REQUIRED|||-NONE-|||1
+A 36 37|||Other|||мені|||REQUIRED|||-NONE-|||1
+A 37 38|||Other|||навіть шансу|||REQUIRED|||-NONE-|||1
+A 38 39|||Other|||зробити|||REQUIRED|||-NONE-|||1
 A 39 40|||F/Calque|||другий|||REQUIRED|||-NONE-|||1
-A 40 41|||R:NOUN|||постріл|||REQUIRED|||-NONE-|||1
+A 40 41|||Other|||постріл|||REQUIRED|||-NONE-|||1
 
 S З шаленим криком його руки долітаючи до моєї голови просто втратили той імпульс що мали на початку а тіло врізалися в стіну за крок до мене .
 A 0 2|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
@@ -3258,19 +3258,19 @@ A 10 11|||F/PoorFlow|||втратив|||REQUIRED|||-NONE-|||0
 A 13 13|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 15 15|||F/PoorFlow|||його руки|||REQUIRED|||-NONE-|||0
 A 17 17|||Punctuation|||,|||REQUIRED|||-NONE-|||0
-A 0 1|||R:OTHER|||Я чув|||REQUIRED|||-NONE-|||1
-A 1 2|||R:NOUN|||багато історій|||REQUIRED|||-NONE-|||1
-A 2 10|||R:NOUN|||про цих горилоподібних зелених воїнів|||REQUIRED|||-NONE-|||1
-A 10 13|||R:OTHER|||,|||REQUIRED|||-NONE-|||1
-A 14 15|||R:NOUN|||можуть|||REQUIRED|||-NONE-|||1
-A 15 16|||R:NOUN|||лише|||REQUIRED|||-NONE-|||1
-A 16 17|||R:NOUN|||одним|||REQUIRED|||-NONE-|||1
-A 17 18|||R:NOUN|||ударом|||REQUIRED|||-NONE-|||1
-A 18 19|||R:NOUN|||пробити|||REQUIRED|||-NONE-|||1
+A 0 1|||Other|||Я чув|||REQUIRED|||-NONE-|||1
+A 1 2|||Other|||багато історій|||REQUIRED|||-NONE-|||1
+A 2 10|||Other|||про цих горилоподібних зелених воїнів|||REQUIRED|||-NONE-|||1
+A 10 13|||Other|||,|||REQUIRED|||-NONE-|||1
+A 14 15|||Other|||можуть|||REQUIRED|||-NONE-|||1
+A 15 16|||Other|||лише|||REQUIRED|||-NONE-|||1
+A 16 17|||Other|||одним|||REQUIRED|||-NONE-|||1
+A 17 18|||Other|||ударом|||REQUIRED|||-NONE-|||1
+A 18 19|||Other|||пробити|||REQUIRED|||-NONE-|||1
 A 19 20|||G/Number|||броню|||REQUIRED|||-NONE-|||1
-A 20 20|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
-A 20 21|||R:NOUN|||яку|||REQUIRED|||-NONE-|||1
-A 21 26|||R:OTHER|||навіть дробовик не пробиває|||REQUIRED|||-NONE-|||1
+A 20 20|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 20 21|||Other|||яку|||REQUIRED|||-NONE-|||1
+A 21 26|||Other|||навіть дробовик не пробиває|||REQUIRED|||-NONE-|||1
 
 S І коли дійшов звук пострілу снайперської гвинтівки я зрозумів , це не остання моя місія .
 A 2 3|||F/Style|||пролунав|||REQUIRED|||-NONE-|||0
@@ -3278,30 +3278,30 @@ A 7 7|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 9 10|||Punctuation|||:|||REQUIRED|||-NONE-|||0
 A 1 7|||F/Style|||такий один зараз летить просто на мене|||REQUIRED|||-NONE-|||1
 A 7 7|||Punctuation|||з|||REQUIRED|||-NONE-|||1
-A 7 8|||R:NOUN|||піднятими|||REQUIRED|||-NONE-|||1
-A 8 9|||R:NOUN|||руками|||REQUIRED|||-NONE-|||1
-A 10 11|||R:NOUN|||які|||REQUIRED|||-NONE-|||1
-A 11 14|||R:NOUN|||замахнулися добити|||REQUIRED|||-NONE-|||1
-A 14 15|||R:NOUN|||надокучливого комара|||REQUIRED|||-NONE-|||1
+A 7 8|||Other|||піднятими|||REQUIRED|||-NONE-|||1
+A 8 9|||Other|||руками|||REQUIRED|||-NONE-|||1
+A 10 11|||Other|||які|||REQUIRED|||-NONE-|||1
+A 11 14|||Other|||замахнулися добити|||REQUIRED|||-NONE-|||1
+A 14 15|||Other|||надокучливого комара|||REQUIRED|||-NONE-|||1
 
 S Він був останній за сьогодні .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 0 0|||M:OTHER|||З шаленим криком його руки , долітаючи до моєї голови , просто втратили той імпульс ,|||REQUIRED|||-NONE-|||1
-A 0 1|||R:NOUN|||що мали на початку|||REQUIRED|||-NONE-|||1
-A 1 1|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
-A 1 1|||M:NOUN|||а|||REQUIRED|||-NONE-|||1
-A 1 1|||M:NOUN|||тіло|||REQUIRED|||-NONE-|||1
-A 1 1|||M:NOUN|||врізалося|||REQUIRED|||-NONE-|||1
-A 1 2|||R:SPELL|||в|||REQUIRED|||-NONE-|||1
-A 2 3|||R:NOUN|||стіну|||REQUIRED|||-NONE-|||1
-A 4 5|||R:OTHER|||крок до мене|||REQUIRED|||-NONE-|||1
+A 0 0|||Other|||З шаленим криком його руки , долітаючи до моєї голови , просто втратили той імпульс ,|||REQUIRED|||-NONE-|||1
+A 0 1|||Other|||що мали на початку|||REQUIRED|||-NONE-|||1
+A 1 1|||Punctuation|||,|||REQUIRED|||-NONE-|||1
+A 1 1|||Other|||а|||REQUIRED|||-NONE-|||1
+A 1 1|||Other|||тіло|||REQUIRED|||-NONE-|||1
+A 1 1|||Other|||врізалося|||REQUIRED|||-NONE-|||1
+A 1 2|||Other|||в|||REQUIRED|||-NONE-|||1
+A 2 3|||Other|||стіну|||REQUIRED|||-NONE-|||1
+A 4 5|||Other|||крок до мене|||REQUIRED|||-NONE-|||1
 
 S Наші радари просканували місцевість щоб визначити аномальні хвилі які видають прибульці , хоча я не до кінця розумію як сам це працює , але відділ досліджень на базі робить чудову роботу , ці прилади ще не давали жодних збоїв .
 A 4 4|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 8 8|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 18 19|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
 A 20 22|||F/PoorFlow|||принцип|||REQUIRED|||-NONE-|||0
-A 0 0|||M:OTHER|||І коли пролунав звук пострілу снайперської гвинтівки , я зрозумів , це не остання моя місія . Він був останній за сьогодні .|||REQUIRED|||-NONE-|||1
+A 0 0|||Other|||І коли пролунав звук пострілу снайперської гвинтівки , я зрозумів , це не остання моя місія . Він був останній за сьогодні .|||REQUIRED|||-NONE-|||1
 A 4 4|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 8 8|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 18 18|||Punctuation|||,|||REQUIRED|||-NONE-|||1
@@ -3495,7 +3495,7 @@ A 30 31|||F/Collocation|||виникало|||REQUIRED|||-NONE-|||0
 A 32 32|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 2 3|||Spelling|||із|||REQUIRED|||-NONE-|||1
 A 4 5|||F/Style|||боків|||REQUIRED|||-NONE-|||1
-A 5 5|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 5 5|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 10 11|||Spelling|||усередині|||REQUIRED|||-NONE-|||1
 A 16 17|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 A 17 18|||Spelling|||Окрім|||REQUIRED|||-NONE-|||1
@@ -3568,7 +3568,7 @@ A 50 50|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 7 7|||G/UngrammaticalStructure|||їм|||REQUIRED|||-NONE-|||1
 A 11 13|||F/PoorFlow||||||REQUIRED|||-NONE-|||1
 A 20 21|||G/UngrammaticalStructure||||||REQUIRED|||-NONE-|||1
-A 22 22|||M:NOUN|||під прикриттям|||REQUIRED|||-NONE-|||1
+A 22 22|||Other|||під прикриттям|||REQUIRED|||-NONE-|||1
 A 27 28|||Spelling|||із|||REQUIRED|||-NONE-|||1
 A 30 32|||Spelling|||усередину|||REQUIRED|||-NONE-|||1
 A 39 40|||F/Repetition|||,|||REQUIRED|||-NONE-|||1
@@ -3731,29 +3731,29 @@ A 0 1|||G/Prep|||З|||REQUIRED|||-NONE-|||1
 A 5 5|||Punctuation|||“|||REQUIRED|||-NONE-|||1
 A 7 7|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 11 11|||F/Style|||“ Братів|||REQUIRED|||-NONE-|||1
-A 12 12|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 12 12|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 13 13|||Punctuation|||“|||REQUIRED|||-NONE-|||1
-A 13 14|||R:ORTH|||В В|||REQUIRED|||-NONE-|||1
+A 13 14|||Other|||В В|||REQUIRED|||-NONE-|||1
 A 14 14|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 15 15|||Punctuation|||“|||REQUIRED|||-NONE-|||1
 A 16 16|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 17 17|||G/Case|||“|||REQUIRED|||-NONE-|||1
 A 17 18|||G/Case|||Тартак|||REQUIRED|||-NONE-|||1
-A 18 18|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 18 18|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 19 20|||Spelling|||“|||REQUIRED|||-NONE-|||1
 A 20 21|||Spelling|||Бумбокс|||REQUIRED|||-NONE-|||1
-A 21 21|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 21 21|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 22 22|||Punctuation|||“|||REQUIRED|||-NONE-|||1
 A 24 24|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 28 28|||F/PoorFlow|||гурт “|||REQUIRED|||-NONE-|||1
 A 28 29|||F/PoorFlow|||Крихітка|||REQUIRED|||-NONE-|||1
-A 30 30|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 30 30|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 
 S Кажу : Крихітку не здаємо , я 14-го йду на концерт -- понесу підписати !
 A 11 12|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 2 2|||Punctuation|||“|||REQUIRED|||-NONE-|||1
 A 11 12|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 15 15|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 15 15|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 
 S Пісні з цього альбому всі знають напам'ять .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -3780,7 +3780,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 S Зірки стали ближчими , вони їздять в метро і запитують нас у фейсбуці через роки , чи співати на концерті lumipallo .
 A 6 7|||Spelling|||у|||REQUIRED|||-NONE-|||0
 A 20 21|||Spelling|||“ Lumipallo|||REQUIRED|||-NONE-|||1
-A 21 21|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 21 21|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 
 S Таке питаєте .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -3974,7 +3974,7 @@ S Однак , деякі причини можуть призвести до ї
 A 1 2|||Punctuation||||||REQUIRED|||-NONE-|||0
 A 7 8|||G/Other|||їхнього|||REQUIRED|||-NONE-|||0
 A 12 13|||Punctuation|||—|||REQUIRED|||-NONE-|||0
-A 13 13|||M:NOUN|||до|||REQUIRED|||-NONE-|||0
+A 13 13|||Other|||до|||REQUIRED|||-NONE-|||0
 A 21 22|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 29 30|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 36 37|||Punctuation|||—|||REQUIRED|||-NONE-|||0
@@ -4003,25 +4003,25 @@ A 32 32|||Punctuation|||)|||REQUIRED|||-NONE-|||1
 
 S тисніть сюди
 A 0 1|||Spelling|||Тисніть|||REQUIRED|||-NONE-|||0
-A 2 2|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 2 2|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 0 1|||Spelling|||Тисніть|||REQUIRED|||-NONE-|||1
-A 2 2|||M:PUNCT|||;|||REQUIRED|||-NONE-|||1
+A 2 2|||Punctuation|||;|||REQUIRED|||-NONE-|||1
 
 S - гідравлічний насос з педальним приводом ( арт . V2847 ) тисніть сюди
 A 11 11|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 3 4|||Spelling|||із|||REQUIRED|||-NONE-|||1
 A 11 12|||Spelling|||. Тисніть|||REQUIRED|||-NONE-|||1
-A 13 13|||M:PUNCT|||;|||REQUIRED|||-NONE-|||1
+A 13 13|||Punctuation|||;|||REQUIRED|||-NONE-|||1
 
 S - гідравлічний циліндр для набору монтажу та демонтажу підшипника маточини ( арт . V2854 ) тисніть сюди
 A 15 15|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 15 16|||Spelling|||. Тисніть|||REQUIRED|||-NONE-|||1
-A 17 17|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 17 17|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Замовляйте продукцію в BM Parts
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A 3 3|||Punctuation|||“|||REQUIRED|||-NONE-|||1
-A 5 5|||M:PUNCT|||” .|||REQUIRED|||-NONE-|||1
+A 5 5|||Punctuation|||” .|||REQUIRED|||-NONE-|||1
 
 S # 0192
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -4173,7 +4173,7 @@ A 2 3|||F/Style|||виходять|||REQUIRED|||-NONE-|||0
 A 7 8|||F/Repetition|||і|||REQUIRED|||-NONE-|||0
 A 28 29|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
 A 2 3|||F/Style|||виходять|||REQUIRED|||-NONE-|||1
-A 7 7|||M:NOUN|||знання|||REQUIRED|||-NONE-|||1
+A 7 7|||Other|||знання|||REQUIRED|||-NONE-|||1
 A 20 21|||F/Repetition||||||REQUIRED|||-NONE-|||1
 A 27 27|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 28 29|||F/PoorFlow||||||REQUIRED|||-NONE-|||1
@@ -4324,7 +4324,7 @@ A 2 4|||F/PoorFlow|||якими|||REQUIRED|||-NONE-|||1
 A 11 12|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 18 18|||Spelling|||“|||REQUIRED|||-NONE-|||1
 A 18 19|||Spelling|||запрограмовано|||REQUIRED|||-NONE-|||1
-A 19 19|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 19 19|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 26 27|||Spelling|||ви|||REQUIRED|||-NONE-|||1
 
 S В такому разі , клієнт , наприклад , має поставити оцінку реалістичності Вашої відповіді .
@@ -4346,7 +4346,7 @@ A 34 35|||F/Repetition||||||REQUIRED|||-NONE-|||1
 S Це називається *машинним навчанням* .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A 2 3|||Punctuation|||машинним|||REQUIRED|||-NONE-|||1
-A 3 4|||R:NOUN|||навчанням|||REQUIRED|||-NONE-|||1
+A 3 4|||Other|||навчанням|||REQUIRED|||-NONE-|||1
 
 S Як бачите , усі ці процеси – це лише реакція на зовнішні команди , а розуміння мови для цього не є потрібним .
 A 6 7|||Punctuation|||—|||REQUIRED|||-NONE-|||0
@@ -4919,7 +4919,7 @@ A 7 8|||Spelling|||Кремль|||REQUIRED|||-NONE-|||1
 
 S Маємо вчитись грати в шахи
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 5 5|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 5 5|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S PS : забув написати тут про суддів і прокурорів .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -4927,8 +4927,8 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Ой , не забув , шо тут писати
 A 5 6|||Spelling|||що|||REQUIRED|||-NONE-|||0
-A 8 8|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
-A 8 8|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 8 8|||Punctuation|||.|||REQUIRED|||-NONE-|||0
+A 8 8|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S # 0212
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -4991,7 +4991,7 @@ A 19 19|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 S Кожен знає , що там , де є мухи , посуд не може бути чистим : не говорячи вже про звичайних відвідувачів , навіть такі обличчя як виправних , станичний й проїзжаючі поміщики , обідаючи в трактирі , ніколи не жаліються , якщо їм подають тарілку або рюмку , загаджену мухами ; він же не почав їсти до тих пір , як посудомийник не помив тарілки в гарячій воді .
 A 17 18|||F/Style|||кажучи|||REQUIRED|||-NONE-|||0
 A 25 26|||F/Calque|||особи|||REQUIRED|||-NONE-|||0
-A 26 26|||M:PUNCT|||,|||REQUIRED|||-NONE-|||0
+A 26 26|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 26 26|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 27 28|||G/Number|||виправний|||REQUIRED|||-NONE-|||0
 A 30 31|||Spelling|||і|||REQUIRED|||-NONE-|||0
@@ -5005,7 +5005,7 @@ A 66 67|||Spelling|||у|||REQUIRED|||-NONE-|||0
 A 15 16|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 22 24|||Spelling|||. Навіть|||REQUIRED|||-NONE-|||1
 A 25 26|||F/Calque|||особи|||REQUIRED|||-NONE-|||1
-A 26 26|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 26 26|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 26 26|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 27 28|||G/UngrammaticalStructure|||виправний|||REQUIRED|||-NONE-|||1
 A 30 31|||G/UngrammaticalStructure|||і|||REQUIRED|||-NONE-|||1
@@ -5054,13 +5054,13 @@ A 6 12|||F/PoorFlow|||здатні виправлятися|||REQUIRED|||-NONE-|
 A 19 20|||F/PoorFlow|||розгорялося|||REQUIRED|||-NONE-|||1
 A 20 21|||F/PoorFlow|||почуття|||REQUIRED|||-NONE-|||1
 A 29 30|||F/Style|||підслідний|||REQUIRED|||-NONE-|||1
-A 30 30|||M:OTHER|||, пропитий|||REQUIRED|||-NONE-|||1
+A 30 30|||Other|||, пропитий|||REQUIRED|||-NONE-|||1
 A 38 39|||Spelling|||життя|||REQUIRED|||-NONE-|||1
 A 39 40|||Spelling|||незворотно|||REQUIRED|||-NONE-|||1
 A 60 61|||Punctuation||||||REQUIRED|||-NONE-|||1
 A 66 67|||Spelling|||демонстративно|||REQUIRED|||-NONE-|||1
 A 75 77|||F/PoorFlow||||||REQUIRED|||-NONE-|||1
-A 78 78|||M:ADV|||відрази|||REQUIRED|||-NONE-|||1
+A 78 78|||Other|||відрази|||REQUIRED|||-NONE-|||1
 
 S Старий здавався вже о . Федору не винним і з вадами , а приниженим , ображеним , нещасним ; згадав благочинний його дружину , дев'ять дітей , брудні злиденні ліжка у Завкіна , згадав чомусь цих людей , п'яниць священників й недобросовісних начальників , і подумав , що найкраще , що міг би зробити зараз о . Анастасій - якогомога швидше померти , назавжди піти з цього світу .
 A 6 8|||Spelling|||невинним|||REQUIRED|||-NONE-|||0
@@ -5130,7 +5130,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Переклад https://en.wikipedia.org/wiki/The_Power_of_Habit, досить непоганий .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 1 2|||R:NOUN|||https://en.wikipedia.org/wiki/The_Power_of_Habit|||REQUIRED|||-NONE-|||1
+A 1 2|||Other|||https://en.wikipedia.org/wiki/The_Power_of_Habit|||REQUIRED|||-NONE-|||1
 A 2 2|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 
 S Зміст - опис нейрологічного циклу формування , закріплення та зміни звичок .
@@ -5268,7 +5268,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S " Ох , я вже дещо виріс з двадцятирічного віку "
 A 7 8|||Spelling|||із|||REQUIRED|||-NONE-|||0
-A 11 11|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 11 11|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 0 1|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 7 8|||Spelling|||із|||REQUIRED|||-NONE-|||1
 A 10 11|||Punctuation|||.|||REQUIRED|||-NONE-|||1
@@ -5291,7 +5291,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Ходімо , покажу тобі одне цікаве місце та згадаємо старі добрі часи "
-A 13 13|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 13 13|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 12 13|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Два чоловіки пішли вулицею під руку .
@@ -5336,7 +5336,7 @@ S В совенята десь на 12 відправимо дівчат .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A 0 0|||Spelling|||У|||REQUIRED|||-NONE-|||1
 A 0 2|||Spelling|||“ Совенята|||REQUIRED|||-NONE-|||1
-A 2 2|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 2 2|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 3 4|||G/Prep|||о|||REQUIRED|||-NONE-|||1
 A 5 6|||F/Style|||відведемо|||REQUIRED|||-NONE-|||1
 
@@ -5349,13 +5349,13 @@ A 4 6|||F/PoorFlow|||, також|||REQUIRED|||-NONE-|||1
 A 8 8|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 9 9|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 12 13|||Spelling|||“ Совенята|||REQUIRED|||-NONE-|||1
-A 13 13|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 13 13|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 
 S Щодо п'ятниці ще вирішемо в четвер
 A 3 4|||Spelling|||вирішимо|||REQUIRED|||-NONE-|||0
-A 6 6|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 6 6|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 3 4|||Spelling|||вирішимо|||REQUIRED|||-NONE-|||1
-A 6 6|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 6 6|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Привіт !
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -5379,8 +5379,8 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Проте у мене в голові поки що повна каша
-A 9 9|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
-A 9 9|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 9 9|||Punctuation|||.|||REQUIRED|||-NONE-|||0
+A 9 9|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S В школі нічого не зрозуміло , лякають що діти будуть через тиждень в школу ходити
 A 0 1|||Spelling|||У|||REQUIRED|||-NONE-|||0
@@ -5388,12 +5388,12 @@ A 7 7|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 12 13|||Spelling|||у|||REQUIRED|||-NONE-|||0
 A 0 1|||Spelling|||У|||REQUIRED|||-NONE-|||1
 A 7 7|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 15 15|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 15 15|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Так , всі батьки в шоці і висловлюють багато побажань ))
 A 2 3|||Spelling|||усі|||REQUIRED|||-NONE-|||0
 A 4 6|||F/PoorFlow|||шоковані|||REQUIRED|||-NONE-|||1
-A 10 11|||R:PUNCT|||)).|||REQUIRED|||-NONE-|||1
+A 10 11|||Punctuation|||)).|||REQUIRED|||-NONE-|||1
 
 S Спочатку у вівторок спитали як батькам краще , щоб діти ходили до школи через день чи через тиждень .
 A 4 4|||Punctuation|||,|||REQUIRED|||-NONE-|||0
@@ -5403,7 +5403,7 @@ A 7 8|||Punctuation|||:|||REQUIRED|||-NONE-|||1
 S Вчора написали що остаточне рішення через тиждень .
 A 2 2|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 2 2|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 5 5|||M:NOUN|||приймуть|||REQUIRED|||-NONE-|||1
+A 5 5|||Other|||приймуть|||REQUIRED|||-NONE-|||1
 
 S Вранці написали , що відміняється , діти кожного дня ходитимуть .
 A 4 5|||F/Calque|||скасовується|||REQUIRED|||-NONE-|||0
@@ -5432,20 +5432,20 @@ A 11 11|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 
 S Голова кругом йде ))
 A 1 2|||F/Calque||||||REQUIRED|||-NONE-|||0
-A 3 3|||M:NOUN|||обертом|||REQUIRED|||-NONE-|||0
+A 3 3|||Other|||обертом|||REQUIRED|||-NONE-|||0
 A 1 2|||F/Calque||||||REQUIRED|||-NONE-|||1
-A 3 3|||M:NOUN|||обертом|||REQUIRED|||-NONE-|||1
-A 3 4|||R:OTHER|||)).|||REQUIRED|||-NONE-|||1
+A 3 3|||Other|||обертом|||REQUIRED|||-NONE-|||1
+A 3 4|||Other|||)).|||REQUIRED|||-NONE-|||1
 
 S Це я все до того що будемо кооперуватись , але ще незрозуміло де і як ))
 A 5 5|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 12 12|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 5 5|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 15 16|||R:OTHER|||)).|||REQUIRED|||-NONE-|||1
+A 15 16|||Other|||)).|||REQUIRED|||-NONE-|||1
 
 S Ми ще не вирішили , йти чи ні , то вже якось вранці самі подивимось
-A 15 15|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
-A 15 15|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 15 15|||Punctuation|||.|||REQUIRED|||-NONE-|||0
+A 15 15|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Ольга Миколаївна , а чи є якась ясність що до того чи буде працювати ГПД ?
 A 0 1|||G/Case|||Ольго|||REQUIRED|||-NONE-|||0
@@ -5607,10 +5607,10 @@ A 1 2|||Spelling|||роз’їжджаєтеся|||REQUIRED|||-NONE-|||1
 
 S *склянка суниць у руці – + 10 до вашої чарівності і загадковості
 A 4 5|||Punctuation|||—|||REQUIRED|||-NONE-|||0
-A 0 1|||R:ORTH|||* Склянка|||REQUIRED|||-NONE-|||1
+A 0 1|||Other|||* Склянка|||REQUIRED|||-NONE-|||1
 A 4 5|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 10 11|||Spelling|||та|||REQUIRED|||-NONE-|||1
-A 12 12|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 12 12|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S # 0264
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -5618,7 +5618,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Петрівка
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 1 1|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 1 1|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 
 S або “ Петровская Аѕбука ”
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -5752,7 +5752,7 @@ A 9 10|||Spelling|||царства|||REQUIRED|||-NONE-|||0
 A 11 12|||F/PoorFlow|||від|||REQUIRED|||-NONE-|||0
 A 12 13|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
 A 14 16|||F/Calque|||Смутних|||REQUIRED|||-NONE-|||0
-A 16 16|||M:NOUN|||часів|||REQUIRED|||-NONE-|||0
+A 16 16|||Other|||часів|||REQUIRED|||-NONE-|||0
 A 18 19|||G/Number|||завершилися|||REQUIRED|||-NONE-|||0
 A 27 28|||F/Repetition|||закінчилася|||REQUIRED|||-NONE-|||0
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
@@ -5963,7 +5963,7 @@ A 1 2|||F/PoorFlow|||кілька разів|||REQUIRED|||-NONE-|||0
 A 2 4|||F/PoorFlow|||плеснув у долоні|||REQUIRED|||-NONE-|||0
 A 4 5|||F/PoorFlow|||.|||REQUIRED|||-NONE-|||0
 A 3 4|||F/Calque|||рухів|||REQUIRED|||-NONE-|||1
-A 5 5|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 5 5|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S - Тепер , - сказав я , - запалення пройшло .
 A 0 1|||Punctuation|||—|||REQUIRED|||-NONE-|||0
@@ -5988,11 +5988,11 @@ A 2 3|||F/PoorFlow|||сон|||REQUIRED|||-NONE-|||1
 
 S Ти не можеш більше тримати свої очі відкритимию
 A 7 8|||F/Collocation|||розплющеними|||REQUIRED|||-NONE-|||0
-A 8 8|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 8 8|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 0 1|||G/Number|||Ви|||REQUIRED|||-NONE-|||1
 A 2 3|||G/Number|||можете|||REQUIRED|||-NONE-|||1
 A 7 8|||F/Collocation|||розплющеними|||REQUIRED|||-NONE-|||1
-A 8 8|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 8 8|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S На тепер хвороба перевіряється .
 A 0 2|||F/PoorFlow|||зараз|||REQUIRED|||-NONE-|||0
@@ -6059,7 +6059,7 @@ A 6 7|||F/Style|||запитання|||REQUIRED|||-NONE-|||1
 A 19 20|||Spelling|||із|||REQUIRED|||-NONE-|||1
 
 S " Після того як лікар пішов Сью увійшла в майстерню й виплакала серветку вщент .
-A 0 1|||U:PUNCT||||||REQUIRED|||-NONE-|||0
+A 0 1|||Punctuation||||||REQUIRED|||-NONE-|||0
 A 6 6|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 11 12|||F/PoorFlow|||виплакалася в|||REQUIRED|||-NONE-|||0
 A 13 14|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
@@ -6089,7 +6089,7 @@ A 3 4|||G/Prep|||о|||REQUIRED|||-NONE-|||1
 A 4 5|||G/Prep|||другій|||REQUIRED|||-NONE-|||1
 A 5 5|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 7 8|||Spelling|||розберемося|||REQUIRED|||-NONE-|||1
-A 8 8|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 8 8|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Для дітей буде суп з фрікадельками .
 A 5 6|||Spelling|||фрикадельками|||REQUIRED|||-NONE-|||0
@@ -6116,7 +6116,7 @@ A 14 15|||Spelling|||у|||REQUIRED|||-NONE-|||0
 A 3 4|||Spelling|||у|||REQUIRED|||-NONE-|||1
 A 14 14|||Spelling|||у|||REQUIRED|||-NONE-|||1
 A 14 16|||Spelling|||“ Совенятах|||REQUIRED|||-NONE-|||1
-A 16 16|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 16 16|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 
 S Соня завтра йде в садок на Прорізній ?
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -6135,7 +6135,7 @@ A 6 6|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 
 S Забирати буду не раніше сьомої , тож приїдемо між 19 : 30 і 20 : 00
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 16 16|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 16 16|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S # 0274
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -6249,7 +6249,7 @@ A 38 39|||Punctuation||||||REQUIRED|||-NONE-|||0
 A 46 47|||Spelling|||не має|||REQUIRED|||-NONE-|||0
 A 57 58|||G/Case|||солодкого|||REQUIRED|||-NONE-|||0
 A 65 66|||F/Style|||бо|||REQUIRED|||-NONE-|||0
-A 79 79|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 79 79|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 16 16|||Punctuation|||;|||REQUIRED|||-NONE-|||1
 A 31 32|||Punctuation||||||REQUIRED|||-NONE-|||1
 A 33 33|||Punctuation|||;|||REQUIRED|||-NONE-|||1
@@ -6260,13 +6260,13 @@ A 57 58|||G/Case|||солодкого|||REQUIRED|||-NONE-|||1
 A 58 59|||Punctuation|||… ;|||REQUIRED|||-NONE-|||1
 A 66 66|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 78 79|||Spelling|||розібралися|||REQUIRED|||-NONE-|||1
-A 79 79|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 79 79|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Тож пізнаємо себе , а Сковорода нам в цьому допоможе : -)
 A 7 8|||Spelling|||у|||REQUIRED|||-NONE-|||0
 A 7 8|||Spelling|||у|||REQUIRED|||-NONE-|||1
-A 10 11|||R:PUNCT|||.|||REQUIRED|||-NONE-|||1
-A 11 12|||R:OTHER|||:-)|||REQUIRED|||-NONE-|||1
+A 10 11|||Punctuation|||.|||REQUIRED|||-NONE-|||1
+A 11 12|||Other|||:-)|||REQUIRED|||-NONE-|||1
 
 S # 0278
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -6328,7 +6328,7 @@ A 6 7|||F/Style|||святкування|||REQUIRED|||-NONE-|||1
 S Та виключенням є Різдво .
 A 1 2|||F/Calque|||винятком|||REQUIRED|||-NONE-|||0
 A 0 3|||F/PoorFlow||||||REQUIRED|||-NONE-|||1
-A 4 4|||M:OTHER|||— виняток|||REQUIRED|||-NONE-|||1
+A 4 4|||Other|||— виняток|||REQUIRED|||-NONE-|||1
 
 S Спочатку ставимо ялинку ...
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -6421,7 +6421,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 S Проте різниця між знанням сьогодні і тим , чим воно було в ХХ ст . приблизно така сама , як між ХХ ст й епохою середньовіччя .
 A 15 15|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 15 15|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 23 23|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 23 23|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 A 25 26|||Spelling|||Середньовіччя|||REQUIRED|||-NONE-|||1
 
 S В другій половині 90-х років ХХ століття було підраховано , що доступний людству обсяг інформації подвоюється кожні 5 років .
@@ -6596,9 +6596,9 @@ A 21 23|||F/PoorFlow|||сходами|||REQUIRED|||-NONE-|||1
 
 S " Це Хамбук ! " , — сказав Скрудж
 A 5 6|||Punctuation||||||REQUIRED|||-NONE-|||0
-A 9 9|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 9 9|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 5 6|||Punctuation||||||REQUIRED|||-NONE-|||1
-A 9 9|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 9 9|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S # 0291
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -6671,10 +6671,10 @@ S Думаю в них якийсь проект горить
 A 0 1|||F/Style|||Гадаю|||REQUIRED|||-NONE-|||0
 A 1 1|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 4 5|||Spelling|||проєкт|||REQUIRED|||-NONE-|||0
-A 6 6|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 6 6|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 1 1|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 4 5|||Spelling|||проєкт|||REQUIRED|||-NONE-|||1
-A 6 6|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 6 6|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S День 4
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -6939,7 +6939,7 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S Подали заявку
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 2 2|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 2 2|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Далі буде ...
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -7054,7 +7054,7 @@ A 2 3|||Punctuation||||||REQUIRED|||-NONE-|||1
 S Додому , навіки і віки .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
 A 1 4|||F/Collocation|||на|||REQUIRED|||-NONE-|||1
-A 5 5|||M:NOUN|||вічні|||REQUIRED|||-NONE-|||1
+A 5 5|||Other|||вічні|||REQUIRED|||-NONE-|||1
 
 S Батько зараз значно добріший , ніж він був раніше , цей дім немов Рай !
 A 12 12|||Punctuation|||,|||REQUIRED|||-NONE-|||0
@@ -7079,11 +7079,11 @@ A 33 33|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 A 34 34|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 35 36|||F/Style|||посадив|||REQUIRED|||-NONE-|||1
 
-S І тобі бути чоловіком ! " - сказала дитина , розпоющивши очі - " і ніколи не повернешся сюди , але спершу , ми будем разом усе Різдво , і матимемо найвеселіший час у всьому світі .
+S І тобі бути чоловіком ! " - сказала дитина , розпоющивши очі - " і ніколи не повернешся сюди , але спершу , ми будем разом усе Різдво , і матимемо найвеселіший час у всьому світі . "
 A 5 7|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 10 11|||Spelling|||розплющивши|||REQUIRED|||-NONE-|||0
 A 12 14|||Punctuation|||—|||REQUIRED|||-NONE-|||0
-A 36 36|||Punctuation|||"|||REQUIRED|||-NONE-|||0
+A 36 38|||Punctuation|||" .|||REQUIRED|||-NONE-|||0
 A 1 2|||F/PoorFlow|||ти|||REQUIRED|||-NONE-|||1
 A 2 3|||F/PoorFlow|||будеш|||REQUIRED|||-NONE-|||1
 A 5 7|||Punctuation|||—|||REQUIRED|||-NONE-|||1
@@ -7093,6 +7093,7 @@ A 13 14|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 22 23|||Punctuation||||||REQUIRED|||-NONE-|||1
 A 29 31|||F/Calque|||проведемо|||REQUIRED|||-NONE-|||1
 A 31 32|||G/UngrammaticalStructure|||найвеселіше|||REQUIRED|||-NONE-|||1
+A 37 38|||Punctuation||||||REQUIRED|||-NONE-|||1
 
 S # 0305
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -7167,7 +7168,7 @@ A 10 11|||G/UngrammaticalStructure|||іподромом|||REQUIRED|||-NONE-|||0
 A 18 19|||Spelling|||злочинцям|||REQUIRED|||-NONE-|||0
 A 10 11|||Spelling|||гіподромом|||REQUIRED|||-NONE-|||1
 A 18 19|||Spelling|||злочинцям|||REQUIRED|||-NONE-|||1
-A 19 19|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 19 19|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S # 0317
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -7207,7 +7208,7 @@ A 12 12|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 23 23|||Punctuation|||“|||REQUIRED|||-NONE-|||1
 A 23 24|||Punctuation|||брати|||REQUIRED|||-NONE-|||1
 A 24 25|||Punctuation|||”|||REQUIRED|||-NONE-|||1
-A 28 28|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 28 28|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S Нас не навчили , напевно тому , що й самі не знають як ?!
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -7230,9 +7231,9 @@ A 3 4|||Spelling|||практикували|||REQUIRED|||-NONE-|||1
 S Вагомий аргумент щоб почати , # логічно ? :)🧘‍♀️🧘‍♂️
 A 2 2|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 5 6|||Punctuation||||||REQUIRED|||-NONE-|||0
-A 8 9|||R:ORTH|||:) 🧘‍♀️🧘‍♂️|||REQUIRED|||-NONE-|||0
+A 8 9|||Other|||:) 🧘‍♀️🧘‍♂️|||REQUIRED|||-NONE-|||0
 A 2 2|||Punctuation|||,|||REQUIRED|||-NONE-|||1
-A 8 9|||R:ORTH|||:) 🧘‍♀️🧘‍♂️|||REQUIRED|||-NONE-|||1
+A 8 9|||Other|||:) 🧘‍♀️🧘‍♂️|||REQUIRED|||-NONE-|||1
 
 S - А які Ви знаєте , перевірені часом знання та практики по розвитку себе як людини ?
 A 0 1|||Punctuation||||||REQUIRED|||-NONE-|||0
@@ -7257,7 +7258,7 @@ S І не лише в буквальному сенсі градусів на т
 A 13 14|||Spelling|||стовпчик|||REQUIRED|||-NONE-|||0
 A 14 15|||F/Style|||піднімається|||REQUIRED|||-NONE-|||0
 A 13 14|||Spelling|||стовпчик|||REQUIRED|||-NONE-|||1
-A 16 16|||M:OTHER|||40|||REQUIRED|||-NONE-|||1
+A 16 16|||Other|||40|||REQUIRED|||-NONE-|||1
 A 16 16|||Spelling|||°|||REQUIRED|||-NONE-|||1
 A 16 17|||Spelling|||С|||REQUIRED|||-NONE-|||1
 
@@ -7518,11 +7519,11 @@ A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 S Так , це можливо , так само , як ми можемо – і мусимо – будувати вогне - , водо - стійкі та вітрозахисні будинки .
 A 11 12|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 14 15|||Punctuation|||—|||REQUIRED|||-NONE-|||0
-A 16 18|||R:ORTH|||вогне-|||REQUIRED|||-NONE-|||0
+A 16 18|||Other|||вогне-|||REQUIRED|||-NONE-|||0
 A 19 22|||Spelling|||водостійкі|||REQUIRED|||-NONE-|||0
 A 11 12|||Punctuation||||||REQUIRED|||-NONE-|||1
 A 14 15|||Punctuation||||||REQUIRED|||-NONE-|||1
-A 16 18|||R:ORTH|||вогне-|||REQUIRED|||-NONE-|||1
+A 16 18|||Other|||вогне-|||REQUIRED|||-NONE-|||1
 A 19 22|||Spelling|||водостійкі|||REQUIRED|||-NONE-|||1
 
 S Це лише початок .
@@ -7573,7 +7574,7 @@ A 12 17|||F/PoorFlow|||. 3|||REQUIRED|||-NONE-|||1
 
 S 3 . Сільські пожежні частини не повинні просити пожертви .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 0 2|||U:OTHER||||||REQUIRED|||-NONE-|||1
+A 0 2|||Other||||||REQUIRED|||-NONE-|||1
 
 S Вони є державними установами і повинні фінансуватися державою .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -7820,7 +7821,7 @@ A 1 2|||G/Prep|||за|||REQUIRED|||-NONE-|||1
 A 10 11|||F/PoorFlow|||йшов по|||REQUIRED|||-NONE-|||1
 A 11 12|||F/PoorFlow|||доріжці|||REQUIRED|||-NONE-|||1
 A 13 16|||F/PoorFlow|||що вигиналась колом біля|||REQUIRED|||-NONE-|||1
-A 16 16|||M:NOUN|||кущів|||REQUIRED|||-NONE-|||1
+A 16 16|||Other|||кущів|||REQUIRED|||-NONE-|||1
 
 S Найт раптово дістав револьвер та вистрілив у чоловіка позаду .
 A 8 9|||F/Style|||ззаду|||REQUIRED|||-NONE-|||0
@@ -7919,10 +7920,10 @@ A 50 51|||F/PoorFlow||||||REQUIRED|||-NONE-|||0
 A 51 52|||F/PoorFlow|||з|||REQUIRED|||-NONE-|||0
 A 52 53|||F/PoorFlow|||кількома|||REQUIRED|||-NONE-|||0
 A 53 54|||F/PoorFlow|||механізмами|||REQUIRED|||-NONE-|||0
-A 1 1|||M:PUNCT|||,|||REQUIRED|||-NONE-|||1
+A 1 1|||Punctuation|||,|||REQUIRED|||-NONE-|||1
 A 1 1|||Punctuation|||Бог|||REQUIRED|||-NONE-|||1
 A 1 2|||Punctuation|||чи|||REQUIRED|||-NONE-|||1
-A 2 3|||R:OTHER|||інша|||REQUIRED|||-NONE-|||1
+A 2 3|||Other|||інша|||REQUIRED|||-NONE-|||1
 A 35 36|||Punctuation||||||REQUIRED|||-NONE-|||1
 
 S ( Впевнена , що йтимуть роки і постійно відкриватимуться якісь нові особливості людського організму ) .
@@ -8024,7 +8025,7 @@ A 18 18|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 
 S Для цього
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 2 2|||M:PUNCT|||::|||REQUIRED|||-NONE-|||1
+A 2 2|||Punctuation|||::|||REQUIRED|||-NONE-|||1
 
 S прискорюється обмін речовин – виділяється більше енергії для клітин ,
 A 3 4|||Punctuation|||—|||REQUIRED|||-NONE-|||0
@@ -8110,7 +8111,7 @@ A 14 15|||Spelling|||усі|||REQUIRED|||-NONE-|||1
 S І для нормалізації потрібно створювати належні умови для УСЬОГО організму .
 A 1 2|||F/PoorFlow|||щоб нормалізувати|||REQUIRED|||-NONE-|||0
 A 2 3|||F/PoorFlow|||це|||REQUIRED|||-NONE-|||0
-A 3 3|||M:PUNCT|||,|||REQUIRED|||-NONE-|||0
+A 3 3|||Punctuation|||,|||REQUIRED|||-NONE-|||0
 A 8 9|||Spelling|||ВСЬОГО|||REQUIRED|||-NONE-|||0
 A 8 9|||Spelling|||всього|||REQUIRED|||-NONE-|||1
 
@@ -8182,7 +8183,7 @@ A 14 15|||G/Prep||||||REQUIRED|||-NONE-|||1
 A 15 16|||G/Prep|||за|||REQUIRED|||-NONE-|||1
 A 16 17|||G/Prep|||іменем|||REQUIRED|||-NONE-|||1
 A 19 20|||Spelling|||Netflix|||REQUIRED|||-NONE-|||1
-A 21 24|||R:ORTH|||https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey),|||REQUIRED|||-NONE-|||1
+A 21 24|||Other|||https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey),|||REQUIRED|||-NONE-|||1
 A 30 31|||Punctuation||||||REQUIRED|||-NONE-|||1
 A 33 35|||F/PoorFlow|||роботи|||REQUIRED|||-NONE-|||1
 
@@ -8280,7 +8281,7 @@ A 20 21|||F/Calque|||Степана|||REQUIRED|||-NONE-|||1
 A 21 22|||G/Prep|||на|||REQUIRED|||-NONE-|||1
 
 S Згадалося навіть , як наймали цей таксомотор у " Метрополя " , був це при цьому якийсь актор не актор ... с патефоном у валізі .
-A 18 18|||M:PUNCT|||-|||REQUIRED|||-NONE-|||0
+A 18 18|||Punctuation|||-|||REQUIRED|||-NONE-|||0
 A 21 22|||Spelling|||з|||REQUIRED|||-NONE-|||0
 A 7 8|||G/Prep|||біля|||REQUIRED|||-NONE-|||1
 A 8 9|||G/Prep|||“|||REQUIRED|||-NONE-|||1
@@ -8324,12 +8325,12 @@ A 12 13|||G/UngrammaticalStructure||||||REQUIRED|||-NONE-|||1
 A 14 14|||Punctuation|||)|||REQUIRED|||-NONE-|||1
 
 S ? ) . Досить грунтовне дослідження /
-A 0 3|||U:OTHER||||||REQUIRED|||-NONE-|||0
+A 0 3|||Other||||||REQUIRED|||-NONE-|||0
 A 4 5|||Spelling|||ґрунтовне|||REQUIRED|||-NONE-|||0
 A 6 7|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 0 1|||Punctuation||||||REQUIRED|||-NONE-|||1
-A 1 2|||U:PUNCT||||||REQUIRED|||-NONE-|||1
-A 2 3|||U:PUNCT||||||REQUIRED|||-NONE-|||1
+A 1 2|||Punctuation||||||REQUIRED|||-NONE-|||1
+A 2 3|||Punctuation||||||REQUIRED|||-NONE-|||1
 A 3 4|||F/Style|||Доволі|||REQUIRED|||-NONE-|||1
 A 4 5|||Spelling|||ґрунтовне|||REQUIRED|||-NONE-|||1
 A 6 7|||Punctuation|||.|||REQUIRED|||-NONE-|||1
@@ -8536,11 +8537,11 @@ A 0 1|||F/PoorFlow|||У|||REQUIRED|||-NONE-|||0
 A 1 2|||F/PoorFlow|||виші|||REQUIRED|||-NONE-|||0
 A 4 4|||Punctuation|||"|||REQUIRED|||-NONE-|||0
 A 4 5|||Punctuation|||компанії|||REQUIRED|||-NONE-|||0
-A 5 5|||M:PUNCT|||"|||REQUIRED|||-NONE-|||0
+A 5 5|||Punctuation|||"|||REQUIRED|||-NONE-|||0
 A 2 4|||G/Tense|||намагалися бути в|||REQUIRED|||-NONE-|||1
 A 4 4|||Punctuation|||“|||REQUIRED|||-NONE-|||1
 A 4 5|||Punctuation|||компанії|||REQUIRED|||-NONE-|||1
-A 5 5|||M:PUNCT|||”|||REQUIRED|||-NONE-|||1
+A 5 5|||Punctuation|||”|||REQUIRED|||-NONE-|||1
 
 S А на роботі , все вищезазначене лише заважає у досягненні успіху .
 A 3 4|||Punctuation||||||REQUIRED|||-NONE-|||0
@@ -8667,7 +8668,7 @@ A 20 21|||F/Style|||:|||REQUIRED|||-NONE-|||1
 
 S Вартість : 90 грн ( МК , транспортні витрати ) .
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
-A 5 5|||M:NOUN|||майстер|||REQUIRED|||-NONE-|||1
+A 5 5|||Other|||майстер|||REQUIRED|||-NONE-|||1
 A 5 5|||F/Style|||-|||REQUIRED|||-NONE-|||1
 A 5 6|||F/Style|||клас|||REQUIRED|||-NONE-|||1
 
@@ -8775,9 +8776,9 @@ A 12 13|||Spelling||||||REQUIRED|||-NONE-|||1
 A 13 14|||F/Repetition||||||REQUIRED|||-NONE-|||1
 
 S Будь ласка , дивіться урок - презентацію у різних форматах у додатку , а також за цим посиланням ( відео )
-A 21 21|||M:PUNCT|||.|||REQUIRED|||-NONE-|||0
+A 21 21|||Punctuation|||.|||REQUIRED|||-NONE-|||0
 A 7 8|||Spelling|||в|||REQUIRED|||-NONE-|||1
-A 21 21|||M:PUNCT|||.|||REQUIRED|||-NONE-|||1
+A 21 21|||Punctuation|||.|||REQUIRED|||-NONE-|||1
 
 S # 0407
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0
@@ -8860,7 +8861,7 @@ A 10 10|||Punctuation|||"|||REQUIRED|||-NONE-|||0
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||1
 
 S " " І не зможете " , -- поспівчував я йому .
-A 0 1|||U:PUNCT||||||REQUIRED|||-NONE-|||0
+A 0 1|||Punctuation||||||REQUIRED|||-NONE-|||0
 A 7 8|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 0 2|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 A 5 6|||Punctuation||||||REQUIRED|||-NONE-|||1
@@ -8875,11 +8876,12 @@ S - - Можу вештатися туди й сюди Бродвеєм ціли
 A 0 2|||Punctuation|||—|||REQUIRED|||-NONE-|||0
 A 0 2|||Punctuation|||—|||REQUIRED|||-NONE-|||1
 
-S Але ви заділи мою гордість , докторе ; і , якщо я не знайду вам Шемрока Джольнса сьогодні , обіцяю , що я більше ніколи не вбиватиму і не грабуватиму в вашому місті .
+S Але ви заділи мою гордість , докторе ; і , якщо я не знайду вам Шемрока Джольнса сьогодні , обіцяю , що я більше ніколи не вбиватиму і не грабуватиму в вашому місті . "
 A 2 3|||F/Calque|||зачепили|||REQUIRED|||-NONE-|||0
-A 33 33|||Punctuation|||"|||REQUIRED|||-NONE-|||0
+A 33 35|||Punctuation|||" .|||REQUIRED|||-NONE-|||0
 A 2 3|||F/Calque|||зачепили|||REQUIRED|||-NONE-|||1
 A 9 10|||Punctuation||||||REQUIRED|||-NONE-|||1
+A 34 35|||Punctuation||||||REQUIRED|||-NONE-|||1
 
 S # 0430
 A -1 -1|||noop|||-NONE-|||REQUIRED|||-NONE-|||0

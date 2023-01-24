@@ -5,6 +5,17 @@ in Grammatical Error Correction for Ukrainian.
 
 ## Updates
 
+
+**2023-01-24**:
+
+* Remove some fluency edits in gec-only
+
+* Fix some error types in .m2 files
+
+* Fix sentence alignment in some rare cases
+
+* Add valid.tgt.{txt,tok}
+
 **2023-01-17**:
 
 * Numerous fixes in whitespace before/after punctuation -- contributed by @danmysak
