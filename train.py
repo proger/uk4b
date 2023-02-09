@@ -32,39 +32,39 @@ from model import GPTConfig, GPT
 # -----------------------------------------------------------------------------
 # default config values designed to train a gpt2 (124M) on OpenWebText
 # I/O
-out_dir = 'out'
-eval_interval = 2000
-log_interval = 1
+out_dir = 'exp/uk4b_medium'
+eval_interval = 100
+log_interval = 1 # as many as grad acc steps
 eval_iters = 200
 eval_only = False # if True, script exits right after the first eval
 always_save_checkpoint = True # if True, always save a checkpoint after each eval
 init_from = 'scratch' # 'scratch' or 'resume' or 'gpt2*'
 # wandb logging
-wandb_log = False # disabled by default
-wandb_project = 'owt'
-wandb_run_name = 'gpt2' # 'run' + str(time.time())
+wandb_log = True # disabled by default
+wandb_project = 'uk4b'
+wandb_run_name = 'medium' # 'run' + str(time.time())
 # data
-dataset = 'openwebtext'
-gradient_accumulation_steps = 1 # used to simulate larger batch sizes
-batch_size = 12 # if gradient_accumulation_steps > 1, this is the micro-batch size
+dataset = 'uk4b'
+gradient_accumulation_steps = 64 # used to simulate larger batch sizes
+batch_size = 8 # if gradient_accumulation_steps > 1, this is the micro-batch size
 block_size = 1024
 # model
-n_layer = 12
-n_head = 12
-n_embd = 768
+n_layer = 24
+n_head = 16
+n_embd = 1024
 dropout = 0.0 # for pretraining 0 is good, for finetuning try 0.1+
 bias = False # do we use bias inside LayerNorm and Linear layers?
 # adamw optimizer
 learning_rate = 6e-4 # max learning rate
-max_iters = 600000 # total number of training iterations
+max_iters = 13100 # total number of training iterations
 weight_decay = 1e-2
 beta1 = 0.9
 beta2 = 0.95
 grad_clip = 1.0 # clip gradients at this value, or disable if == 0.0
 # learning rate decay settings
 decay_lr = True # whether to decay the learning rate
-warmup_iters = 2000 # how many steps to warm up for
-lr_decay_iters = 600000 # should be ~= max_iters per Chinchilla
+warmup_iters = 1000 # how many steps to warm up for
+lr_decay_iters = 13100 # should be ~= max_iters per Chinchilla
 min_lr = 6e-5 # minimum learning rate, should be ~= learning_rate/10 per Chinchilla
 # DDP settings
 backend = 'nccl' # 'nccl', 'gloo', etc.
@@ -255,20 +255,24 @@ while True:
                 "val/loss": losses['val'],
                 "lr": lr,
             })
-        if losses['val'] < best_val_loss or always_save_checkpoint:
-            best_val_loss = losses['val']
-            raw_model = model.module if ddp else model
-            if iter_num > 0:
-                checkpoint = {
-                    'model': raw_model.state_dict(),
-                    'optimizer': optimizer.state_dict(),
-                    'model_args': model_args,
-                    'iter_num': iter_num,
-                    'best_val_loss': best_val_loss,
-                    'config': config,
-                }
-                print(f"saving checkpoint to {out_dir}")
-                torch.save(checkpoint, os.path.join(out_dir, 'ckpt.pt'))
+        if not math.isnan(losses['val']):
+            if losses['val'] < best_val_loss or always_save_checkpoint:
+                best_val_loss = losses['val']
+                raw_model = model.module if ddp else model
+                if iter_num > 0:
+                    checkpoint = {
+                        'model': raw_model.state_dict(),
+                        'optimizer': optimizer.state_dict(),
+                        'model_args': model_args,
+                        'iter_num': iter_num,
+                        'best_val_loss': best_val_loss,
+                        'config': config,
+                    }
+                    print(f"saving checkpoint to {out_dir}")
+                    torch.save(checkpoint, os.path.join(out_dir, 'ckpt.pt'))
+        else:
+            print("NaN loss detected")
+            break
     if iter_num == 0 and eval_only:
         break
 
@@ -286,7 +290,12 @@ while True:
         # immediately async prefetch next batch while model is doing the forward pass on the GPU
         X, Y = get_batch('train')
         # backward pass, with gradient scaling if training in fp16
+        if torch.isnan(loss):
+            break
         scaler.scale(loss).backward()
+    if torch.isnan(loss):
+        print("loss is NaN, skipping this update")
+        continue
     # clip the gradient
     if grad_clip != 0.0:
         scaler.unscale_(optimizer)
