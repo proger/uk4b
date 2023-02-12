@@ -33,7 +33,8 @@ from lora import lora_find_and_replace, mark_only_lora_as_trainable, gpt2_peft_c
 # -----------------------------------------------------------------------------
 # default config values designed to train a gpt2 (124M) on OpenWebText
 # I/O
-out_dir = 'exp/gec_medium'
+init = Path.home() / 'gpt/exp/uk4b_medium/ckpt.pt'
+ckpt_path = 'exp/gec_medium/ckpt.pt'
 eval_interval = 1000
 log_interval = 1 # as many as grad acc steps
 eval_iters = 200
@@ -95,7 +96,7 @@ else:
     seed_offset = 0
 
 if master_process:
-    os.makedirs(out_dir, exist_ok=True)
+    Path(ckpt_path).parent.mkdir(parents=True, exist_ok=True)
 torch.manual_seed(1337 + seed_offset)
 torch.backends.cuda.matmul.allow_tf32 = True # allow tf32 on matmul
 torch.backends.cudnn.allow_tf32 = True # allow tf32 on cudnn
@@ -129,8 +130,7 @@ model_args = dict(n_layer=n_layer, n_head=n_head, n_embd=n_embd, block_size=bloc
 
 print(f"Resuming training from a checkpoint")
 # resume training from a checkpoint.
-ckpt_path = os.path.join(out_dir, 'ckpt.pt')
-checkpoint = torch.load(Path.home() / 'gpt/exp/uk4b_medium/ckpt.pt', map_location=device)
+checkpoint = torch.load(init, map_location=device)
 checkpoint_model_args = checkpoint['model_args']
 # force these config attributes to be equal otherwise we can't even resume training
 # the rest of the attributes (e.g. dropout) can stay as desired from command line
@@ -245,8 +245,8 @@ while True:
                         'best_val_loss': best_val_loss,
                         'config': config,
                     }
-                    print(f"saving checkpoint to {out_dir}")
-                    torch.save(checkpoint, os.path.join(out_dir, 'ckpt.pt'))
+                    print(f"saving checkpoint to {ckpt_path}")
+                    torch.save(checkpoint, ckpt_path)
         else:
             print("NaN loss detected")
             break

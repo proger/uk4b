@@ -12,8 +12,10 @@ gec-fluency.%.txt: data/gec-fluency/%.m2 data/gec-fluency/%.src.txt data/gec-flu
 pos_train_wiki.bin pos_valid_wiki.bin:
 	python -m prepare --name pos --train data/udpos/train.gpt2.txt --valid data/udpos/dev.gpt2.txt
 
+INIT=$(HOME)/gpt/exp/uk4b_medium/ckpt.pt
+
 exp/gec_medium/ckpt.pt: gec_train_wiki.bin gec_valid_wiki.bin
-	python -m train --compile=False --train_bin=gec_train_wiki.bin --valid_bin=gec_valid_wiki.bin --wand_run_name=gec
+	python -m train --compile=False --train_bin=gec_train_wiki.bin --valid_bin=gec_valid_wiki.bin --wand_run_name=gec --ckpt_path=$@ --init=$(INIT)
 
 exp/pos_medium/ckpt.pt: pos_train_wiki.bin pos_valid_wiki.bin
-	python -m train --compile=False --train_bin=pos_train_wiki.bin --valid_bin=pos_valid_wiki.bin --wandb_run_name=pos
+	python -m train --compile=False --train_bin=pos_train_wiki.bin --valid_bin=pos_valid_wiki.bin --wandb_run_name=pos --ckpt_path=$@ --init=$(INIT)
