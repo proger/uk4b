@@ -1,4 +1,5 @@
 import argparse
+import stanza
 
 parser = argparse.ArgumentParser("convert m2 into instruction format")
 parser.add_argument('m2')
@@ -14,6 +15,13 @@ current_version = "0"
 ops = []
 skip = False
 
+
+def tokenize(text: str) -> list[str]:
+    if not hasattr(tokenize, "nlp"):
+        tokenize.nlp = stanza.Pipeline(lang="uk", processors="tokenize")
+    nlp = tokenize.nlp
+    return [t for t in nlp(text).iter_tokens()]
+
 class Replace:
     def __init__(self, error, hyp, ref):
         self.error = error
@@ -23,35 +31,39 @@ class Replace:
     def __str__(self):
         return f"- корегувати {self.error}: {self.hyp} → {self.ref}"
 
+
 class Insert:
-    def __init__(self, error, ref):
+    def __init__(self, error, ctx, ref):
         self.error = error
         self.ref = ref
-        
+        self.ctx = ctx
+
     def __str__(self):
-        return f"- додати {self.error}: {self.ref}"
+        return f"- додати {self.error} після {self.ctx}: {self.ref}"
+
 
 class Delete:
-    def __init__(self, error, hyp):
+    def __init__(self, error, ctx, hyp):
         self.error = error
         self.hyp = hyp
-        
+        self.ctx = ctx
+
     def __str__(self):
-        return f"- забрати {self.error}: {self.hyp}"
+        return f"- забрати {self.error} після {self.ctx}: {self.hyp}"
+
 
 def flush():
     print("речення:", src)
     print("проаналізуй:")
-    if ops:
-        for op in ops:
-            print(op)
-    else:
-        print("- чудово")
+    for op in ops:
+        print(op)
+    print("- чудово")
     ops.clear()
     print("перепиши:", tgt)
     print()
     global current_version
     current_version = "0"
+
 
 for command in m2:
     command = command.rstrip()
@@ -64,7 +76,8 @@ for command in m2:
                 skip = False
         case "S":
             src = next(srcfile).strip()
-            srctok  = command[1:].split()
+            srctok = tokenize(src)
+            srctok1 = command[1:].strip().split()
             tgt = next(tgtfile).strip()
             if src[:1] == "#":
                 skip = True
@@ -82,10 +95,21 @@ for command in m2:
                 flush()
                 current_version = version
 
-            s = srctok[start:end]
-            if not s:
-                ops.append(Insert(error, t))
-            elif not t:
-                ops.append(Delete(error, ' '.join(s)))
+            toks = srctok[start:end]
+            pre = srctok[start-1:start]
+            if toks:
+                s = src[toks[0].start_char:toks[-1].end_char]
             else:
-                ops.append(Replace(error, ' '.join(s), t))
+                s = ""
+
+            if pre:
+                ctx = src[pre[0].start_char:pre[-1].end_char]
+            else:
+                ctx = ""
+
+            if not s:
+                ops.append(Insert(error, ctx, t))
+            elif not t:
+                ops.append(Delete(error, ctx, s))
+            else:
+                ops.append(Replace(error, s, t))
