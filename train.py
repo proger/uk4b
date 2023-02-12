@@ -19,7 +19,6 @@ $ torchrun --nproc_per_node=8 --nnodes=2 --node_rank=1 --master_addr=123.456.123
 import os
 import time
 import math
-import pickle
 from pathlib import Path
 from contextlib import nullcontext
 
@@ -29,7 +28,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.distributed import init_process_group, destroy_process_group
 
 from model import GPTConfig, GPT
-from peft import get_peft_model, LoraConfig, TaskType
+from lora import lora_find_and_replace, mark_only_lora_as_trainable, gpt2_peft_config, print_trainable_parameters
 
 # -----------------------------------------------------------------------------
 # default config values designed to train a gpt2 (124M) on OpenWebText
@@ -156,15 +155,9 @@ if block_size < model.config.block_size:
 # initialize a GradScaler. If enabled=False scaler is a no-op
 scaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16'))
 
-model.prepare_inputs_for_generation = lambda *x: None
-
-peft_config = LoraConfig(
-    task_type=TaskType.CAUSAL_LM, inference_mode=False, r=4, lora_alpha=32, lora_dropout=0.1,
-    target_modules=["c_attn"]
-)
-
-model = get_peft_model(model, peft_config)
-model.print_trainable_parameters()
+lora_find_and_replace(model, gpt2_peft_config)
+mark_only_lora_as_trainable(model, gpt2_peft_config.bias)
+print_trainable_parameters(model)
 model.to(device)
 
 # optimizer
