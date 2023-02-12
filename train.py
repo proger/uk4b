@@ -33,7 +33,7 @@ from lora import lora_find_and_replace, mark_only_lora_as_trainable, gpt2_peft_c
 # -----------------------------------------------------------------------------
 # default config values designed to train a gpt2 (124M) on OpenWebText
 # I/O
-init = Path.home() / 'gpt/exp/uk4b_medium/ckpt.pt'
+init = str(Path.home() / 'gpt/exp/uk4b_medium/ckpt.pt')
 ckpt_path = 'exp/gec_medium/ckpt.pt'
 eval_interval = 1000
 log_interval = 1 # as many as grad acc steps
