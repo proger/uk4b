@@ -1,4 +1,5 @@
-INIT=$(HOME)/gpt/exp/uk4b_medium/ckpt.pt
+# INIT=$(HOME)/gpt/exp/uk4b_medium/ckpt.pt
+INIT=/data/gpt2/uk4b/exp/uk4b_small/ckpt.pt
 
 all: pos_train_wiki.bin pos_valid_wiki.bin gec_train_wiki.bin gec_valid_wiki.bin
 
@@ -34,7 +35,20 @@ pos_train_wiki.bin pos_valid_wiki.bin:
 exp/pos_medium/ckpt.pt: pos_train_wiki.bin pos_valid_wiki.bin
 	python -m train --compile=False --train_bin=pos_train_wiki.bin --valid_bin=pos_valid_wiki.bin --wandb_run_name=pos --ckpt_path=$@ --init=$(INIT)
 
+#
+# ner
+# 
 
+exp/ner/train.bin: data/ner/train.gpt2.txt
+	python -m prepare1 $^ $@
+
+exp/ner/valid.bin: data/ner/test.gpt2.txt
+	python -m prepare1 $^ $@
+
+exp/ner/ckpt.pt: exp/ner/train.bin exp/ner/valid.bin
+	python -m train --compile=False --train_bin=exp/ner/train.bin --valid_bin=exp/ner/valid.bin --wandb_run_name=ner_small --ckpt_path=$@ --init=$(INIT)
+
+#
 #
 # spelling
 #
@@ -55,3 +69,4 @@ exp/spell/ckpt.pt: exp/spell/train.bin exp/spell/valid.bin
 	python -m train --compile=False --train_bin=exp/spell/train.bin --valid_bin=exp/spell/valid.bin --wandb_run_name=spell --ckpt_path=$@ --init=$(INIT)
 
 spell: exp/spell/ckpt.pt
+
