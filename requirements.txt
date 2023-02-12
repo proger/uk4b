@@ -6,3 +6,4 @@ peft==0.1.0
 sentencepiece
 termcolor
 # you also need nightly pytorch
+datasets
