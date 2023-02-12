@@ -39,7 +39,6 @@ log_interval = 1 # as many as grad acc steps
 eval_iters = 200
 eval_only = False # if True, script exits right after the first eval
 always_save_checkpoint = True # if True, always save a checkpoint after each eval
-init_from = 'scratch' # 'scratch' or 'resume' or 'gpt2*'
 # wandb logging
 wandb_log = True # disabled by default
 wandb_project = 'gecbot'
@@ -48,6 +47,8 @@ wandb_run_name = 'lora' # 'run' + str(time.time())
 gradient_accumulation_steps = 2 # used to simulate larger batch sizes
 batch_size = 4 # if gradient_accumulation_steps > 1, this is the micro-batch size
 block_size = 1024
+train_bin = 'gec_train_wiki.bin'
+valid_bin = 'gec_valid_wiki.bin'
 # model
 n_layer = 24
 n_head = 16
@@ -64,7 +65,7 @@ grad_clip = 1.0 # clip gradients at this value, or disable if == 0.0
 # learning rate decay settings
 decay_lr = True # whether to decay the learning rate
 warmup_iters = 500 # how many steps to warm up for
-lr_decay_iters = 1100*5 # should be ~= max_iters per Chinchilla
+lr_decay_iters = max_iters # should be ~= max_iters per Chinchilla
 min_lr = 6e-5 # minimum learning rate, should be ~= learning_rate/10 per Chinchilla
 # DDP settings
 backend = 'nccl' # 'nccl', 'gloo', etc.
@@ -104,8 +105,8 @@ ptdtype = {'float32': torch.float32, 'bfloat16': torch.bfloat16, 'float16': torc
 ctx = nullcontext() if device_type == 'cpu' else torch.amp.autocast(device_type=device_type, dtype=ptdtype)
 
 # poor man's data loader
-train_data = np.memmap('gec_train_wiki.bin', dtype=np.uint16, mode='r')
-val_data = np.memmap('gec_val_wiki.bin', dtype=np.uint16, mode='r')
+train_data = np.memmap(train_bin, dtype=np.uint16, mode='r')
+val_data = np.memmap(valid_bin, dtype=np.uint16, mode='r')
 def get_batch(split):
     data = train_data if split == 'train' else val_data
     ix = torch.randint(len(data) - block_size, (batch_size,))

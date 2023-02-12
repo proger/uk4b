@@ -2,17 +2,24 @@
 # https://github.com/HazyResearch/flash-attention/blob/main/training/src/datamodules/language_modeling_hf.py
 # prepare.py in karpathy/nanoGPT
 
+import argparse
 import numpy as np
 import sentencepiece as spm
 from datasets import load_dataset, Value, Features
 from tqdm import tqdm
 
+parser = argparse.ArgumentParser('prepare')
+parser.add_argument('--name', type=str, required=True)
+parser.add_argument('--train', type=str, nargs='+')
+parser.add_argument('--valid', type=str, nargs='+')
+args = parser.parse_args()
+
 num_proc = 24
 split_dataset = load_dataset(
     "text",
     data_files={
-        "train": ["gec-only.train.txt", "gec-fluency.train.txt"],
-        "val": ["gec-only.valid.txt", "gec-fluency.valid.txt"]
+        "train": args.train,
+        "valid": args.valid
     },
     sample_by="paragraph")
 
@@ -44,7 +51,7 @@ shuffled = tokenized.shuffle(seed=1337)
 for split, dset in tokenized.items():
     arr_len = np.sum(dset['len'])
     # preallocate space in a temporary file to store the concatenated ids
-    filename = f'gec_{split}_wiki.bin'
+    filename = f'{args.name}_{split}_wiki.bin'
     arr = np.memmap(filename, dtype=np.uint16, mode='w+', shape=(arr_len,))
     total_batches = 8
     idx = 0
