@@ -35,7 +35,7 @@ from peft import get_peft_model, LoraConfig, TaskType
 # default config values designed to train a gpt2 (124M) on OpenWebText
 # I/O
 out_dir = 'exp/gec_medium'
-eval_interval = 10
+eval_interval = 1000
 log_interval = 1 # as many as grad acc steps
 eval_iters = 200
 eval_only = False # if True, script exits right after the first eval
@@ -46,7 +46,7 @@ wandb_log = True # disabled by default
 wandb_project = 'gecbot'
 wandb_run_name = 'lora' # 'run' + str(time.time())
 # data
-gradient_accumulation_steps = 128 # used to simulate larger batch sizes
+gradient_accumulation_steps = 2 # used to simulate larger batch sizes
 batch_size = 4 # if gradient_accumulation_steps > 1, this is the micro-batch size
 block_size = 1024
 # model
@@ -56,16 +56,16 @@ n_embd = 1024
 dropout = 0.0 # for pretraining 0 is good, for finetuning try 0.1+
 bias = False # do we use bias inside LayerNorm and Linear layers?
 # adamw optimizer
-learning_rate = 6e-4 # max learning rate
-max_iters = 9000 # total number of training iterations
+learning_rate = 2e-4 # max learning rate
+max_iters = 1100*5 # total number of training iterations
 weight_decay = 1e-2
 beta1 = 0.9
-beta2 = 0.95
+beta2 = 0.99
 grad_clip = 1.0 # clip gradients at this value, or disable if == 0.0
 # learning rate decay settings
 decay_lr = True # whether to decay the learning rate
-warmup_iters = 1000 # how many steps to warm up for
-lr_decay_iters = 13100 # should be ~= max_iters per Chinchilla
+warmup_iters = 500 # how many steps to warm up for
+lr_decay_iters = 1100*5 # should be ~= max_iters per Chinchilla
 min_lr = 6e-5 # minimum learning rate, should be ~= learning_rate/10 per Chinchilla
 # DDP settings
 backend = 'nccl' # 'nccl', 'gloo', etc.
@@ -147,9 +147,6 @@ for k,v in list(state_dict.items()):
     if k.startswith(unwanted_prefix):
         state_dict[k[len(unwanted_prefix):]] = state_dict.pop(k)
 model.load_state_dict(state_dict)
-iter_num = checkpoint['iter_num']
-best_val_loss = checkpoint['best_val_loss']
-
 
 # crop down the model block size if desired, using model surgery
 if block_size < model.config.block_size:
@@ -162,7 +159,7 @@ scaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16'))
 model.prepare_inputs_for_generation = lambda *x: None
 
 peft_config = LoraConfig(
-    task_type=TaskType.CAUSAL_LM, inference_mode=False, r=8, lora_alpha=32, lora_dropout=0.1,
+    task_type=TaskType.CAUSAL_LM, inference_mode=False, r=4, lora_alpha=32, lora_dropout=0.1,
     target_modules=["c_attn"]
 )
 
