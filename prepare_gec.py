@@ -46,7 +46,7 @@ for split, dset in tokenized.items():
     # preallocate space in a temporary file to store the concatenated ids
     filename = f'gec_{split}_wiki.bin'
     arr = np.memmap(filename, dtype=np.uint16, mode='w+', shape=(arr_len,))
-    total_batches = 1024
+    total_batches = 8
     idx = 0
     
     for batch_idx in tqdm(range(total_batches), desc=f'writing {filename}'):
