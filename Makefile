@@ -54,4 +54,7 @@ exp/spell/%.txt: data/gec-only/%.m2 data/gec-only/%.src.txt data/gec-only/%.tgt.
 exp/spell/ckpt.pt: exp/spell/train.bin exp/spell/valid.bin
 	python -m train --compile=False --train_bin=exp/spell/train.bin --valid_bin=exp/spell/valid.bin --wandb_run_name=spell --ckpt_path=$@ --init=$(INIT)
 
+exp/spell/decode-valid.txt: exp/spell/ckpt.pt exp/spell/valid.txt
+	python -m beam $^ | tee $@
+
 spell: exp/spell/ckpt.pt
