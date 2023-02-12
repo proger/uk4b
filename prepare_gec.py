@@ -12,7 +12,7 @@ split_dataset = load_dataset(
     "text",
     data_files={
         "train": ["gec-only.train.txt", "gec-fluency.train.txt"],
-        "val": ["gec-only.train.txt", "gec-fluency.train.txt"]
+        "val": ["gec-only.valid.txt", "gec-fluency.valid.txt"]
     },
     sample_by="paragraph")
 
