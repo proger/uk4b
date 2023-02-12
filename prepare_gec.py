@@ -37,6 +37,9 @@ tokenized = split_dataset.map(
     num_proc=num_proc,
 )
 
+# shuffle documents to avoid back to back paragraphs with different edits
+shuffled = tokenized.shuffle(seed=1337)
+
 # concatenate all the ids in each dataset into one large file we can use for training
 for split, dset in tokenized.items():
     arr_len = np.sum(dset['len'])
