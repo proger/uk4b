@@ -3,10 +3,10 @@
 #  Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 #  ------------------------------------------------------------------------------------------
 import argparse
+from pathlib import Path
 import time
 from typing import Tuple
 
-from datasets import load_dataset
 import torch
 from torch import Tensor
 from torch.nn import functional as F
@@ -17,11 +17,12 @@ import torch.nn.functional as F
 import sentencepiece as spm
 from model import GPTConfig, GPT
 from lora import gpt2_peft_config, lora_find_and_replace
+from torch.nn.utils.rnn import pad_sequence
 
 
 parser = argparse.ArgumentParser(description='PyTorch GPT2 beam decoding')
 
-parser.add_argument('--batch_size', type=int, default=1,
+parser.add_argument('--batch_size', type=int, default=4,
                     help='batch size')
 
 parser.add_argument('--eval_len', type=int, default=128,
@@ -30,7 +31,7 @@ parser.add_argument('--eval_len', type=int, default=128,
 parser.add_argument('--min_length', type=int, default=0,
                     help='min tokens to generate')
 
-parser.add_argument('--beam', type=int, default=16, help='beam search size')
+parser.add_argument('--beam', type=int, default=4, help='beam search size')
 
 parser.add_argument('--length_penalty', type=float, default=0, help='length penalty')
 
@@ -38,15 +39,12 @@ parser.add_argument('--no_repeat_ngram_size', type=int, default=6, help='no_repe
 
 parser.add_argument('--repetition_penalty', type=float, default=1.0, help='repetition_penalty')
 
-parser.add_argument('--eos_token_id', action='append', type=int, default=[50256], 
-                    help='eos token id')
-
 parser.add_argument('--spm', type=str, default='wiki.model', help='sentencepiece tokenizer')
 
 parser.add_argument('--device', type=str, default='cuda:0')
 
 parser.add_argument('ckpt_path')
-parser.add_argument('data', help='sentence per line')
+parser.add_argument('data', help='paragraphs', type=Path)
 
 
 def _reorder_cache(past: Tuple, beam_idx: Tensor) -> Tuple[Tensor]:
@@ -163,7 +161,7 @@ def _add_beam_candidate(
 
 
 @torch.inference_mode()
-def beam(model, data_iter, args):
+def beam(model, data_iter, args, eos_token_id=[50256]):
     model.eval()
     total_loss = 0.
     start_time = time.time()
@@ -213,7 +211,7 @@ def beam(model, data_iter, args):
             with torch.amp.autocast(device_type="cuda", dtype=torch.bfloat16):
                 if i == 0:
                     logits, kv_cache = model(_query)[0], None
-                    logits = logits[_bbatch, -1, :] # batch_size * beam, vocab
+                    logits = logits[:, -1, :] # batch_size * beam, vocab
                 else:
                     #print('token_id.shape', token_id.shape, token_id)
                     #print('past.shape', past[0].shape)
@@ -232,7 +230,7 @@ def beam(model, data_iter, args):
                 repetition_penalty=args.repetition_penalty,                                
                 no_repeat_ngram_size=args.no_repeat_ngram_size,
                 min_length=args.min_length,
-                eos_token_id=args.eos_token_id,
+                eos_token_id=eos_token_id,
             )
 
             softmax_probs = F.softmax(logits, dim=-1)
@@ -244,7 +242,6 @@ def beam(model, data_iter, args):
             _logprob = torch.log(softmax_probs) # batch_size * beam, vocab
             if i == 0:
                 next_scores = _logprob.view(batch_size, num_beams, -1)[:, 0, :] # batch_size, vocab
-                
             else:
                 next_scores = beam_scores.unsqueeze(-1) + _logprob.view(batch_size, num_beams, -1)
                 next_scores = next_scores.view(batch_size, -1) # batch_size, beam * vocab
@@ -264,13 +261,13 @@ def beam(model, data_iter, args):
             if history is None:
                 history = token_id.detach()
             else:
-                history = torch.cat((history[beam_idx.view(-1)], token_id.detach()), dim=1).detach()
+                history = torch.cat((history[beam_idx.view(-1)], token_id), dim=1)
 
-            _query = torch.cat((_query[beam_idx.view(-1)], token_id.detach()), dim=1)
+            _query = torch.cat((_query[beam_idx.view(-1)], token_id), dim=1)
 
             _add_beam_candidate(
                 best_score, best_sequence, batch_size, num_beams, beam_scores, history, 
-                eos_token_id=args.eos_token_id
+                eos_token_id=eos_token_id
             )
         
         _add_beam_candidate(
@@ -291,26 +288,38 @@ def beam(model, data_iter, args):
             all_predictions[_i]['predict'] = output[_b].tolist()
             #all_predictions[_i]['score'] = score[_b].tolist()
 
-            print(sp.decode(_query[_b].tolist()))
+            print(sp.decode(data['query'][_b].tolist() + output[_b].tolist()))
             print(flush=True)
-    
+
+        break
 
 if __name__ == '__main__':
     args = parser.parse_args()
     
     sp = spm.SentencePieceProcessor(model_file=args.spm)
     
-    valid_data = load_dataset('text', data_files={'test': [args.data]}, sample_by="paragraph")
+    paragraphs = args.data.read_text().split("\n\n")
 
-    def tokenize(example):
-        tokenize.c = getattr(tokenize, 'c', 0) + 1
-        text = example['text'].split("\n")[0]
-        query = args.eos_token_id + sp.encode(text)
-        return {'query': query, 'query_len': len(query), 'id': tokenize.c}
+    def tokenize(i, paragraph):
+        text = paragraph.split("\n")[0]
+        query = [50256] + sp.encode(text + "\n")
+        return {'query': query, 'query_len': len(query), 'id': i}
 
-    valid_data = valid_data.map(tokenize).with_format('torch')['test']
+    valid_data = [tokenize(i, paragraph) for i, paragraph in enumerate(paragraphs)]
+    
+    def collate(batch):
+        x = {
+            'query': pad_sequence([torch.LongTensor(b['query'][::-1]) for b in batch], batch_first=True, padding_value=0).flip([1]),
+            'query_len': torch.LongTensor([b['query_len'] for b in batch]),
+            'id': torch.LongTensor([b['id'] for b in batch]),
+        }
+        #print(x)
+        return x
+
     valid_loader = DataLoader(
-        valid_data, batch_size=args.batch_size, num_workers=0, shuffle=False, 
+        valid_data,
+        batch_size=args.batch_size, collate_fn=collate,
+        num_workers=0, shuffle=False, 
         pin_memory=False, drop_last=False,
     )
 
