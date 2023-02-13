@@ -105,8 +105,13 @@ config = {k: globals()[k] for k in config_keys}  # will be useful for logging
 
 
 ckpt_path = Path(ckpt_path)
-ckpt_suffix = construct_path_suffix(config, base_config, always_include=["init"], always_ignore=["ckpt_path"])
-ckpt_path = ckpt_path.parent / f"{ckpt_path.stem}-{ckpt_suffix}{ckpt_path.suffix}"
+ckpt_suffix = construct_path_suffix(
+    config,
+    base_config,
+    always_include=["init"],
+    always_ignore=["ckpt_path", "train_bin", "valid_bin", "wandb_log", "wandb_project", "wandb_run_name"],
+)
+ckpt_path = ckpt_path.parent / f"{ckpt_path.stem}__{ckpt_suffix}{ckpt_path.suffix}"
 print(f"Saving checkpoint to {ckpt_path}")
 # -----------------------------------------------------------------------------
 
