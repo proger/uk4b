@@ -20,7 +20,7 @@ import os
 import time
 import math
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 from contextlib import nullcontext
 
 import numpy as np
@@ -32,12 +32,14 @@ from model import GPTConfig, GPT
 from lora import lora_find_and_replace, mark_only_lora_as_trainable, gpt2_peft_config, print_trainable_parameters
 
 
-def construct_path_suffix(config: Dict) -> str:
-    # "suffix": f"algo-{algo}.epochs-{epochs}.subwords-{subwords_min}..{subwords_max}.wordngram-{wordngram}.neg_sampling-{neg_sampling}",
+def construct_path_suffix(config: Dict, base_config: Dict, always_include: Optional[List[str]] = None) -> str:
     suffix_parts: List[str] = []
+    if always_include is None:
+        always_include = []
 
     for k in sorted(config.keys()):
-        suffix_parts.append(f"{k}-{str(config[k]).replace('.', '_').replace('/', '_')}")
+        if k in always_include or config[k] != base_config.get(k):
+            suffix_parts.append(f"{k}-{str(config[k]).replace('.', '_').replace('/', '_')}")
 
     return ".".join(suffix_parts)
 
@@ -88,13 +90,14 @@ dtype = "bfloat16"  # 'float32', 'bfloat16', or 'float16', the latter will auto 
 compile = True  # use PyTorch 2.0 to compile the model to be faster
 # -----------------------------------------------------------------------------
 config_keys = [k for k, v in globals().items() if not k.startswith("_") and isinstance(v, (int, float, bool, str))]
+base_config = {k: globals()[k] for k in config_keys}  # will be used to find customized params
 exec(open("configurator.py").read())  # overrides from command line or config file
 config = {k: globals()[k] for k in config_keys}  # will be useful for logging
 
 
 ckpt_path = Path(ckpt_path)
-ckpt_suffix = construct_path_suffix(config)
-ckpt_path = ckpt_path.parent / f"{ckpt_path.stem}_{ckpt_suffix}{ckpt_path.suffix}"
+ckpt_suffix = construct_path_suffix(config, base_config, always_include=["init"])
+ckpt_path = ckpt_path.parent / f"{ckpt_path.stem}-{ckpt_suffix}{ckpt_path.suffix}"
 print(f"Saving checkpoint to {ckpt_path}")
 # -----------------------------------------------------------------------------
 
