@@ -37,7 +37,7 @@ def construct_path_suffix(config: Dict) -> str:
     suffix_parts: List[str] = []
 
     for k in sorted(config.keys()):
-        suffix_parts.append(f"{k}-{config[k].replace('.', '_')}")
+        suffix_parts.append(f"{k}-{str(config[k]).replace('.', '_').replace('/', '_')}")
 
     return ".".join(suffix_parts)
 
@@ -94,8 +94,8 @@ config = {k: globals()[k] for k in config_keys}  # will be useful for logging
 
 ckpt_path = Path(ckpt_path)
 ckpt_suffix = construct_path_suffix(config)
-ckpt_path = ckpt_path.parent / f"{ckpt_path.stem}-{ckpt_suffix}{ckpt_path.suffix}"
-
+ckpt_path = ckpt_path.parent / f"{ckpt_path.stem}_{ckpt_suffix}{ckpt_path.suffix}"
+print(f"Saving checkpoint to {ckpt_path}")
 # -----------------------------------------------------------------------------
 
 # various inits, derived attributes, I/O setup
