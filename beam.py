@@ -290,7 +290,8 @@ def beam(model, data_iter, args, eos_token_id=[50256]):
             all_predictions[_i]['predict'] = output[_b].tolist()
             #all_predictions[_i]['score'] = score[_b].tolist()
 
-            print(sp.decode(data['query'][_b].tolist() + output[_b].tolist()))
+            skip = args.seq_len - data['query_len'][_b] # skip context
+            print(sp.decode(data['query'][_b].tolist()[skip:] + output[_b].tolist()))
             print(flush=True)
 
 
