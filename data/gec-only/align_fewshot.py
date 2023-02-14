@@ -1,3 +1,8 @@
+"""
+Get a list of m2 entries from a small file on the left,
+align with a large file on the right
+to extract matching lines from tgt
+"""
 import sys
 
 left, right, tgt = sys.argv[1:4]

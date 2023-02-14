@@ -12,7 +12,7 @@ from torch import Tensor
 from torch.nn import functional as F
 from torch.utils.data import DataLoader
 import torch.nn.functional as F
-#torch.set_printoptions(threshold=100000)
+#torch.set_printoptions(threshold=100000, linewidth=400)
 
 import sentencepiece as spm
 from model import GPTConfig, GPT
@@ -25,7 +25,7 @@ parser = argparse.ArgumentParser(description='PyTorch GPT2 beam decoding')
 parser.add_argument('--batch_size', type=int, default=4,
                     help='batch size')
 
-parser.add_argument('--eval_len', type=int, default=128,
+parser.add_argument('--eval_len', type=int, default=256,
                     help='max tokens to generate')
 
 parser.add_argument('--min_length', type=int, default=0,
@@ -43,7 +43,10 @@ parser.add_argument('--spm', type=str, default='wiki.model', help='sentencepiece
 
 parser.add_argument('--device', type=str, default='cuda:0')
 
-parser.add_argument('ckpt_path')
+parser.add_argument('--seq_len', type=int, default=1024, help='input sequence length (including context)')
+
+parser.add_argument('ckpt_path', type=Path)
+parser.add_argument('context', help='data to use as padding context', type=Path)
 parser.add_argument('data', help='paragraphs', type=Path)
 
 
@@ -210,15 +213,15 @@ def beam(model, data_iter, args, eos_token_id=[50256]):
         for i in range(0, args.eval_len):
             with torch.amp.autocast(device_type="cuda", dtype=torch.bfloat16):
                 if i == 0:
-                    logits, kv_cache = model(_query)[0], None
+                    logits, kv_cache = model(_query, attention_mask=make_padded_causal_masks(_query_len + i))[0], None
                     logits = logits[:, -1, :] # batch_size * beam, vocab
                 else:
                     #print('token_id.shape', token_id.shape, token_id)
                     #print('past.shape', past[0].shape)
                     #print('len_past.shape', len_past.shape, len_past)
-                    
+
                     #logits, kv_cache = model(token_id, past=kv_cache, len_past=len_kv_cache), None
-                    logits, kv_cache = model(_query)[0], None
+                    logits, kv_cache = model(_query, attention_mask=make_padded_causal_masks(_query_len + i))[0], None
                     logits = logits[:, -1, :]    # batch_size * beam, vocab
 
             logits = _postprocess_next_token_scores(           
@@ -263,7 +266,7 @@ def beam(model, data_iter, args, eos_token_id=[50256]):
             else:
                 history = torch.cat((history[beam_idx.view(-1)], token_id), dim=1)
 
-            _query = torch.cat((_query[beam_idx.view(-1)], token_id), dim=1)
+            _query = torch.cat((_query[beam_idx.view(-1)], token_id), dim=1)[:, -args.seq_len:]
 
             _add_beam_candidate(
                 best_score, best_sequence, batch_size, num_beams, beam_scores, history, 
@@ -273,7 +276,6 @@ def beam(model, data_iter, args, eos_token_id=[50256]):
         _add_beam_candidate(
             best_score, best_sequence, batch_size, num_beams, beam_scores, history
         )
-
 
         output = best_sequence
 
@@ -291,29 +293,54 @@ def beam(model, data_iter, args, eos_token_id=[50256]):
             print(sp.decode(data['query'][_b].tolist() + output[_b].tolist()))
             print(flush=True)
 
-        break
+
+def make_padded_causal_masks(query_len, _enabled=False):
+    if not _enabled: # global kludge
+        return None
+
+    max_len = max(query_len)
+    masks = []
+    for l in query_len:
+        l = l.item()
+        mask = ~torch.nn.Transformer.generate_square_subsequent_mask(l).bool()
+        bigger_mask = torch.zeros((max_len, max_len), dtype=torch.bool, device=query_len.device)
+        bigger_mask[max_len-l:, max_len-l:] = mask
+        masks.append(bigger_mask)
+
+    megamask = torch.stack(masks)
+    return megamask.unsqueeze(1) # batch_size, 1, max_len, max_len
+
 
 if __name__ == '__main__':
     args = parser.parse_args()
     
     sp = spm.SentencePieceProcessor(model_file=args.spm)
     
-    paragraphs = args.data.read_text().split("\n\n")
-
+    def tokenize_full(paragraph):
+        query = [50256] + sp.encode(paragraph)
+        return query
+    
     def tokenize(i, paragraph):
         text = paragraph.split("\n")[0]
         query = [50256] + sp.encode(text + "\n")
         return {'query': query, 'query_len': len(query), 'id': i}
 
+    # prefix actual data with this context information instead of padding tokens
+    context = filter(None, args.context.read_text().split("\n\n"))
+    context_data = torch.cat([torch.LongTensor(tokenize_full(paragraph)) for paragraph in context])
+    
+    paragraphs = args.data.read_text().split("\n\n")
     valid_data = [tokenize(i, paragraph) for i, paragraph in enumerate(paragraphs)]
     
     def collate(batch):
         x = {
-            'query': pad_sequence([torch.LongTensor(b['query'][::-1]) for b in batch], batch_first=True, padding_value=0).flip([1]),
-            'query_len': torch.LongTensor([b['query_len'] for b in batch]),
+            'query': torch.stack([
+                torch.cat((context_data, torch.LongTensor(b['query'])))[-args.seq_len:]
+                for b in batch
+            ]),
+            'query_len': torch.LongTensor([args.seq_len for b in batch]),
             'id': torch.LongTensor([b['id'] for b in batch]),
         }
-        #print(x)
         return x
 
     valid_loader = DataLoader(
@@ -333,5 +360,6 @@ if __name__ == '__main__':
     model.load_state_dict(checkpoint['model'])
     model.eval()
     model.to(args.device)
+    #model = torch.compile(model) # CUDA error: an illegal memory access was encountered
 
     beam(model, valid_loader, args)

@@ -10,6 +10,9 @@ all:
 # gec
 #
 
+exp/fewshot/fewshot.txt:
+	bash data/gec-only/compile_fewshot.sh
+
 exp/gec/%.txt: data/gec-only/%.m2 data/gec-only/%.src.txt data/gec-only/%.tgt.txt
 	python -m instruct_tok $^ > $@
 
@@ -18,6 +21,10 @@ exp/gec/%.bin: exp/gec/%.txt
 
 exp/gec/ckpt.pt: exp/gec/train.bin exp/gec/valid.bin
 	python -m train --compile=False --train_bin=exp/gec/train.bin --valid_bin=exp/gec/valid.bin --wandb_run_name=gec --ckpt_path=$@ --init=$(INIT)
+
+exp/gec/decode-valid.txt: exp/fewshot/fewshot.txt exp/gec/valid.txt
+	python -m beam --beam 4 --batch_size 64 exp/gec/ckpt.pt exp/fewshot/fewshot.txt exp/gec/valid.txt | tee $@
+
 
 #
 # pos
