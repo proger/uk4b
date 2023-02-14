@@ -22,20 +22,20 @@ from torch.nn.utils.rnn import pad_sequence
 
 parser = argparse.ArgumentParser(description='PyTorch GPT2 beam decoding')
 
-parser.add_argument('--batch_size', type=int, default=4,
+parser.add_argument('--batch_size', type=int, default=768,
                     help='batch size')
 
-parser.add_argument('--eval_len', type=int, default=256,
+parser.add_argument('--eval_len', type=int, default=64,
                     help='max tokens to generate')
 
 parser.add_argument('--min_length', type=int, default=0,
                     help='min tokens to generate')
 
-parser.add_argument('--beam', type=int, default=4, help='beam search size')
+parser.add_argument('--beam', type=int, default=2, help='beam search size')
 
 parser.add_argument('--length_penalty', type=float, default=0, help='length penalty')
 
-parser.add_argument('--no_repeat_ngram_size', type=int, default=6, help='no_repeat_ngram_size')
+parser.add_argument('--no_repeat_ngram_size', type=int, default=2, help='no_repeat_ngram_size')
 
 parser.add_argument('--repetition_penalty', type=float, default=1.0, help='repetition_penalty')
 
@@ -43,7 +43,7 @@ parser.add_argument('--spm', type=str, default='wiki.model', help='sentencepiece
 
 parser.add_argument('--device', type=str, default='cuda:0')
 
-parser.add_argument('--seq_len', type=int, default=1024, help='input sequence length (including context)')
+parser.add_argument('--seq_len', type=int, default=128, help='input sequence length (including context)')
 
 parser.add_argument('ckpt_path', type=Path)
 parser.add_argument('context', help='data to use as padding context', type=Path)
@@ -211,7 +211,7 @@ def beam(model, data_iter, args, eos_token_id=[50256]):
 
         history = None
         for i in range(0, args.eval_len):
-            with torch.amp.autocast(device_type="cuda", dtype=torch.bfloat16):
+            with torch.amp.autocast(device_type="cuda", dtype=torch.float16):
                 if i == 0:
                     logits, kv_cache = model(_query, attention_mask=make_padded_causal_masks(_query_len + i))[0], None
                     logits = logits[:, -1, :] # batch_size * beam, vocab
@@ -339,7 +339,7 @@ if __name__ == '__main__':
                 torch.cat((context_data, torch.LongTensor(b['query'])))[-args.seq_len:]
                 for b in batch
             ]),
-            'query_len': torch.LongTensor([args.seq_len for b in batch]),
+            'query_len': torch.LongTensor([b['query_len'] for b in batch]),
             'id': torch.LongTensor([b['id'] for b in batch]),
         }
         return x
