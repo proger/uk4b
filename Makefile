@@ -58,7 +58,7 @@ exp/pos/ckpt.pt: exp/pos/train.bin exp/pos/dev.bin
 # exp/pos/decode-test.txt: exp/pos/ckpt.pt
 # 	python -m beam --beam 2 --batch_size 768 --eval_len 64 --seq_len 128 exp/pos/ckpt.pt data/udpos/train.inline.gpt2.txt data/udpos/test.inline.gpt2.txt | tee $@
 
-exp/pos/decode-test.txt
+exp/pos/decode-test.txt:
 	cat data/udpos/test.inline.gpt2.txt | sed 's,/[A-Za-z],/_,g' > data/udpos/test.inline.gpt2.txt.blank
 	python -m score --unblank --lora exp/pos/ckpt__batch_size-8.block_size-512.gradient_accumulation_steps-1.init-_home_proger_gpt_exp_uk4b_medium_ckpt2_096_pt.pt --paragraphs data/udpos/test.inline.gpt2.txt.blank  > exp/pos/decode-test4.txt
 
@@ -112,3 +112,9 @@ exp/spell/decode-valid.txt: exp/spell/ckpt.pt exp/spell/valid.txt
 	python -m beam $^ | tee $@
 
 spell: exp/spell/ckpt.pt
+
+
+#
+# squad
+#
+
