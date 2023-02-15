@@ -1,10 +1,20 @@
 ifeq ($(shell hostname),rt)
 INIT=$(HOME)/gpt/exp/uk4b_medium/ckpt2.096.pt
-else
+else ifeq ($(shell hostname),dima-farm)
 INIT=/data/gpt2/uk4b/exp/uk4b_small/ckpt.pt
+else
+INIT=exp/uk4b_medium/ckpt2.096.pt
 endif
 
 all:
+
+#
+# pretrained
+#
+
+exp/uk4b_medium/ckpt2.096.pt:
+	mkdir -p exp/uk4b_medium
+	curl -o $@ https://a.wilab.org.ua/gpt/uk4b_medium/ckpt2.096.pt
 
 #
 # gec
