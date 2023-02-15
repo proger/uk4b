@@ -67,10 +67,10 @@ exp/pos/decode-test.txt:
 # 
 
 data/ner/train.gpt2.txt: data/flair-ner/fixed-split/train.iob
-	python data/ner/convert2gpt2.py $^ $@
+	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2.py $^ $@
 
 data/ner/test.gpt2.txt: data/flair-ner/fixed-split/test.iob
-	python data/ner/convert2gpt2.py $^ $@
+	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2.py $^ $@
 
 exp/ner/train.bin: data/ner/train.gpt2.txt
 	python -m prepare1 $^ $@
