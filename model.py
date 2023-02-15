@@ -154,8 +154,8 @@ class GPT(nn.Module):
             if pn.endswith('c_proj.weight'):
                 torch.nn.init.normal_(p, mean=0.0, std=0.02/math.sqrt(2 * config.n_layer))
 
-        # report number of parameters
-        print("number of parameters: %.2fM" % (self.get_num_params()/1e6,))
+        ## report number of parameters
+        #print("number of parameters: %.2fM" % (self.get_num_params()/1e6,))
 
     def get_num_params(self, non_embedding=True):
         """
@@ -186,6 +186,7 @@ class GPT(nn.Module):
                 inputs_embeds=None,
                 output_attentions=None, output_hidden_states=None,
                 return_dict=None,
+                decode_full=False,
                 ):
         device = input_ids.device
         b, t = input_ids.size()
@@ -206,6 +207,9 @@ class GPT(nn.Module):
             loss = F.cross_entropy(logits.view(-1, logits.size(-1)), labels.view(-1), ignore_index=-1,
                                    # XXX: this breaks torch.compile:
                                    label_smoothing=0.1)
+        elif decode_full:
+            logits = self.lm_head(x[:, :, :]) # note: using list [-1] to preserve the time dim
+            loss = None
         else:
             # inference-time mini-optimization: only forward the lm_head on the very last position
             logits = self.lm_head(x[:, [-1], :]) # note: using list [-1] to preserve the time dim
@@ -220,8 +224,8 @@ class GPT(nn.Module):
         assert block_size <= self.config.block_size
         self.config.block_size = block_size
         self.transformer.wpe.weight = nn.Parameter(self.transformer.wpe.weight[:block_size])
-        for block in self.transformer.h:
-            block.attn.bias = block.attn.bias[:,:,:block_size,:block_size]
+        # for block in self.transformer.h:
+        #     block.attn.bias = block.attn.bias[:,:,:block_size,:block_size]
 
     @classmethod
     def from_pretrained(cls, model_type, override_args=None):

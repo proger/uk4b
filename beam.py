@@ -323,6 +323,7 @@ if __name__ == '__main__':
     
     def tokenize(i, paragraph):
         text = paragraph.split("\n")[0]
+        #query = [50256] + sp.encode(text + "\n" + "анотація:")
         query = [50256] + sp.encode(text + "\n")
         return {'query': query, 'query_len': len(query), 'id': i}
 

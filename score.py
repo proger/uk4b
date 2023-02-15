@@ -25,6 +25,10 @@ parser.add_argument('--spm', type=str, default='wiki.model', help='sentencepiece
 parser.add_argument('--no_eot', action='store_true')
 parser.add_argument('--paragraphs', nargs='*', help='files with paragraphs to score', type=Path)
 parser.add_argument('--sentences', nargs='*', help='files with sentences to score', type=Path)
+parser.add_argument('--ids', action='store_true', help='output integer ids')
+parser.add_argument('--pieces', action='store_true', help='output pieces')
+parser.add_argument('--unblank', action='store_true', help='replace blank tokens with the token with the highest probability')
+parser.add_argument('-v', '--verbose', action='store_true', help='verbose output')
 parser.add_argument('ckpt_path')
 parser.add_argument('prompts', nargs='*')
 args = parser.parse_args()
@@ -92,6 +96,8 @@ for prompt in itertools.chain(args.prompts,
         start = sp.encode(prompt)
     else:
         start = [50256] + sp.encode(prompt)
+    if len(start) > 512:
+        start = start[-512:] # truncate very long sequences from the beginning
     x = torch.tensor(start, dtype=torch.long, device=device)[None, ...]
 
     with torch.inference_mode():
@@ -100,6 +106,29 @@ for prompt in itertools.chain(args.prompts,
 
     length = len(start)-1
     y = y[:, :length, :] # ignore last token when computing log prob of input
-    log_prob = torch.index_select(y, -1, x[0, 1:]) # ignore leading </s>
+    sequence = x[0, 1:]
+    
+    if args.verbose:
+        print(colored(length, 'green'), end=' ')
+
+    if args.unblank:
+        blank = 50229 # _    
+        best_tok_pointwise = y.argmax(-1)
+        sequence = torch.where(sequence == blank, best_tok_pointwise, sequence)
+
+    sequence = sequence.view(-1)
+
+    log_prob = torch.index_select(y, -1, sequence)
     mean_log_prob = log_prob.sum() / (length or 1)
-    print(colored(mean_log_prob.item(), 'red'), colored(length, 'green'), ' '.join(sp.id_to_piece(start)))
+
+    sequence = sequence.tolist()
+
+    if args.verbose:
+        print(colored(mean_log_prob.item(), 'red'), end=' ')
+    if args.ids:
+        print(*sequence)
+    elif args.pieces:
+        print(' '.join(sp.id_to_piece(sequence)))
+    else:
+        print(sp.decode(sequence))
+    print()

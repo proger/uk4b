@@ -58,7 +58,7 @@ def construct_path_suffix(
 # I/O
 init = str(Path.home() / "gpt/exp/uk4b_medium/ckpt.pt")
 ckpt_path = "exp/gec_medium/ckpt.pt"
-eval_interval = 1000
+eval_interval = 200
 log_interval = 1  # as many as grad acc steps
 eval_iters = 200
 eval_only = False  # if True, script exits right after the first eval
@@ -81,14 +81,14 @@ dropout = 0.0  # for pretraining 0 is good, for finetuning try 0.1+
 bias = False  # do we use bias inside LayerNorm and Linear layers?
 # adamw optimizer
 learning_rate = 2e-4  # max learning rate
-max_iters = 1100 * 5  # total number of training iterations
+max_iters = 460 * 5  # total number of training iterations
 weight_decay = 1e-2
 beta1 = 0.9
 beta2 = 0.99
 grad_clip = 1.0  # clip gradients at this value, or disable if == 0.0
 # learning rate decay settings
 decay_lr = True  # whether to decay the learning rate
-warmup_iters = 500  # how many steps to warm up for
+warmup_iters = max_iters // 10  # how many steps to warm up for
 lr_decay_iters = max_iters  # should be ~= max_iters per Chinchilla
 min_lr = 6e-5  # minimum learning rate, should be ~= learning_rate/10 per Chinchilla
 # DDP settings
