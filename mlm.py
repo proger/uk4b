@@ -25,7 +25,7 @@ def mask_tokens(
     probability_matrix = torch.full(labels.shape, mlm_probability)
     probability_matrix.masked_fill_(labels == endoftext_token, value=0.0)
     masked_indices = torch.bernoulli(probability_matrix).bool()
-    labels[~masked_indices] = 64444  # We only compute loss on masked tokens
+    labels[~masked_indices] = -100  # We only compute loss on masked tokens
 
     # 80% of the time, we replace masked input tokens with tokenizer.mask_token ([MASK])
     indices_replaced = torch.bernoulli(torch.full(labels.shape, 0.8)).bool() & masked_indices

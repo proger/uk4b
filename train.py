@@ -34,7 +34,7 @@ from mlm import mask_tokens
 # -----------------------------------------------------------------------------
 # default config values designed to train a gpt2 (124M) on OpenWebText
 # I/O
-out_dir = 'exp/uk4b_medium_bi'
+out_dir = 'exp/uk4b_medium_bi_untied'
 eval_interval = 100
 log_interval = 1 # as many as grad acc steps
 eval_iters = 200
@@ -45,11 +45,11 @@ reset_steps = True
 # wandb logging
 wandb_log = True # disabled by default
 wandb_project = 'uk4b'
-wandb_run_name = 'medium_bi' # 'run' + str(time.time())
+wandb_run_name = 'medium_bi untied' # 'run' + str(time.time())
 # data
 dataset = 'uk4b'
-gradient_accumulation_steps = 146 # used to simulate larger batch sizes
-batch_size = 28 # if gradient_accumulation_steps > 1, this is the micro-batch size
+gradient_accumulation_steps = 512 # used to simulate larger batch sizes
+batch_size = 32 # if gradient_accumulation_steps > 1, this is the micro-batch size
 block_size = 128
 # model
 n_layer = 24
