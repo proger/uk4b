@@ -60,7 +60,7 @@ exp/pos/ckpt.pt: exp/pos/train.bin exp/pos/dev.bin
 
 exp/pos/decode-test.txt:
 	cat data/udpos/test.inline.gpt2.txt | sed 's,/[A-Za-z],/_,g' > data/udpos/test.inline.gpt2.txt.blank
-	python -m score --unblank --lora exp/pos/ckpt__batch_size-8.block_size-512.gradient_accumulation_steps-1.init-_home_proger_gpt_exp_uk4b_medium_ckpt2_096_pt.pt --paragraphs data/udpos/test.inline.gpt2.txt.blank  > exp/pos/decode-test4.txt
+	python -m score --unblank --lora exp/pos/ckpt.pt --paragraphs data/udpos/test.inline.gpt2.txt.blank  > $@
 
 exp/pos/WER: data/udpos/test.gpt2.ark exp/pos/decode-test.ark
 	compute-wer --mode=strict ark:data/udpos/test.gpt2.ark ark:exp/pos/decode-test.ark > $@
