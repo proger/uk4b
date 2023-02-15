@@ -30,15 +30,30 @@ exp/gec/decode-valid.txt: exp/fewshot/fewshot.txt exp/gec/valid.txt
 # pos
 #
 
-pos_train_wiki.bin pos_valid_wiki.bin:
-	python -m prepare --name pos --train data/udpos/train.gpt2.txt --valid data/udpos/dev.gpt2.txt
+exp/pos/train.bin: data/udpos/train.inline.gpt2.txt
+	python -m prepare1 $^ $@
 
-exp/pos_medium/ckpt.pt: pos_train_wiki.bin pos_valid_wiki.bin
-	python -m train --compile=False --train_bin=pos_train_wiki.bin --valid_bin=pos_valid_wiki.bin --wandb_run_name=pos --ckpt_path=$@ --init=$(INIT)
+exp/pos/test.bin: data/udpos/test.inline.gpt2.txt
+	python -m prepare1 $^ $@
+
+exp/pos/dev.bin: data/udpos/dev.inline.gpt2.txt
+	python -m prepare1 $^ $@
+
+exp/pos/ckpt.pt: exp/pos/train.bin exp/pos/dev.bin
+	python -m train --compile=False --train_bin=exp/pos/train.bin --valid_bin=exp/pos/dev.bin --wandb_run_name=pos --ckpt_path=$@ --init=$(INIT)
+
+exp/pos/decode-test.txt: exp/pos/ckpt.pt
+	python -m beam --beam 2 --batch_size 768 --eval_len 64 --seq_len 128 exp/pos/ckpt.pt data/udpos/train.inline.gpt2.txt data/udpos/test.inline.gpt2.txt | tee $@
 
 #
 # ner
 # 
+
+data/ner/train.gpt2.txt: data/flair-ner/fixed-split/train.iob
+	python data/ner/convert2gpt2.py $^ $@
+
+data/ner/test.gpt2.txt: data/flair-ner/fixed-split/test.iob
+	python data/ner/convert2gpt2.py $^ $@
 
 exp/ner/train.bin: data/ner/train.gpt2.txt
 	python -m prepare1 $^ $@
@@ -48,6 +63,9 @@ exp/ner/valid.bin: data/ner/test.gpt2.txt
 
 exp/ner/ckpt.pt: exp/ner/train.bin exp/ner/valid.bin
 	python -m train --compile=False --train_bin=exp/ner/train.bin --valid_bin=exp/ner/valid.bin --wandb_run_name=ner_small --ckpt_path=$@ --init=$(INIT)
+
+exp/ner/decode-test.txt: exp/ner/ckpt.pt
+	python -m beam --beam 2 --batch_size 768 --eval_len 64 --seq_len 128 exp/ner/ckpt.pt data/ner/train.gpt2.txt data/ner/test.gpt2.txt | tee $@
 
 #
 #

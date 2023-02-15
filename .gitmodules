@@ -1,0 +1,3 @@
+[submodule "data/flair-ner"]
+	path = data/flair-ner
+	url = https://github.com/lang-uk/flair-ner
