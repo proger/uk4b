@@ -1,6 +1,7 @@
 import sys
 from typing import List
 import argparse
+import re
 
 from convert2vulyk import reconstruct_tokenized
 
@@ -58,8 +59,9 @@ def convert_sentence_inline(sentence: List[str], prefix_text: str = "", annotati
         ner_tokens.append("/" + mapping[tag])
 
     final_sentence: str = "".join(map(str, reconstruct_tokenized([tokens])))
-    final_tagged_sentence: str = "\n".join(map(str, reconstruct_tokenized([ner_tokens])))
-    return prefix_text + final_sentence + "\n" + annotation + "\n" + final_tagged_sentence
+    final_tagged_sentence: str = " ".join(map(str, reconstruct_tokenized([ner_tokens])))
+    final_tagged_sentence = re.sub(r'\s+', ' ', final_tagged_sentence)
+    return prefix_text + final_sentence + "\n" + annotation + " " + final_tagged_sentence
 
 
 if __name__ == "__main__":

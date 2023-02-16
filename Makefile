@@ -84,9 +84,9 @@ exp/ner/valid.bin: data/ner/test.gpt2.txt
 exp/ner/ckpt.pt: exp/ner/train.bin exp/ner/valid.bin
 	python -m train --compile=False --train_bin=exp/ner/train.bin --valid_bin=exp/ner/valid.bin --wandb_run_name=ner_small --ckpt_path=$@ --init=$(INIT)
 
-exp/ner/decode-test.txt: exp/ner/ckpt.pt
+exp/ner/decode-test.txt:
 	cat data/ner/test.gpt2.txt | sed 's,/[A-Za-z],/_,g' > data/ner/test.gpt2.txt.blank
-	python -m score --unblank --lora exp/ner/ckpt.pt --paragraphs data/ner/test.gpt2.txt.blank  > exp/ner/decode-test.txt
+	python -m score --unblank --lora exp/ner/*.pt --paragraphs data/ner/test.gpt2.txt.blank  > exp/ner/decode-test.txt
 
 exp/ner/WER: data/ner/test.gpt2.ark exp/ner/decode-test.ark
 	compute-wer --mode=strict ark:data/ner/test.gpt2.ark ark:exp/ner/decode-test.ark > $@
