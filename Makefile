@@ -37,7 +37,7 @@ exp/gec/%.bin: exp/gec/%.txt
 	python -m prepare1 $^ $@
 
 exp/gec/ckpt.pt: exp/gec/train.bin exp/gec/valid.bin
-	python -m train --compile=False --train_bin=exp/gec/train.bin --valid_bin=exp/gec/valid.bin --wandb_run_name=gec --ckpt_path=$@ --init=$(INIT)
+	python -m train --compile=False --max_iters=5500 --warmup_iters=500 --lr_decay_iters=5500 --train_bin=exp/gec/train.bin --valid_bin=exp/gec/valid.bin --wandb_run_name=gec --ckpt_path=$@ --init=$(INIT)
 
 exp/gec/decode-valid.txt: exp/fewshot/fewshot.txt exp/gec/valid.txt
 	python -m beam --beam 4 --batch_size 64 exp/gec/ckpt.pt exp/fewshot/fewshot.txt exp/gec/valid.txt | tee $@
