@@ -124,7 +124,6 @@ for prompt in itertools.chain(args.prompts,
     sequence = x[0, 1:]
     
     if args.csv:
-        print('id', 'sentence' , 'ppl', 'sentence_len', sep=',')        
         id = sha1(prompt.encode("utf-8")).hexdigest()
         print(id, prompt, sep=',', end=',')
 
@@ -145,7 +144,7 @@ for prompt in itertools.chain(args.prompts,
     sequence = sequence.tolist()
     
     if args.csv:
-        print(log_prob.exp().item(), output_length, sep=',', flush=True)
+        print((log_prob / output_length).exp().item(), output_length, sep=',', flush=True)
     elif args.ids:
         print(*sequence)
     elif args.pieces:
