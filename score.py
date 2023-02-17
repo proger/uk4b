@@ -80,7 +80,7 @@ else:
     model = nn.ModuleDict({'_orig_mod': GPT(gptconf)})
     model = model._orig_mod
     print('compiling model', file=sys.stderr)
-    model = torch.compile(model) # requires PyTorch 2.0
+    model = torch.compile(model, mode='reduce-overhead') # requires PyTorch 2.0
     print('done compiling model', file=sys.stderr)
 
     model.load_state_dict(checkpoint['model'])
