@@ -9,6 +9,47 @@ parser.add_argument('src')
 parser.add_argument('tgt')
 args = parser.parse_args()
 
+#      11 G/Aspect
+#     221 G/Case
+#       7 G/Comparison
+#      39 G/Conjunction
+#      37 G/Gender
+#      56 G/Number
+#       7 G/Other
+#       2 G/Participle
+#       7 G/Particle
+#       8 G/PartVoice
+#      94 G/Prep
+#      50 G/Tense
+#     152 G/UngrammaticalStructure
+#      15 G/VerbAForm
+#      35 G/VerbVoice
+#    1549 noop
+#      76 Other
+#    1483 Punctuation
+#     923 Spelling
+# replace each key with a single-letter code:
+error_codes = {
+    'G/Aspect': 'A',
+    'G/Case': 'C',
+    'G/Comparison': 'O',
+    'G/Conjunction': 'J',
+    'G/Gender': 'G',
+    'G/Number': 'N',
+    'G/Other': 'o',
+    'G/Participle': 'P',
+    'G/Particle': 'i',
+    'G/PartVoice': 'p',
+    'G/Prep': 'r',
+    'G/Tense': 'T',
+    'G/UngrammaticalStructure': 'U',
+    'G/VerbAForm': 'V',
+    'G/VerbVoice': 'v',
+    'Other': '0',
+    'Punctuation': ',',
+    'Spelling': 'S',
+}
+
 srcfile = iter(open(args.src))
 tgtfile = iter(open(args.tgt))
 
@@ -45,11 +86,11 @@ def flush():
             case [tok, (loc, kind, target)]:
                 #pos = '|'.join(word.pos for word in tok.words)
                 #print(tok.text, pos, kind, target or "#")
-                print(tok.text, kind, target or "\t")
+                print(tok.text, '/'+kind, target or "\t")
             case [tok]:
                 #pos = '|'.join(word.pos for word in tok.words)
                 #print(tok.text, pos, '_', '_')
-                print(tok.text, '_', '_')
+                print(tok.text, '/+', "\t")
 
     print(chr(12) + ":", tgt) # form feed
     reset_tokens()
@@ -97,6 +138,8 @@ for command in open(args.m2):
             if version != current_version:
                 flush()
                 current_version = version
+
+            error = error_codes[error]
 
             if start == end:
                 # insert

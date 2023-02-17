@@ -42,6 +42,10 @@ exp/gec/ckpt.pt: exp/gec/train.bin exp/gec/valid.bin
 exp/gec/decode-valid.txt: exp/fewshot/fewshot.txt exp/gec/valid.txt
 	python -m beam --beam 4 --batch_size 64 exp/gec/ckpt.pt exp/fewshot/fewshot.txt exp/gec/valid.txt | tee $@
 
+exp/gec/score-valid.txt: exp/gec/valid.txt exp/gec/ckpt.pt
+	cat exp/gec/valid.txt | sed 's,/[A-Za-z0+],/_,g' > exp/gec/valid.txt.blank
+	python -m score --unblank --seq_len 1024 --lora exp/gec/*.pt --paragraphs exp/gec/valid.txt.blank  > $@
+
 
 #
 # pos
