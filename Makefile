@@ -17,6 +17,13 @@ exp/uk4b_medium/ckpt2.096.pt:
 	curl -o $@ https://a.wilab.org.ua/gpt/uk4b_medium/ckpt2.096.pt
 
 #
+# perplexity
+#
+
+exp/ppl/scores.txt:
+	python -m score --verbose $(INIT) --sentences data/flair-ppl/bruk.sentences.combined.txt > $@
+
+#
 # gec
 #
 
@@ -60,7 +67,7 @@ exp/pos/ckpt.pt: exp/pos/train.bin exp/pos/dev.bin
 
 exp/pos/decode-test.txt:
 	cat data/udpos/test.inline.gpt2.txt | sed 's,/[A-Za-z],/_,g' > data/udpos/test.inline.gpt2.txt.blank
-	python -m score --unblank --lora exp/pos/ckpt.pt --paragraphs data/udpos/test.inline.gpt2.txt.blank  > $@
+	python -m score --seq_len 512 --unblank --lora exp/pos/ckpt.pt --paragraphs data/udpos/test.inline.gpt2.txt.blank  > $@
 
 exp/pos/WER: data/udpos/test.gpt2.ark exp/pos/decode-test.ark
 	compute-wer --mode=strict ark:data/udpos/test.gpt2.ark ark:exp/pos/decode-test.ark > $@
@@ -72,8 +79,9 @@ exp/pos/WER: data/udpos/test.gpt2.ark exp/pos/decode-test.ark
 data/ner/train.gpt2.txt: data/flair-ner/fixed-split/train.iob
 	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2.py $^ $@
 
-data/ner/test.gpt2.txt: data/flair-ner/fixed-split/test.iob
-	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2.py $^ $@
+# XXX: filtered out some sentences that do not fit into 512 tokens
+# data/ner/test.gpt2.txt: data/flair-ner/fixed-split/test.iob
+# 	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2.py $^ $@
 
 exp/ner/train.bin: data/ner/train.gpt2.txt
 	python -m prepare1 $^ $@
@@ -86,7 +94,12 @@ exp/ner/ckpt.pt: exp/ner/train.bin exp/ner/valid.bin
 
 exp/ner/decode-test.txt:
 	cat data/ner/test.gpt2.txt | sed 's,/[A-Za-z],/_,g' > data/ner/test.gpt2.txt.blank
-	python -m score --unblank --lora exp/ner/*.pt --paragraphs data/ner/test.gpt2.txt.blank  > exp/ner/decode-test.txt
+	python -m score --seq_len 512 --unblank --lora exp/ner/*.pt --paragraphs data/ner/test.gpt2.txt.blank  > $@
+
+exp/ner/score-test.txt:
+	cat data/ner/test.gpt2.txt | sed 's,/[A-Za-z],/_,g' > data/ner/test.gpt2.txt.blank
+	python -m score --seq_len 512 --lora exp/ner/*.pt --paragraphs data/ner/test.gpt2.txt.blank  > $@
+
 
 exp/ner/WER: data/ner/test.gpt2.ark exp/ner/decode-test.ark
 	compute-wer --mode=strict ark:data/ner/test.gpt2.ark ark:exp/ner/decode-test.ark > $@
