@@ -20,8 +20,8 @@ exp/uk4b_medium/ckpt2.096.pt:
 # perplexity
 #
 
-exp/ppl/scores.csv:
-	python -m score --csv $(INIT) --sentences data/flair-ppl/bruk.sentences.combined.txt > $@
+exp/ppl/scores.tsv:
+	python -m score --tsv $(INIT) --sentences data/flair-ppl/bruk.sentences.combined.txt > $@
 
 #
 # gec
