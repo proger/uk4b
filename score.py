@@ -139,4 +139,6 @@ for prompt in itertools.chain(args.prompts,
         print(' '.join(sp.id_to_piece(sequence)))
     else:
         print(sp.decode(sequence))
-    print(flush=True)
+
+    if args.paragraphs:
+        print(flush=True)
