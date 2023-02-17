@@ -22,7 +22,7 @@ parser.add_argument('--seed', type=int, default=1337)
 parser.add_argument('--steps', type=int, default=256)
 parser.add_argument('--lora', action='store_true')
 parser.add_argument('--peft', action='store_true')
-parser.add_argument('--csv', action='store_true', help='output csv')
+parser.add_argument('--tsv', action='store_true', help='output tsv')
 parser.add_argument('--spm', type=str, default='wiki.model', help='sentencepiece tokenizer')
 parser.add_argument('--no_eot', action='store_true')
 parser.add_argument('--seq_len', type=int, default=1024)
@@ -94,12 +94,13 @@ model.to(device)
 sp = spm.SentencePieceProcessor(model_file=args.spm)
 vocab_size = 50304
 
-if args.csv:
-    print('id', 'sentence' , 'ppl', 'sentence_len', sep=',')
+if args.tsv:
+    print('id', 'sentence' , 'ppl', 'sentence_len', sep='\t')
 
 for prompt in itertools.chain(args.prompts,
                               *(f.read_text().split("\n\n") for f in args.paragraphs or []),
                               *(f.read_text().split("\n") for f in args.sentences or [])):
+    prompt = prompt.strip()
     print('prompt:', prompt, file=sys.stderr)
     if args.no_eot:
         start = sp.encode(prompt)
@@ -123,9 +124,9 @@ for prompt in itertools.chain(args.prompts,
     y = y[:, :output_length, :] 
     sequence = x[0, 1:]
     
-    if args.csv:
+    if args.tsv:
         id = sha1(prompt.encode("utf-8")).hexdigest()
-        print(id, prompt, sep=',', end=',')
+        print(id, prompt, sep='\t', end='\t')
 
     if args.verbose:
         print(colored(output_length, 'green'), end=' ')
@@ -143,8 +144,8 @@ for prompt in itertools.chain(args.prompts,
 
     sequence = sequence.tolist()
     
-    if args.csv:
-        print((log_prob / output_length).exp().item(), output_length, sep=',', flush=True)
+    if args.tsv:
+        print((log_prob / output_length).exp().item(), output_length, sep='\t', flush=True)
     elif args.ids:
         print(*sequence)
     elif args.pieces:
