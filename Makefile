@@ -3,7 +3,7 @@ INIT=$(HOME)/gpt/exp/uk4b_medium/ckpt2.096.pt
 else ifeq ($(shell hostname),dima-farm)
 INIT=/data/gpt2/uk4b/exp/uk4b_small/ckpt.pt
 else
-INIT=exp/uk4b_medium/ckpt2.096.pt
+INIT=exp/uk4b_medium/ckpt.pt
 endif
 
 all:
@@ -12,16 +12,32 @@ all:
 # pretrained
 #
 
-exp/uk4b_medium/ckpt2.096.pt:
+exp/uk4b_small/ckpt.pt:
+	mkdir -p exp/uk4b_small
+	curl -o $@ https://a.wilab.org.ua/gpt/small13100.pt
+
+exp/uk4b_medium/ckpt.pt:
 	mkdir -p exp/uk4b_medium
 	curl -o $@ https://a.wilab.org.ua/gpt/uk4b_medium/ckpt2.096.pt
+
+exp/uk4b_large/ckpt.pt:
+	mkdir -p exp/uk4b_large
+	curl -o $@ https://a.wilab.org.ua/gpt/ckpt10m.pt
 
 #
 # perplexity
 #
 
-exp/ppl/scores.tsv:
-	python -m score --tsv $(INIT) --sentences data/flair-ppl/bruk.sentences.combined.txt > $@
+ppl: exp/ppl/small.tsv exp/ppl/medium.tsv exp/ppl/large.tsv 
+
+exp/ppl/%.tsv: exp/uk4b_%/ckpt.pt
+	python -m score --tsv $^ --sentences data/flair-ppl/bruk.sentences.combined.txt > $@
+
+exp/ppl/BPC: exp/ppl/small.tsv exp/ppl/medium.tsv exp/ppl/large.tsv data/flair-uk-forward.ppl.tsv
+	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv data/flair-uk-forward.ppl.tsv > $@
+	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv exp/ppl/small.tsv >> $@
+	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv exp/ppl/medium.tsv >> $@
+	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv exp/ppl/large.tsv >> $@
 
 #
 # gec
