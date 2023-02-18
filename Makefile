@@ -34,7 +34,7 @@ exp/ppl/%.tsv: exp/uk4b_%/ckpt.pt
 	python -m score --tsv $^ --sentences data/flair-ppl/bruk.sentences.combined.txt > $@
 
 exp/ppl/BPC: exp/ppl/small.tsv exp/ppl/medium.tsv exp/ppl/large.tsv data/flair-uk-forward.ppl.tsv
-	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv data/flair-uk-forward.ppl.tsv > $@
+	python scripts/evaluate_nll.py data/polluted_validation_sentences.csv data/flair-uk-forward.ppl.tsv > $@
 	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv exp/ppl/small.tsv >> $@
 	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv exp/ppl/medium.tsv >> $@
 	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv exp/ppl/large.tsv >> $@
