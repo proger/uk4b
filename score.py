@@ -44,6 +44,12 @@ torch.backends.cudnn.allow_tf32 = True # allow tf32 on cudnn
 checkpoint = torch.load(args.ckpt_path, map_location=device)
 
 # model
+if not 'vocab_size' in checkpoint['model_args']:
+    print('WARNING: vocab_size not found in checkpoint, assuming 50257', file=sys.stderr)
+    vocab_size = 50257
+    checkpoint['model_args']['vocab_size'] = 50257
+else:
+    vocab_size = checkpoint['model_args']['vocab_size']
 gptconf = GPTConfig(**checkpoint['model_args'])
 
 if args.peft:
@@ -79,20 +85,21 @@ elif args.lora:
     model.eval()
     model.to(device)
 else:
+    print(gptconf, file=sys.stderr)
     model = nn.ModuleDict({'_orig_mod': GPT(gptconf)})
     model = model._orig_mod
     print('compiling model', file=sys.stderr)
-    model = torch.compile(model, mode='reduce-overhead') # requires PyTorch 2.0
+    #model = torch.compile(model, mode='reduce-overhead') # requires PyTorch 2.0
+    model = torch.compile(model) # requires PyTorch 2.0
     print('done compiling model', file=sys.stderr)
 
-    model.load_state_dict(checkpoint['model'])
+    model.load_state_dict(checkpoint['model'], strict=False)
 
 model.eval()
 model.to(device)
 
 
 sp = spm.SentencePieceProcessor(model_file=args.spm)
-vocab_size = 50304
 
 if args.tsv:
     print('id', 'sentence' , 'ppl', 'sentence_len', sep='\t')
