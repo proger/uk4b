@@ -14,6 +14,7 @@ from dataclasses import dataclass, asdict
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
+import bitsandbytes as bnb
 
 # @torch.jit.script # good to enable when not using torch.compile, disable when using (our default)
 def new_gelu(x):
@@ -136,6 +137,11 @@ class GPT(nn.Module):
         self.transformer = nn.ModuleDict(dict(
             wte = nn.Embedding(config.vocab_size, config.n_embd),
             wpe = nn.Embedding(config.block_size, config.n_embd),
+
+            # XXX: these embeddings used by uk4b_large
+            #wte = bnb.nn.StableEmbedding(config.vocab_size, config.n_embd),
+            #wpe = bnb.nn.StableEmbedding(config.block_size, config.n_embd),
+
             drop = nn.Dropout(config.dropout),
             h = nn.ModuleList([Block(config) for _ in range(config.n_layer)]),
             ln_f = LayerNorm(config.n_embd, bias=config.bias),

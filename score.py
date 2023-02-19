@@ -45,7 +45,7 @@ checkpoint = torch.load(args.ckpt_path, map_location=device)
 
 # model
 if not 'vocab_size' in checkpoint['model_args']:
-    print('WARNING: vocab_size not found in checkpoint, assuming 50257', file=sys.stderr)
+    print('WARNING: vocab_size not found in checkpoint["model_args"], assuming 50257', file=sys.stderr)
     vocab_size = 50257
     checkpoint['model_args']['vocab_size'] = 50257
 else:

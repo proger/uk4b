@@ -24,6 +24,15 @@ exp/uk4b_large/ckpt.pt:
 	mkdir -p exp/uk4b_large
 	curl -o $@ https://a.wilab.org.ua/gpt/ckpt10m.pt
 
+exp/uk4b_large8.5/ckpt.pt:
+	mkdir -p exp/uk4b_large8.5
+	curl -o $@ https://a.wilab.org.ua/gpt/ckpt8.5m.pt
+
+exp/uk4b_large8/ckpt.pt:
+	mkdir -p exp/uk4b_large8
+	curl -o $@ https://a.wilab.org.ua/gpt/ckpt8m.pt
+
+
 #
 # perplexity
 #
@@ -34,10 +43,10 @@ exp/ppl/%.tsv: exp/uk4b_%/ckpt.pt
 	python -m score --tsv $^ --sentences data/flair-ppl/bruk.sentences.combined.txt > $@
 
 exp/ppl/BPC: exp/ppl/small.tsv exp/ppl/medium.tsv exp/ppl/large.tsv data/flair-uk-forward.ppl.tsv
-	python scripts/evaluate_nll.py data/polluted_validation_sentences.csv data/flair-uk-forward.ppl.tsv > $@
-	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv exp/ppl/small.tsv >> $@
-	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv exp/ppl/medium.tsv >> $@
-	python scripts/evaluate_nll.py --header data/polluted_validation_sentences.csv exp/ppl/large.tsv >> $@
+	python scripts/evaluate_nll.py --intersect exp/ppl/large.tsv data/polluted_validation_sentences.csv data/flair-uk-forward.ppl.tsv > $@
+	python scripts/evaluate_nll.py --intersect data/flair-uk-forward.ppl.tsv data/polluted_validation_sentences.csv exp/ppl/small.tsv >> $@
+	python scripts/evaluate_nll.py --intersect data/flair-uk-forward.ppl.tsv data/polluted_validation_sentences.csv exp/ppl/medium.tsv >> $@
+	python scripts/evaluate_nll.py --intersect data/flair-uk-forward.ppl.tsv data/polluted_validation_sentences.csv exp/ppl/large.tsv >> $@
 
 #
 # gec
