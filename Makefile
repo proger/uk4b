@@ -109,8 +109,8 @@ data/ner/train.gpt2.txt: data/flair-ner/fixed-split/train.iob
 	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2.py $^ $@
 
 # XXX: filtered out some sentences that do not fit into 512 tokens
-# data/ner/test.gpt2.txt: data/flair-ner/fixed-split/test.iob
-# 	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2.py $^ $@
+data/ner/test.gpt2.txt: data/flair-ner/fixed-split/test.iob
+	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2.py $^ $@
 
 exp/ner/train.bin: data/ner/train.gpt2.txt
 	python -m prepare1 $^ $@
@@ -119,7 +119,7 @@ exp/ner/valid.bin: data/ner/test.gpt2.txt
 	python -m prepare1 $^ $@
 
 exp/ner/ckpt.pt: exp/ner/train.bin exp/ner/valid.bin
-	python -m train --compile=False --train_bin=exp/ner/train.bin --valid_bin=exp/ner/valid.bin --wandb_run_name=ner_small --ckpt_path=$@ --init=$(INIT)
+	python -m train --compile=False --train_bin=exp/ner/train.bin --valid_bin=exp/ner/valid.bin --wandb_run_name=ner --ckpt_path=$@ --init=$(INIT)
 
 exp/ner/decode-test.txt:
 	cat data/ner/test.gpt2.txt | sed 's,/[A-Za-z],/_,g' > data/ner/test.gpt2.txt.blank
