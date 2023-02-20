@@ -2,13 +2,14 @@
 Sample from a trained model
 """
 import argparse
-import os
+from pathlib import Path
 import torch
 import torch.nn as nn
 from model import GPTConfig, GPT
 import sentencepiece as spm
 import sys
 from termcolor import colored
+import itertools
 
 
 parser = argparse.ArgumentParser('sample')
@@ -20,7 +21,8 @@ parser.add_argument('--peft', action='store_true')
 parser.add_argument('--spm', type=str, default='wiki.model', help='sentencepiece tokenizer')
 parser.add_argument('--no_eot', action='store_true')
 parser.add_argument('ckpt_path')
-parser.add_argument('prompts', nargs='+')
+parser.add_argument('--paragraphs', nargs='*', help='files with paragraphs to score', type=Path)
+parser.add_argument('prompts', nargs='*')
 args = parser.parse_args()
 
 device = args.device
@@ -63,8 +65,7 @@ elif args.lora:
     lora_find_and_replace(model, gpt2_peft_config)
     
     model.load_state_dict(checkpoint['model'])
-    model.eval()
-    model.to(device)
+
 else:
     model = nn.ModuleDict({'_orig_mod': GPT(gptconf)})
     model = model._orig_mod
@@ -78,7 +79,8 @@ model.to(device)
 
 sp = spm.SentencePieceProcessor(model_file=args.spm)
 
-for prompt in args.prompts:
+for i, prompt in enumerate(itertools.chain(args.prompts,
+                              *(f.read_text().split("\n\n") for f in args.paragraphs or []))):
     if args.no_eot:
         start = sp.encode(prompt)
     else:
@@ -97,5 +99,7 @@ for prompt in args.prompts:
     except ValueError:
         pass
     
+    #print([sp.id_to_piece(i) for i in start], file=sys.stderr)
     prefix, gen = sp.decode(prefix), sp.decode(gen)
-    print(prefix, colored(gen, "magenta"))
+    print(prefix, colored(gen, "magenta"), sep='')
+    print()
