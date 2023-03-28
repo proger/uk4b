@@ -6,7 +6,7 @@ See model checkpoints here https://a.wilab.org.ua/gpt/
 Release checklist:
 
 - [ ] Large pretraining code
-- [ ] Medium and Small pretraining code (this repo)
+- [x] Medium and Small pretraining code (this repo)
 - [ ] POS and NER instruction finetuning
 - [ ] BLEURT/BERTscore evaluation on News from the Future
 
