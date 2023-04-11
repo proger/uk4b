@@ -4,6 +4,7 @@ from typing import Dict
 from pathlib import Path
 
 import smart_open
+import ftfy
 from tqdm import tqdm
 import html2text
 from datasets import load_dataset
@@ -39,10 +40,11 @@ def process_doc(doc: Dict) -> str:
     """
 
     return {
-        "text": remove_tags(doc.get("text", "")),
-        "title": doc.get("title", ""),
+        "_id": str(doc.get("id")),
+        "text": ftfy.fix_text(remove_tags(doc.get("text", "") or "")),
+        "title": ftfy.fix_text(doc.get("title", "") or ""),
         "date_of_publish": doc.get("datetime", ""),
-        "tags": doc.get("owner", []),
+        "tags": [ftfy.fix_text(doc.get("owner", "") or "")],
     }
 
 
