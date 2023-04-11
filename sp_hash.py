@@ -17,6 +17,7 @@ T = TypeVar("T")
 
 sp_model: Optional[spm.SentencePieceProcessor] = None
 
+
 def batch_iterator(iterator: Iterator[T], batch_size: int = 50) -> Iterator[List[T]]:
     """
     Iterates over the given iterator in batches.
@@ -84,11 +85,10 @@ def process_records(
     if id_ is None:
         id_ = sha256(record_str.encode("utf-8")).hexdigest()
 
-    minhash = create_minhash(
-        get_shingles(tokenize_text(text, sp_model), shingle_length), num_perm
-    )
+    tokens = tokenize_text(text, sp_model)
+    minhash = create_minhash(get_shingles(tokens, shingle_length), num_perm)
 
-    return {"id": id_, "minhash": minhash}
+    return {"id": id_, "minhash": minhash, "tokens": len(tokens)}
 
 
 def worker_init(
@@ -106,8 +106,10 @@ def main(cli_args: argparse.Namespace) -> None:
     """
     Creates an LSH index of shingles from a JSONL file.
     """
-    # Load SentencePiece model
-    index = MinHashLSH(threshold=cli_args.threshold, num_perm=cli_args.num_perm)
+    indexes = {}
+    for threshold in cli_args.threshold:
+        indexes[(threshold, )] = MinHashLSH(threshold=threshold, num_perm=cli_args.num_perm)
+
     documents: Dict[str, str] = {}
 
     with smart_open.open(cli_args.input_file, "rt", encoding="utf-8") as reader:
@@ -128,25 +130,38 @@ def main(cli_args: argparse.Namespace) -> None:
                     ),
                     chunk,
                 ):
-                    index.insert(record["id"], record["minhash"])
-                    documents[record["id"]] = record["minhash"]
+                    for index in indexes.values():
+                        index.insert(record["id"], record["minhash"])
+                    documents[record["id"]] = record
+                
+                break
 
     # Write index to output file
-    print("Writing index to output file...")
-    with smart_open.open(cli_args.output_file, "wb") as fh_out:
-        pickle.dump(index, fh_out)
+    # print("Writing index to output file...")
+    # with smart_open.open(cli_args.output_file, "wb") as fh_out:
+    #     pickle.dump(index, fh_out)
 
     print("Estimating number of unique documents...")
-    deduped_docs: List[str] = []
-    for id_, doc in documents.items():
-        duplicates = index.query(doc)
-        first_duplicate = min(duplicates)
-        if id_ == first_duplicate:
-            deduped_docs.append(id_)
+    for params, index in indexes.items():
+        total_tokens: int = 0
+        filtered_tokens: int = 0
+        deduped_docs: List[str] = []
+        for id_, doc in documents.items():
+            total_tokens += doc["tokens"]
+            duplicates = index.query(doc["minhash"])
+            first_duplicate = min(duplicates)
+            if id_ == first_duplicate:
+                filtered_tokens += doc["tokens"]
+                deduped_docs.append(id_)
 
-    print(
-        f"Total number of documents {len(documents)}, total number of unique documents {len(deduped_docs)}"
-    )
+        print(f"Threshold: {params[0]}:")
+        print(
+            f"Total number of documents {len(documents)}, total number of unique documents {len(deduped_docs)}"
+        )
+
+        print(
+            f"Total number of tokens {total_tokens}, total number of unique tokens {filtered_tokens}"
+        )
 
 
 if __name__ == "__main__":
@@ -163,12 +178,12 @@ if __name__ == "__main__":
         "--num_perm", type=int, default=128, help="number of permutations for MinHash"
     )
     parser.add_argument(
-        "--threshold", type=float, default=0.5, help="threshold for LSH"
+        "--threshold", type=float, default=[0.5], help="threshold for LSH", nargs="*"
     )
     parser.add_argument(
         "--chunk_size",
         type=int,
-        default=1000,
+        default=10000,
         help="number of records to process in each chunk",
     )
     parser.add_argument(
