@@ -1,4 +1,7 @@
 from typing import List, Set, Tuple, Iterator, TypeVar, Dict, Optional
+from pathlib import Path
+from glob import glob
+from collections import namedtuple
 import pickle
 import argparse
 import json
@@ -12,10 +15,17 @@ from tqdm import tqdm
 import sentencepiece as spm
 from datasketch import MinHash, MinHashLSH
 
-
 T = TypeVar("T")
+LSHParam = namedtuple("LSHParam", ["threshold", "num_perm", "shingle_length"])
 
 sp_model: Optional[spm.SentencePieceProcessor] = None
+
+
+def _handle_xz(file_obj, mode):
+    return lzma.LZMAFile(filename=file_obj, mode=mode, format=lzma.FORMAT_XZ)
+
+
+smart_open.register_compressor(".xz", _handle_xz)
 
 
 def batch_iterator(iterator: Iterator[T], batch_size: int = 50) -> Iterator[List[T]]:
@@ -39,10 +49,11 @@ def tokenize_text(text: str, sp_model) -> List[int]:
     text: the text to tokenize
     sp_model: the SentencePiece model
     returns a list of tokens
+
+    >>> tokenize_text("привіт, як справи?", sp_model)
+    [395, 627, 50096, 524, 5833, 50219]
     """
-    # tokens = sp.encode_as_pieces(text)
-    tokens = sp_model.encode(text)
-    return tokens
+    return sp_model.encode(text)
 
 
 def get_shingles(tokens: List[int], shingle_length: int) -> Set[Tuple[int, ...]]:
@@ -51,6 +62,11 @@ def get_shingles(tokens: List[int], shingle_length: int) -> Set[Tuple[int, ...]]
     tokens: the list of tokens
     shingle_length: the length of the shingle
     returns a set of shingles
+    >>> get_shingles([1, 2, 3, 4, 5], 2)
+    {(1, 2), (2, 3), (3, 4), (4, 5)}
+
+    >>> get_shingles(tokenize_text("привіт, як справи?", sp_model), 3)
+    {(395, 627, 50096), (524, 5833, 50219), (627, 50096, 524), (50096, 524, 5833)}
     """
     shingles = set()
     for i in range(len(tokens) - shingle_length + 1):
@@ -62,6 +78,9 @@ def get_shingles(tokens: List[int], shingle_length: int) -> Set[Tuple[int, ...]]
 def create_minhash(shingles: Set[Tuple[int, ...]], num_perm: int) -> MinHash:
     """
     Creates a MinHash of the given set of shingles using the specified number of permutations.
+    shingles: the set of shingles
+    num_perm: the number of permutations
+    returns a MinHash
     """
     m = MinHash(num_perm=num_perm)
     for shingle in shingles:
@@ -106,39 +125,52 @@ def main(cli_args: argparse.Namespace) -> None:
     """
     Creates an LSH index of shingles from a JSONL file.
     """
-    indexes = {}
+
+    cli_args.output_dir.mkdir(parents=True, exist_ok=True)
+
+    indexes: Dict[LSHParam, MinHashLSH] = {}
+
     for threshold in cli_args.threshold:
-        indexes[(threshold, )] = MinHashLSH(threshold=threshold, num_perm=cli_args.num_perm)
+        indexes[
+            LSHParam(
+                threshold=threshold,
+                num_perm=cli_args.num_perm,
+                shingle_length=cli_args.shingle_length,
+            )
+        ] = MinHashLSH(threshold=threshold, num_perm=cli_args.num_perm)
 
-    documents: Dict[str, str] = {}
+    documents: Dict[str, Dict] = {}
 
-    with smart_open.open(cli_args.input_file, "rt", encoding="utf-8") as reader:
-        with multiprocessing.Pool(
-            processes=cli_args.num_processes,
-            initializer=worker_init,
-            initargs=(cli_args.sp_model,),
-        ) as pool:
-            for chunk in batch_iterator(tqdm(reader), batch_size=cli_args.chunk_size):
-                if not chunk:
-                    break
+    for input_file in glob(cli_args.input_files):
+        print(f"Processing {input_file}, sit tight...")
 
-                for record in pool.imap(
-                    partial(
-                        process_records,
-                        shingle_length=cli_args.shingle_length,
-                        num_perm=cli_args.num_perm,
-                    ),
-                    chunk,
+        with smart_open.open(input_file, "rt", encoding="utf-8") as reader:
+            with multiprocessing.Pool(
+                processes=cli_args.num_processes,
+                initializer=worker_init,
+                initargs=(cli_args.sp_model,),
+            ) as pool:
+                for chunk in batch_iterator(
+                    tqdm(reader), batch_size=cli_args.chunk_size
                 ):
-                    for index in indexes.values():
-                        index.insert(record["id"], record["minhash"])
-                    documents[record["id"]] = record
-                
-                break
+                    if not chunk:
+                        break
+
+                    for record in pool.imap(
+                        partial(
+                            process_records,
+                            shingle_length=cli_args.shingle_length,
+                            num_perm=cli_args.num_perm,
+                        ),
+                        chunk,
+                    ):
+                        for index in indexes.values():
+                            index.insert(record["id"], record["minhash"])
+                        documents[record["id"]] = record
 
     # Write index to output file
     # print("Writing index to output file...")
-    # with smart_open.open(cli_args.output_file, "wb") as fh_out:
+    # with smart_open.open(cli_args.output_dir, "wb") as fh_out:
     #     pickle.dump(index, fh_out)
 
     print("Estimating number of unique documents...")
@@ -154,22 +186,36 @@ def main(cli_args: argparse.Namespace) -> None:
                 filtered_tokens += doc["tokens"]
                 deduped_docs.append(id_)
 
-        print(f"Threshold: {params[0]}:")
+        print(f"Threshold: {params}:")
         print(
-            f"Total number of documents {len(documents)}, total number of unique documents {len(deduped_docs)}"
+            f"Total number of documents {len(documents)}, total number of unique documents " + 
+            f"{len(deduped_docs)}, ratio {len(deduped_docs) / len(documents)}"
+        )
+        print(
+            f"Total number of tokens {total_tokens}, total number of unique tokens {filtered_tokens}, " +
+            f"ratio {filtered_tokens / total_tokens}"
         )
 
-        print(
-            f"Total number of tokens {total_tokens}, total number of unique tokens {filtered_tokens}"
-        )
+        with cli_args.output_dir.joinpath(
+            f"deduped_threshold-{params.threshold}.num_perm-{params.num_perm}."
+            + f"shingle_length-{params.shingle_length}.tokens_left-{filtered_tokens}.txt"
+        ).open("w", encoding="utf-8") as fh:
+            for doc_id in deduped_docs:
+                fh.write(doc_id + "\n")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Create LSH index of shingles from a JSONL file"
     )
-    parser.add_argument("input_file", help="path to input JSONL file")
-    parser.add_argument("output_file", help="path to output index file")
+    parser.add_argument(
+        "input_files", help="glob for input JSONL files (archives are welcome)"
+    )
+    parser.add_argument(
+        "output_dir",
+        help="path to output dir to store ids of deduplicated texts",
+        type=Path,
+    )
     parser.add_argument("sp_model", help="path to SentencePiece model file")
     parser.add_argument(
         "--shingle_length", type=int, default=3, help="length of shingles"
@@ -183,7 +229,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--chunk_size",
         type=int,
-        default=10000,
+        default=1000,
         help="number of records to process in each chunk",
     )
     parser.add_argument(
