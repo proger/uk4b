@@ -1,0 +1,12 @@
+[submodule "data/flair-ner"]
+	path = data/flair-ner
+	url = https://github.com/lang-uk/flair-ner
+[submodule "data/vulyk-ner"]
+	path = data/vulyk-ner
+	url = https://github.com/lang-uk/vulyk-ner
+[submodule "data/corpus"]
+	path = data/corpus
+	url = https://github.com/brown-uk/corpus.git
+[submodule "data/flair-ppl"]
+	path = data/flair-ppl
+	url = https://github.com/lang-uk/flair-ppl

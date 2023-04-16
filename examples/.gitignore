@@ -1,0 +1,11 @@
+data/gec-only/test*
+data/gec-fluency/test*
+wandb/
+,*
+gec-fluency.train.txt
+gec-fluency.valid.txt
+gec-only.train.txt
+gec-only.valid.txt
+__pycache__/
+*.pt
+*.bin
