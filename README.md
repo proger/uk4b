@@ -1,15 +1,17 @@
 
-# uk4b - finetuning experiment code will be published here once merged from other repositories
+# uk4b: Metadata Pretraining Towards Instruction Finetuning
 
-See model checkpoints here https://a.wilab.org.ua/gpt/
+Metadata Pretraining video (2m33s): https://www.youtube.com/watch?v=FYJZBXfLaDA
 
-Release checklist:
+Instruction Finetuning video (2m50s): https://www.youtube.com/watch?v=NDXJ9hXtf-o
 
-- [ ] Large pretraining code
-- [x] Medium and Small pretraining code (this repo)
-- [ ] POS and NER instruction finetuning
-- [ ] BLEURT/BERTscore evaluation on News from the Future
+Model checkpoints are available at https://a.wilab.org.ua/gpt/
 
+See POS and NER adapters in [examples/Makefile](examples/Makefile). BLEURT/BERTscore evaluation on News from the Future is available on [lang-uk/bleurt_eval](https://github.com/lang-uk/bleurt_eval)
+
+This repository fuses [NanoGPT](https://github.com/karpathy/nanoGPT) and [asivokon/unlp-2023-shared-task](https://github.com/asivokon/unlp-2023-shared-task)
+
+Original NanoGPT README follows:
 
 ## NanoGPT 
 The simplest, fastest repository for training/finetuning medium-sized GPTs. It is a rewrite of [minGPT](https://github.com/karpathy/minGPT) that prioritizes teeth over education. Still under active development, but currently the file `train.py` reproduces GPT-2 (124M) on OpenWebText, running on a single 8XA100 40GB node in about 4 days of training. The code itself is plain and readable: `train.py` is a ~300-line boilerplate training loop and `model.py` a ~300-line GPT model definition, which can optionally load the GPT-2 weights from OpenAI. That's it.
