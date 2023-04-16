@@ -36,7 +36,10 @@ def convert_sentence(sentence: List[str], prefix_text: str = "речення: ",
         return prefix_text + final_sentence + "\n" + no_tags_text
 
 
-def convert_sentence_inline(sentence: List[str], prefix_text: str = "", annotation: str = "анотація:") -> str:
+def convert_sentence_inline(sentence: List[str],
+                            prefix_text: str = "",
+                            annotation: str = "анотація:",
+                            test: bool = False) -> str:
     tokens: List[str] = []
     ner_tokens: List[str] = []
 
@@ -55,13 +58,20 @@ def convert_sentence_inline(sentence: List[str], prefix_text: str = "", annotati
     for line in sentence:
         w, tag = line.split(" ")
         tokens.append(w)
-        ner_tokens.append(w)
-        ner_tokens.append("/" + mapping[tag])
+        
+    for line in sentence:
+        w, tag = line.split(" ")
+        ner_tokens.append(mapping[tag])
 
-    final_sentence: str = "".join(map(str, reconstruct_tokenized([tokens])))
-    final_tagged_sentence: str = " ".join(map(str, reconstruct_tokenized([ner_tokens])))
-    final_tagged_sentence = re.sub(r'\s+', ' ', final_tagged_sentence)
-    return prefix_text + final_sentence + "\n" + annotation + " " + final_tagged_sentence
+        final_sentence: str = "".join(map(str, reconstruct_tokenized([tokens])))
+        final_tagged_sentence: str = "\n".join(f'{w} {tag}' for w, tag in zip(tokens, ner_tokens))
+        #final_tagged_sentence: str = "\n".join(map(str, reconstruct_tokenized([ner_tokens])))
+        #final_tagged_sentence = re.sub(r'\s+', ' ', final_tagged_sentence)
+        
+
+    yield prefix_text + final_sentence + "\n" + annotation + "\n" + final_tagged_sentence
+
+
 
 
 if __name__ == "__main__":
@@ -82,7 +92,8 @@ if __name__ == "__main__":
         if not line.strip():
             if accum:
                 if args.format == "inline":
-                    args.outfile.write(convert_sentence_inline(accum) + "\n\n")
+                    for line in convert_sentence_inline(accum, test=False):
+                        args.outfile.write(line + "\n\n")
                 else:
                     args.outfile.write(convert_sentence(accum) + "\n\n")
                 accum = []

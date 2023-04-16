@@ -104,11 +104,11 @@ sp = spm.SentencePieceProcessor(model_file=args.spm)
 if args.tsv:
     print('id', 'sentence' , 'ppl', 'sentence_len', sep='\t')
 
-for prompt in itertools.chain(args.prompts,
+for i, prompt in enumerate(itertools.chain(args.prompts,
                               *(f.read_text().split("\n\n") for f in args.paragraphs or []),
-                              *(f.read_text().split("\n") for f in args.sentences or [])):
+                              *(f.read_text().split("\n") for f in args.sentences or []))):
     prompt = prompt.strip()
-    print('prompt:', prompt, file=sys.stderr)
+    print(i, 'prompt:', prompt, file=sys.stderr)
     if args.no_eot:
         start = sp.encode(prompt)
     else:

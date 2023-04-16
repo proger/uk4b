@@ -58,6 +58,9 @@ exp/fewshot/fewshot.txt:
 exp/gec/%.txt: data/gec-only/%.m2 data/gec-only/%.src.txt data/gec-only/%.tgt.txt
 	python -m instruct_tok $^ > $@
 
+exp/gec/valid.txt.blank: data/gec-only/valid.m2 data/gec-only/valid.src.txt data/gec-only/valid.tgt.txt
+	python -m instruct_tok --test $^ > $@
+
 exp/gec/%.bin: exp/gec/%.txt
 	python -m prepare1 $^ $@
 
@@ -67,9 +70,11 @@ exp/gec/ckpt.pt: exp/gec/train.bin exp/gec/valid.bin
 exp/gec/decode-valid.txt: exp/fewshot/fewshot.txt exp/gec/valid.txt
 	python -m beam --beam 4 --batch_size 64 exp/gec/ckpt.pt exp/fewshot/fewshot.txt exp/gec/valid.txt | tee $@
 
-exp/gec/score-valid.txt: exp/gec/valid.txt exp/gec/ckpt.pt
-	cat exp/gec/valid.txt | sed 's,/[A-Za-z0+],/_,g' > exp/gec/valid.txt.blank
+exp/gec/score-valid.txt: exp/gec/valid.txt.blank # exp/gec/ckpt.pt
 	python -m score --unblank --seq_len 1024 --lora exp/gec/*.pt --paragraphs exp/gec/valid.txt.blank  > $@
+
+%.arknl: %.txt
+	< $< awk -v OFS='\t' -v c=0 -v s=0 '/анотація:/{s=1; printf "%d\t", c; next;} s == 0{next;}  /^$$/{print ""; c += 1; s = 0;} s{printf "%s ", $$2}' > $@
 
 
 #
@@ -101,6 +106,25 @@ exp/pos/decode-test.txt:
 exp/pos/WER: data/udpos/test.gpt2.ark exp/pos/decode-test.ark
 	compute-wer --mode=strict ark:data/udpos/test.gpt2.ark ark:exp/pos/decode-test.ark > $@
 
+
+#
+# ner with newlines
+#
+
+exp/ner-newlines/train.txt: data/flair-ner/fixed-split/train.iob
+	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2_newlines.py $^ $@
+
+exp/ner-newlines/test.txt: data/flair-ner/fixed-split/test.iob
+	PYTHONPATH=data/vulyk-ner/bin python data/ner/convert2gpt2_newlines.py $^ $@
+
+exp/ner-newlines/%.bin: exp/ner-newlines/%.txt
+	python -m prepare1 $^ $@
+
+exp/ner-newlines/medium.pt: exp/uk4b_medium/ckpt.pt exp/ner-newlines/train.bin exp/ner-newlines/test.bin
+	python -m train --compile=False --train_bin=exp/ner-newlines/train.bin --valid_bin=exp/ner-newlines/test.bin \
+		--wandb_run_name=ner-newlines --ckpt_path=$@ --init=exp/uk4b_medium/ckpt.pt
+
+
 #
 # ner
 # 
@@ -119,7 +143,7 @@ exp/ner/valid.bin: data/ner/test.gpt2.txt
 	python -m prepare1 $^ $@
 
 exp/ner/ckpt.pt: exp/ner/train.bin exp/ner/valid.bin
-	python -m train --compile=False --train_bin=exp/ner/train.bin --valid_bin=exp/ner/valid.bin --wandb_run_name=ner --ckpt_path=$@ --init=$(INIT)
+	python -m train  --batch_size=2 --gradient_accumulation_steps=4 --compile=False --train_bin=exp/ner/train.bin --valid_bin=exp/ner/valid.bin --wandb_run_name=ner-large --ckpt_path=$@ --init=$(INIT)
 
 exp/ner/decode-test.txt:
 	cat data/ner/test.gpt2.txt | sed 's,/[A-Za-z],/_,g' > data/ner/test.gpt2.txt.blank

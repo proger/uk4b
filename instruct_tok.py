@@ -4,6 +4,7 @@ from collections import defaultdict
 import sys
 
 parser = argparse.ArgumentParser("convert m2 into instruction format")
+parser.add_argument('--test', action='store_true')
 parser.add_argument('m2')
 parser.add_argument('src')
 parser.add_argument('tgt')
@@ -75,7 +76,7 @@ def reset_tokens():
     insertions = {}
 
 
-def flush():
+def flush1():
     global tokens
     print("речення:", src)
     for i in tokens:
@@ -86,13 +87,61 @@ def flush():
             case [tok, (loc, kind, target)]:
                 #pos = '|'.join(word.pos for word in tok.words)
                 #print(tok.text, pos, kind, target or "#")
-                print(tok.text, '/'+kind, target or "\t")
+                if args.test:
+                    print(tok.text, '/_', '_')
+                else:
+                    print(tok.text, '/'+kind, target or "\t")
             case [tok]:
                 #pos = '|'.join(word.pos for word in tok.words)
                 #print(tok.text, pos, '_', '_')
-                print(tok.text, '/+', "\t")
+                if args.test:
+                    print(tok.text, '/_', '_')
+                else:
+                    print(tok.text, '/+', "\t")
 
-    print(chr(12) + ":", tgt) # form feed
+    #print(chr(12) + ":", tgt) # form feed
+    print(chr(12) + ":") # form feed
+    reset_tokens()
+
+    print()
+    global current_version
+    current_version = "0"
+
+def flush():
+    global tokens
+    print("речення:", src)
+    print("помилки:", end=' ')
+    for i in tokens:
+        end = '\n' if i == len(tokens) - 1 else ' '
+        if i in insertions:
+            (loc, kind, target) = insertions[i]
+            if args.test:
+                print("+_", end=' ')
+            else:
+                print("+" + kind, end=' ')
+        else:
+            if args.test:
+                print("+_", end=' ')
+            else:
+                print("+=", end=' ')
+        match tokens[i]:
+            case [tok, (loc, kind, target)]:
+                #pos = '|'.join(word.pos for word in tok.words)
+                #print(tok.text, pos, kind, target or "#")
+                if args.test:
+                    print(tok.text, '/_', end=end)
+                else:
+                    print(tok.text, '/'+kind, end=end)
+            case [tok]:
+                #pos = '|'.join(word.pos for word in tok.words)
+                #print(tok.text, pos, '_', '_')
+                if args.test:
+                    print(tok.text, '/_', end=end)
+                else:
+                    print(tok.text, '/=', end=end)
+
+    #print(chr(12) + ":", tgt) # form feed
+    print(chr(12) + ":") # form feed
     reset_tokens()
 
     print()

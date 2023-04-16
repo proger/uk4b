@@ -176,7 +176,15 @@ checkpoint_model_args = checkpoint["model_args"]
 # force these config attributes to be equal otherwise we can't even resume training
 # the rest of the attributes (e.g. dropout) can stay as desired from command line
 for k in ["n_layer", "n_head", "n_embd", "block_size", "bias", "vocab_size"]:
-    model_args[k] = checkpoint_model_args[k]
+    if k == 'bias':
+        model_args[k] = checkpoint_model_args.get(k, True)
+        bias = model_args[k]
+        print('bias ', model_args[k])
+    elif k == 'vocab_size':
+        model_args[k] = checkpoint_model_args.get(k, 50257)
+        print('vocab size ', model_args[k])
+    else:
+        model_args[k] = checkpoint_model_args[k]
 # create the model
 gptconf = GPTConfig(**model_args)
 model = GPT(gptconf)
@@ -187,7 +195,10 @@ unwanted_prefix = "_orig_mod."
 for k, v in list(state_dict.items()):
     if k.startswith(unwanted_prefix):
         state_dict[k[len(unwanted_prefix) :]] = state_dict.pop(k)
-model.load_state_dict(state_dict)
+if bias:
+    model.load_state_dict(state_dict, strict=False)
+else:
+    model.load_state_dict(state_dict)
 
 # crop down the model block size if desired, using model surgery
 if block_size < model.config.block_size:

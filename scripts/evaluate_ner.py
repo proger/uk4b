@@ -18,9 +18,13 @@ forward_mapping = {
 }
 inverse_mapping = {v: k for k, v in forward_mapping.items()}
 
-y_pred = []
+y_true = {}
+y_pred = {}
+bad = set()
 
-with open('exp/ner/decode-test.ark') as f:
+#with open('exp/ner/constrained-test2-gpu1.ark') as f:
+#with open('exp/ner/large-constrained-test-gpu1.ark') as f:
+with open('exp/ner-newlines/decode-constrained.arknl') as f:
     for line in f:
         sentence_id, seq = line.strip().split("\t")
         try:
@@ -28,11 +32,11 @@ with open('exp/ner/decode-test.ark') as f:
         except KeyError:
             print('faulty prediction:', sentence_id, seq, file=sys.stderr)
             x = [inverse_mapping.get(tag[1:], 'X') for tag in seq.split()]
-        y_pred.append(x)
+            bad.add(sentence_id)
+        y_pred[sentence_id] = x
 
-y_true = []
 
-with open('data/ner/test.gpt2.ark') as f:
+with open('data/ner/test.gt.ark') as f:
     for line in f:
         sentence_id, seq = line.strip().split("\t")
         
@@ -41,9 +45,17 @@ with open('data/ner/test.gpt2.ark') as f:
         except KeyError:
             print('faulty test:', sentence_id, seq, file=sys.stderr)
             x = [inverse_mapping.get(tag[1:], 'X') for tag in seq.split()]
-        y_true.append(x)
+            bad.add(sentence_id)
+        y_true[sentence_id] = x
+    
+for sentence_id in bad:
+    del y_pred[sentence_id]
+    del y_true[sentence_id]
         
 assert len(y_true) == len(y_pred)
+
+y_true = list(y_true.values())
+y_pred = list(y_pred.values())
 
 print('f1', f1_score(y_true, y_pred))
 print('accuracy', accuracy_score(y_true, y_pred))
