@@ -1,4 +1,4 @@
-# uk4b: Metadata Pretraining Towards Instruction Finetuning
+# Metadata Pretraining Towards Instruction Finetuning
 
 We pretrain unidirectional language models on 4B tokens from [UberText 2.0](https://lang.org.ua/en/ubertext/). We enrich document text with weakly structured metadata, such as title, tags, and publication year, enabling metadata-conditioned text generation and text-conditioned metadata prediction at the same time. We pretrain GPT-2 Small, Medium, and Large models on a single GPU, reporting training times, BPC on BrUK, BERTScore, and BLEURT on titles for 1000 News from the Future.
 
