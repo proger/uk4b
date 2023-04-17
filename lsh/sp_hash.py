@@ -1,6 +1,5 @@
 from typing import List, Set, Tuple, Iterator, TypeVar, Dict, Optional
 from pathlib import Path
-from glob import glob
 from collections import namedtuple
 import pickle
 import argparse
@@ -141,7 +140,7 @@ def main(cli_args: argparse.Namespace) -> None:
 
     documents: Dict[str, Dict] = {}
 
-    for input_file in glob(cli_args.input_files):
+    for input_file in cli_args.input_files:
         print(f"Processing {input_file}, sit tight...")
 
         with smart_open.open(input_file, "rt", encoding="utf-8") as reader:
@@ -209,7 +208,7 @@ if __name__ == "__main__":
         description="Create LSH index of shingles from a JSONL file"
     )
     parser.add_argument(
-        "input_files", help="glob for input JSONL files (archives are welcome)"
+        "input_files", nargs="+", help="input JSONL files (archives are welcome)"
     )
     parser.add_argument(
         "output_dir",
