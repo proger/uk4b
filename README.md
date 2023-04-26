@@ -25,5 +25,5 @@ Authors:
 
 ## Erratum
 
-When reporting BPC results in the UNLP paper, we make a mistake switching to the log-2 base. True measurements are larger by a factor of ~2.08. The correct measurements are reported in commit [1c5dc381](https://github.com/proger/uk4b/commit/1c5dc381d72b6814dda93faba23aa90e6f360418):
+When reporting BPC results in the UNLP paper, we make a mistake switching to the log-2 base. True measurements are larger by a factor of ~2.08. The correct measurements are reported in commit [1c5dc381](https://github.com/proger/uk4b/commit/1c5dc381d72b6814dda93faba23aa90e6f360418).
 
