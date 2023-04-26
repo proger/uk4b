@@ -24,7 +24,7 @@ if args.intersect:
     df = df.loc[df.index.intersection(idf.index)]
 
 nll = np.log(df.ppl.to_numpy()) * df.sentence_len.to_numpy()
-nll2 = nll / np.log2(np.e)
+nll2 = nll / np.log(2)
 
 char_len = df.text.str.len().to_numpy()
 N = np.sum(char_len)

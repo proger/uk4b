@@ -1,12 +1,12 @@
 data/flair-uk-forward.ppl.tsv sentences 28643
 data/flair-uk-forward.ppl.tsv nll_mean 139.6773665773955
-data/flair-uk-forward.ppl.tsv bpc 0.8214119255908473
+data/flair-uk-forward.ppl.tsv bpc 1.7096613025528762
 exp/ppl/small.tsv sentences 28643
 exp/ppl/small.tsv nll_mean 118.76219278015107
-exp/ppl/small.tsv bpc 0.7222614857594851
+exp/ppl/small.tsv bpc 1.503292652634816
 exp/ppl/medium.tsv sentences 28643
 exp/ppl/medium.tsv nll_mean 115.0707072714907
-exp/ppl/medium.tsv bpc 0.6998114303527089
+exp/ppl/medium.tsv bpc 1.4565658036892946
 exp/ppl/large.tsv sentences 28643
 exp/ppl/large.tsv nll_mean 113.01209246430402
-exp/ppl/large.tsv bpc 0.6872915942213289
+exp/ppl/large.tsv bpc 1.4305074051181672
