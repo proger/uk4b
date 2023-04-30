@@ -209,19 +209,17 @@ if ddp:
 
 # helps estimate an arbitrarily accurate loss over either split using many batches
 @torch.no_grad()
-def estimate_loss():
+def estimate_loss(split='val'):
     out = {}
     model.eval()
-    for split in ['train', 'val']:
-        losses = torch.zeros(eval_iters)
-        for k in range(eval_iters):
-            X, Y = get_batch(split)
-            with ctx:
-                logits, loss = model(X, Y)
-            losses[k] = loss.item()
-        out[split] = losses.mean()
+    losses = torch.zeros(eval_iters)
+    for k in range(eval_iters):
+        X, Y = get_batch(split)
+        with ctx:
+            logits, loss = model(X, Y)
+        losses[k] = loss.item()
     model.train()
-    return out
+    return losses.mean()
 
 # learning rate decay scheduler (cosine with warmup)
 def get_lr(it):
@@ -241,48 +239,17 @@ def get_lr(it):
 if wandb_log and master_process:
     import wandb
     wandb.init(project=wandb_project, name=wandb_run_name, config=config)
+    wandb.watch(model)
 
 # training loop
 X, Y = get_batch('train') # fetch the very first batch
 t0 = time.time()
-while True:
+while not eval_only:
 
     # determine and set the learning rate for this iteration
     lr = get_lr(iter_num) if decay_lr else learning_rate
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
-
-    # evaluate the loss on train/val sets and write checkpoints
-    if iter_num % eval_interval == 0 and master_process:
-        losses = estimate_loss()
-        print(f"step {iter_num}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
-        if wandb_log:
-            wandb.log({
-                "iter": iter_num,
-                "train/loss": losses['train'],
-                "val/loss": losses['val'],
-                "lr": lr,
-            })
-        if not math.isnan(losses['val']):
-            if losses['val'] < best_val_loss or always_save_checkpoint:
-                best_val_loss = losses['val']
-                raw_model = model.module if ddp else model
-                if iter_num > 0:
-                    checkpoint = {
-                        'model': raw_model.state_dict(),
-                        'optimizer': optimizer.state_dict(),
-                        'model_args': model_args,
-                        'iter_num': iter_num,
-                        'best_val_loss': best_val_loss,
-                        'config': config,
-                    }
-                    print(f"saving checkpoint to {out_dir}")
-                    torch.save(checkpoint, os.path.join(out_dir, 'ckpt.pt'))
-        else:
-            print("NaN loss detected")
-            break
-    if iter_num == 0 and eval_only:
-        break
 
     # forward backward update, with optional gradient accumulation to simulate larger batch size
     # and using the GradScaler if data type is float16
@@ -304,10 +271,15 @@ while True:
     if torch.isnan(loss):
         print("loss is NaN, skipping this update")
         continue
+
+    log_dict = {}
+
     # clip the gradient
     if grad_clip != 0.0:
         scaler.unscale_(optimizer)
-        torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+        grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+        log_dict["train/grad_norm"] = grad_norm
+
     # step the optimizer and scaler if training in fp16
     scaler.step(optimizer)
     scaler.update()
@@ -319,13 +291,51 @@ while True:
     dt = t1 - t0
     t0 = t1
     if iter_num % log_interval == 0 and master_process:
-        lossf = loss.item() # loss as float. note: this is a CPU-GPU sync point
-        print(f"iter {iter_num}: loss {lossf:.4f}, time {dt*1000:.2f}ms")
+        train_loss = loss.item() # loss as float. note: this is a CPU-GPU sync point
+        print(f"iter {iter_num}: loss {lossf:.4f}, time {dt*1000:.2f}ms, grad_norm: {grad_norm:.3f}")
+
+        # evaluate the loss on train/val sets and write checkpoints
+        if iter_num % eval_interval == 0:
+            val_loss = estimate_loss()
+            print(f"eval {iter_num}: val loss {val_loss:.4f}")
+            log_dict["val/loss"] = val_loss
+            if not math.isnan(val_loss):
+                if val_loss < best_val_loss or always_save_checkpoint:
+                    best_val_loss = val_loss
+                    raw_model = model.module if ddp else model
+                    if iter_num > 0:
+                        checkpoint = {
+                            'model': raw_model.state_dict(),
+                            'optimizer': optimizer.state_dict(),
+                            'model_args': model_args,
+                            'iter_num': iter_num,
+                            'best_val_loss': best_val_loss,
+                            'val_loss': val_loss,
+                            'config': config,
+                        }
+                        print(f"saving checkpoint to {out_dir}")
+                        torch.save(checkpoint, os.path.join(out_dir, 'ckpt.pt'))
+            else:
+                print("NaN loss detected")
+                break
+
+        if wandb_log:
+            wandb.log(log_dict | {
+                "iter": iter_num,
+                "train/loss": train_loss,
+                "lr": lr,
+            })
+
     iter_num += 1
 
     # termination conditions
     if iter_num > max_iters:
         break
+
+
+if eval_only and master_process:
+    val_loss = estimate_loss()
+    print(f"step {iter_num}: val loss {val_loss}. final eval")
 
 if ddp:
     destroy_process_group()
