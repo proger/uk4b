@@ -292,7 +292,7 @@ while not eval_only:
     t0 = t1
     if iter_num % log_interval == 0 and master_process:
         train_loss = loss.item() # loss as float. note: this is a CPU-GPU sync point
-        print(f"iter {iter_num}: loss {lossf:.4f}, time {dt*1000:.2f}ms, grad_norm: {grad_norm:.3f}")
+        print(f"iter {iter_num}: loss {train_loss:.4f}, time {dt*1000:.2f}ms, grad_norm: {grad_norm:.3f}")
 
         # evaluate the loss on train/val sets and write checkpoints
         if iter_num % eval_interval == 0:
