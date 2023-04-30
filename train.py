@@ -34,24 +34,24 @@ from mlm import mask_tokens
 # -----------------------------------------------------------------------------
 # default config values designed to train a gpt2 (124M) on OpenWebText
 # I/O
-out_dir = 'exp/uk4b_small_bi'
-eval_interval = 100
+out_dir = 'exp/uk4b_small'
+eval_interval = 100 # eval_interval must be a multiple of log_interval
 log_interval = 1 # as many as grad acc steps
 eval_iters = 200
 eval_only = False # if True, script exits right after the first eval
-always_save_checkpoint = True # if True, always save a checkpoint after each eval
-init_from = 'exp/uk4b_small/ckpt.pt' # 'scratch' or 'resume' or 'gpt2*' or filename
-reset_steps = True
+always_save_checkpoint = False # if True, always save a checkpoint after each eval
+init_from = 'resume' # 'scratch' or 'resume' or 'gpt2*'
+reset_steps = False # start counting steps from 0
 # wandb logging
 wandb_log = True # disabled by default
 wandb_project = 'uk4b'
-wandb_run_name = 'small_bi' # 'run' + str(time.time())
+wandb_run_name = 'small' # 'run' + str(time.time())
 # data
 dataset = 'uk4b'
 gradient_accumulation_steps = 32 # used to simulate larger batch sizes
 batch_size = 16 # if gradient_accumulation_steps > 1, this is the micro-batch size
 block_size = 1024
-base_seed = 1337
+base_seed = 1339
 # model
 n_layer = 12
 n_head = 12
@@ -63,7 +63,7 @@ learning_rate = 6e-4 # max learning rate
 max_iters = 4100 # total number of training iterations
 weight_decay = 1e-2
 beta1 = 0.9
-beta2 = 0.95
+beta2 = 0.999
 grad_clip = 1.0 # clip gradients at this value, or disable if == 0.0
 # learning rate decay settings
 decay_lr = True # whether to decay the learning rate
