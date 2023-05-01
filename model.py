@@ -98,6 +98,17 @@ class MLP(nn.Module):
         x = self.dropout(x)
         return x
 
+def pre_norm(x, f, ln):
+    return x + f(ln(x))
+
+def post_norm(x, f, ln):
+    return ln(x + f(x))
+
+def dual_norm(x, x_dual, f, ln):
+    x_f = f(x)
+    x = ln(x + x_f)
+    return x, x_dual + x_f
+
 class Block(nn.Module):
 
     def __init__(self, config):
@@ -107,10 +118,10 @@ class Block(nn.Module):
         self.ln_2 = LayerNorm(config.n_embd, bias=config.bias)
         self.mlp = MLP(config)
 
-    def forward(self, x):
-        x = x + self.attn(self.ln_1(x))
-        x = x + self.mlp(self.ln_2(x))
-        return x
+    def forward(self, x, x_dual):
+        x, x_dual = dual_norm(x, x_dual, self.attn, self.ln_1)
+        x, x_dual = dual_norm(x, x_dual, self.mlp, self.ln_2)
+        return x, x_dual
 
 @dataclass
 class GPTConfig:
@@ -188,9 +199,10 @@ class GPT(nn.Module):
         tok_emb = self.transformer.wte(idx) # token embeddings of shape (b, t, n_embd)
         pos_emb = self.transformer.wpe(pos) # position embeddings of shape (1, t, n_embd)
         x = self.transformer.drop(tok_emb + pos_emb)
+        x_dual = x
         for block in self.transformer.h:
-            x = block(x)
-        x = self.transformer.ln_f(x)
+            x, x_dual = block(x, x_dual)
+        x = x + self.transformer.ln_f(x_dual)
 
         if targets is not None:
             # if we are given some desired targets also calculate the loss
