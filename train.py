@@ -22,13 +22,14 @@ import math
 import pickle
 from contextlib import nullcontext
 from pathlib import Path
+from types import MethodType
 
 import numpy as np
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.distributed import init_process_group, destroy_process_group
 
-from model import GPTConfig, GPT
+from model import GPTConfig, GPT, MonitoredCausalSelfAttention, CausalSelfAttention
 from mlm import mask_tokens
 
 # -----------------------------------------------------------------------------
@@ -208,19 +209,42 @@ if compile:
 if ddp:
     model = DDP(model, device_ids=[ddp_local_rank])
 
-# helps estimate an arbitrarily accurate loss over either split using many batches
-@torch.no_grad()
-def estimate_loss(split='val'):
-    out = {}
+@torch.inference_mode()
+def evaluate(split='val', eval_iters=eval_iters):
     model.eval()
+
+    entropies = {}
+    class ref:
+        k = 0
+    def record_attention_entropy(block_num):
+        def hook(self, input, output):
+            entropies[block_num][ref.k] = output[1]
+            return output[0]
+        return hook
+
+    hooks = []
+    for block_num, block in enumerate(model.transformer['h']):
+        entropies[block_num] = torch.zeros(eval_iters, device=device)
+        block.attn.forward = MethodType(MonitoredCausalSelfAttention.forward, block.attn)
+        hooks.append(block.attn.register_forward_hook(record_attention_entropy(block_num)))
+
     losses = torch.zeros(eval_iters)
     for k in range(eval_iters):
         X, Y = get_batch(split)
         with ctx:
+            ref.k = k
             logits, loss = model(X, Y)
         losses[k] = loss.item()
+
+    for block, hook in zip(model.transformer['h'], hooks):
+        hook.remove()
+        block.attn.forward = CausalSelfAttention.forward
+
+    eval_dict = {f'val/att_entropy.{block_num}': entropies[block_num].mean().item() for block_num in entropies}
+    eval_dict['val/loss'] = losses.mean()
+
     model.train()
-    return losses.mean()
+    return eval_dict
 
 # learning rate decay scheduler (cosine with warmup)
 def get_lr(it):
@@ -297,9 +321,10 @@ while not eval_only:
 
         # evaluate the loss on train/val sets and write checkpoints
         if iter_num % eval_interval == 0:
-            val_loss = estimate_loss()
-            print(f"eval {iter_num}: val loss {val_loss:.4f}")
-            log_dict["val/loss"] = val_loss
+            eval_dict = evaluate()
+            print(f"eval {iter_num}: {eval_dict}")
+            log_dict |= eval_dict
+            val_loss = eval_dict['val/loss']
             if not math.isnan(val_loss):
                 if val_loss < best_val_loss or always_save_checkpoint:
                     best_val_loss = val_loss
@@ -335,8 +360,8 @@ while not eval_only:
 
 
 if eval_only and master_process:
-    val_loss = estimate_loss()
-    print(f"step {iter_num}: val loss {val_loss}. final eval")
+    eval_dict = evaluate()
+    print(f"final step {iter_num}: {eval_dict}")
 
 if ddp:
     destroy_process_group()
