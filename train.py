@@ -238,7 +238,7 @@ def evaluate(split='val', eval_iters=eval_iters):
 
     for block, hook in zip(model.transformer['h'], hooks):
         hook.remove()
-        block.attn.forward = CausalSelfAttention.forward
+        block.attn.forward = MethodType(CausalSelfAttention.forward, block.attn)
 
     eval_dict = {f'val/att_entropy.{block_num}': entropies[block_num].mean().item() for block_num in entropies}
     eval_dict['val/loss'] = losses.mean()
